@@ -1,0 +1,3 @@
+# places
+
+Resources folder
