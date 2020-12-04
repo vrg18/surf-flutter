@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/texts.dart' as Texts;
 import 'package:places/ui/screen/sight_list_screen.dart';
 
 void main() {
@@ -11,12 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Список интересных мест',
+      title: Texts.APP_TITLE,
       theme: ThemeData(
         primarySwatch: Colors.grey,
         fontFamily: 'Roboto',
       ),
-      home: SightListScreen('Список интересных мест. Начало'),
+      home: SightListScreen(Texts.FIRST_SCREEN_TITLE),
     );
   }
 }

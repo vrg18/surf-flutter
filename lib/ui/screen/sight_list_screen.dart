@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/texts.dart' as Texts;
 
 class SightListScreen extends StatefulWidget {
   final String title;
@@ -15,7 +16,7 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Center(
-        child: Text('Здесь будет наше приложение'),
+        child: Text(Texts.APP_WILL_BE_HERE),
       ),
     );
   }
