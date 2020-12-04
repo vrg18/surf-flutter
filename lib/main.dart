@@ -4,7 +4,19 @@ import 'MyFirstStatefulWidget.dart';
 import 'MyFirstStatelessWidget.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Surf 3-5',
+        home: new Column(children: [
+          MyFirstStatelessWidget(),
+          MyFirstStatefulWidget(),
+        ]));
+  }
 }
 
 class MyApp extends StatelessWidget {
