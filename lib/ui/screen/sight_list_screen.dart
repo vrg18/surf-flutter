@@ -23,9 +23,10 @@ class _SightListScreenState extends State<SightListScreen> {
               textAlign: TextAlign.left,
               text: TextSpan(
                   style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF3B3E5B)),
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF3B3E5B), // Код цвета взят из Figma
+                  ),
                   children: [
                     TextSpan(
                         text: FIRST_SCREEN_TITLE_1,
