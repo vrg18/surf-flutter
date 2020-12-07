@@ -13,6 +13,7 @@ class SightListScreen extends StatefulWidget {
 class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
+    var titles = FIRST_SCREEN_TITLE.split('_');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -29,17 +30,17 @@ class _SightListScreenState extends State<SightListScreen> {
                   ),
                   children: [
                     TextSpan(
-                        text: FIRST_SCREEN_TITLE_1,
+                        text: titles[0],
                         style: TextStyle(color: Colors.green)),
-                    TextSpan(text: FIRST_SCREEN_TITLE_2),
+                    TextSpan(text: titles[1]),
                     TextSpan(
-                        text: FIRST_SCREEN_TITLE_3,
+                        text: titles[2],
                         style: TextStyle(color: Colors.yellow)),
-                    TextSpan(text: FIRST_SCREEN_TITLE_4),
+                    TextSpan(text: titles[3]),
                     TextSpan(
-                        text: FIRST_SCREEN_TITLE_5,
+                        text: titles[4],
                         style: TextStyle(color: Colors.black)),
-                    TextSpan(text: FIRST_SCREEN_TITLE_6)
+                    TextSpan(text: titles[5])
                   ]),
             ),
             backgroundColor: Colors.white,
