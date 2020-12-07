@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/texts.dart';
+import 'package:places/app_colors.dart';
+import 'package:places/app_texts.dart';
 
 class SightListScreen extends StatefulWidget {
   final String title;
@@ -26,7 +27,7 @@ class _SightListScreenState extends State<SightListScreen> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF3B3E5B), // Код цвета взят из Figma
+                    color: MAIN_TEXT_COLOR,
                   ),
                   children: [
                     TextSpan(
