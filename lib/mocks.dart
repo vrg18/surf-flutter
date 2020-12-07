@@ -1,7 +1,7 @@
 import 'package:places/domain/category.dart';
 import 'package:places/domain/sight.dart';
 
-final dolmenCategory = Category('Дольмен');
+final dolmenCategory = Category('Дольмены');
 
 final List mocks = [
   Sight(
@@ -24,6 +24,6 @@ final List mocks = [
       44.454711,
       38.351977,
       'https://avatars.mds.yandex.net/get-altay/481843/2a000001622f0585a80c5134485e9bd444de/XXXL',
-      'Дольмен Нежность. Отвечает за материнство, здоровье и счастье детей',
+      'Дольмен Нежность. Отвечает за материнство, здоровье и счастье детей.',
       dolmenCategory),
 ];

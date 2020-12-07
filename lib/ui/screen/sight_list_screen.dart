@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/app_colors.dart';
+import 'package:places/app_styles.dart';
 import 'package:places/app_texts.dart';
+import 'package:places/mocks.dart';
+import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
   final String title;
@@ -22,16 +24,18 @@ class _SightListScreenState extends State<SightListScreen> {
             toolbarHeight: double.infinity,
             title: Text(
               FIRST_SCREEN_TITLE,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-                color: MAIN_TEXT_COLOR,
-              ),
+              style: SCREEN_TITLE_STYLE,
             ),
             backgroundColor: Colors.white,
             elevation: 0),
       ),
-      body: Center(child: Text(APP_WILL_BE_HERE)),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          SightCard(mocks[0]),
+          SightCard(mocks[1]),
+          SightCard(mocks[2]),
+        ]),
+      ),
     );
   }
 }
