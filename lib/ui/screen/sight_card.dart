@@ -55,7 +55,7 @@ class SightCard extends StatelessWidget {
           right: 10,
           top: 10,
           child: Icon(
-            Icons.star_border,
+            Icons.favorite_border,
             color: Colors.white,
             size: 30,
           ),
