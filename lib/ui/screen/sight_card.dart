@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/app_colors.dart';
-import 'package:places/app_styles.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/text_styles.dart';
 
 class SightCard extends StatelessWidget {
   Sight sight;
@@ -32,7 +32,7 @@ class SightCard extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
               alignment: Alignment.centerLeft,
-              color: BACKGROUND_COLOR_CARD_LABEL,
+              color: background_color_card_label,
               child: Text(
                 sight.nameSight,
                 maxLines: 2,

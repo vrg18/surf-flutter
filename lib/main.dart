@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/app_texts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/sight_detail.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
 
 import 'mocks.dart';
 
@@ -13,12 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: APP_TITLE,
+      title: app_title,
       theme: ThemeData(
         primarySwatch: Colors.grey,
         fontFamily: 'Roboto',
       ),
-//      home: SightListScreen(FIRST_SCREEN_TITLE),
+//      home: SightListScreen(first_screen_title),
       home: SightDetail(mocks[0]),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/app_styles.dart';
-import 'package:places/app_texts.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
@@ -23,18 +23,14 @@ class _SightListScreenState extends State<SightListScreen> {
         child: AppBar(
             toolbarHeight: double.infinity,
             title: Text(
-              FIRST_SCREEN_TITLE,
+              first_screen_title,
               style: SCREEN_TITLE_STYLE,
             ),
             backgroundColor: Colors.white,
             elevation: 0),
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-          SightCard(mocks[0]),
-          SightCard(mocks[1]),
-          SightCard(mocks[2]),
-        ]),
+        child: Column(children: mocks.map((e) => SightCard(e)).toList()),
       ),
     );
   }

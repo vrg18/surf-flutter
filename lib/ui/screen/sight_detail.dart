@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/app_colors.dart';
-import 'package:places/app_styles.dart';
-import 'package:places/app_texts.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/strings.dart';
 
 class SightDetail extends StatelessWidget {
   Sight sight;
@@ -37,7 +37,7 @@ class SightDetail extends StatelessWidget {
               ),
               child: Icon(
                 Icons.chevron_left,
-                color: MAIN_TEXT_COLOR,
+                color: primary_text_color,
                 size: 28,
               ),
             )
@@ -53,7 +53,7 @@ class SightDetail extends StatelessWidget {
             sight.nameSight,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: SIGHT_DETAIL_TITLE_STYLE,
+            style: sight_detail_title_style,
           ),
         ),
       ),
@@ -66,15 +66,15 @@ class SightDetail extends StatelessWidget {
             children: [
               Text(
                 sight.type.toString(),
-                style: SIGHT_DETAIL_CATEGORY_STYLE,
+                style: sight_detail_category_style,
               ),
               Container(
                 width: 15,
                 height: 0,
               ),
               Text(
-                CLOSED_UNTIL,
-                style: CLOSED_UNTIL_STYLE,
+                closed_until,
+                style: closed_until_style,
               ),
             ],
           ),
@@ -89,7 +89,7 @@ class SightDetail extends StatelessWidget {
             sight.details,
             maxLines: 6,
             overflow: TextOverflow.ellipsis,
-            style: SIGHT_DETAIL_STYLE,
+            style: sight_detail_style,
           ),
         ),
       ),
@@ -118,8 +118,8 @@ class SightDetail extends StatelessWidget {
                   height: 0,
                 ),
                 Text(
-                  BUILD_ROUTE,
-                  style: SIGHT_DETAIL_BUILD_ROUTE_STYLE,
+                  build_route,
+                  style: sight_detail_build_route_style,
                 )
               ],
             )
@@ -145,7 +145,7 @@ class SightDetail extends StatelessWidget {
             children: [
               Icon(
                 Icons.calendar_today_outlined,
-                color: TERTIARY_LABEL_COLOR,
+                color: tertiary_text_color,
                 size: 24,
               ),
               Container(
@@ -153,8 +153,8 @@ class SightDetail extends StatelessWidget {
                 height: 0,
               ),
               Text(
-                TO_SCHEDULE,
-                style: CLOSED_UNTIL_STYLE,
+                to_schedule,
+                style: closed_until_style,
               ),
               Container(
                 width: 30,
@@ -162,7 +162,7 @@ class SightDetail extends StatelessWidget {
               ),
               Icon(
                 Icons.favorite_border,
-                color: SECONDARY_LABEL_COLOR,
+                color: secondary_text_color,
                 size: 28,
               ),
               Container(
@@ -170,8 +170,8 @@ class SightDetail extends StatelessWidget {
                 height: 0,
               ),
               Text(
-                TO_FAVORITES,
-                style: SIGHT_DETAIL_STYLE,
+                to_favorites,
+                style: sight_detail_style,
               )
             ],
           ),
