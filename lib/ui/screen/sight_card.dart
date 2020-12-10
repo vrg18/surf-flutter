@@ -35,12 +35,12 @@ class SightCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerLeft,
-                color: background_color_card_label,
+                color: backgroundColorCardLabel,
                 child: Text(
                   sight.nameSight,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: SIGHT_CARD_TITLE_STYLE,
+                  style: sightCardTitleStyle,
                 ),
               ),
               flex: 1,
@@ -51,7 +51,7 @@ class SightCard extends StatelessWidget {
             top: 15,
             child: Text(
               sight.type.toString(),
-              style: SIGHT_CARD_CATEGORY_STYLE,
+              style: sightCardCategoryStyle,
             ),
           ),
           Positioned(

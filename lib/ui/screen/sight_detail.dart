@@ -37,7 +37,7 @@ class SightDetail extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.chevron_left,
-                  color: primary_text_color,
+                  color: primaryTextColor,
                   size: 28,
                 ),
               )
@@ -53,7 +53,7 @@ class SightDetail extends StatelessWidget {
               sight.nameSight,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: sight_detail_title_style,
+              style: sightDetailTitleStyle,
             ),
           ),
         ),
@@ -65,15 +65,15 @@ class SightDetail extends StatelessWidget {
             child: Row(children: [
               Text(
                 sight.type.toString(),
-                style: sight_detail_category_style,
+                style: sightDetailCategoryStyle,
               ),
               Container(
                 width: 15,
                 height: 0,
               ),
               Text(
-                closed_until,
-                style: closed_until_style,
+                closedUntil,
+                style: closedUntilStyle,
               ),
             ]),
           ),
@@ -87,7 +87,7 @@ class SightDetail extends StatelessWidget {
               sight.details,
               maxLines: 6,
               overflow: TextOverflow.ellipsis,
-              style: sight_detail_style,
+              style: sightDetailStyle,
             ),
           ),
         ),
@@ -114,8 +114,8 @@ class SightDetail extends StatelessWidget {
                   height: 0,
                 ),
                 Text(
-                  build_route,
-                  style: sight_detail_build_route_style,
+                  buildRoute,
+                  style: sightDetailBuildRouteStyle,
                 ),
               ])
             ],
@@ -140,7 +140,7 @@ class SightDetail extends StatelessWidget {
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Icon(
                 Icons.calendar_today_outlined,
-                color: tertiary_text_color,
+                color: tertiaryTextColor,
                 size: 24,
               ),
               Container(
@@ -148,8 +148,8 @@ class SightDetail extends StatelessWidget {
                 height: 0,
               ),
               Text(
-                to_schedule,
-                style: closed_until_style,
+                toSchedule,
+                style: closedUntilStyle,
               ),
               Container(
                 width: 30,
@@ -157,7 +157,7 @@ class SightDetail extends StatelessWidget {
               ),
               Icon(
                 Icons.favorite_border,
-                color: secondary_text_color,
+                color: secondaryTextColor,
                 size: 28,
               ),
               Container(
@@ -165,8 +165,8 @@ class SightDetail extends StatelessWidget {
                 height: 0,
               ),
               Text(
-                to_favorites,
-                style: sight_detail_style,
+                toFavorites,
+                style: sightDetailStyle,
               )
             ]),
           ),

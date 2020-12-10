@@ -11,4 +11,4 @@ build_task:
     - flutter config --enable-web
     - flutter build web
   binaries_artifacts:
-    path: "build/web/*"
+    path: "build/web/**"

@@ -18,24 +18,27 @@ class SightListScreen extends StatefulWidget {
 class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
-    var portrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: MyAppBar(
-        height: portrait ? 100 : 55,
+    return OrientationBuilder(
+        builder: (context, orientation) {
+      return Scaffold(
         backgroundColor: Colors.white,
-        title: Text(
-          portrait ? first_screen_title : app_title,
-          style: SCREEN_TITLE_STYLE,
-          maxLines: portrait ? 2 : 1,
-          overflow: TextOverflow.ellipsis,
+        appBar: MyAppBar(
+          height: orientation == Orientation.portrait ? 100 : 55,
+          backgroundColor: Colors.white,
+          title: Text(
+            orientation == Orientation.portrait ? firstPortraitScreenTitle : firstLandscapeScreenTitle,
+            style: screenTitleStyle,
+            maxLines: orientation == Orientation.portrait ? 2 : 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 500), // ограничение для горизонтальной ориентации экрана
-            child: Column(children: mocks.map((e) => SightCard(e)).toList())),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 450), // ограничение для горизонтальной ориентации экрана
+                                                          // в будущем сделаю сетку шириной 1 или 2 от ориентации
+              child: Column(children: mocks.map((e) => SightCard(e)).toList())),
+        ),
+      );
+    });
   }
 }
