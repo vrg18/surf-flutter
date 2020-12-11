@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: app_title,
+      title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.grey,
         fontFamily: 'Roboto',
       ),
-//      home: SightListScreen(first_screen_title),
+//      home: SightListScreen(firstPortraitScreenTitle),
       home: SightDetail(mocks[0]),
     );
   }
