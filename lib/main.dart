@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         fontFamily: 'Roboto',
       ),
-      home: SightListScreen(firstPortraitScreenTitle),
-//      home: SightDetail(mocks[0]),
+//      home: SightListScreen(firstPortraitScreenTitle),
+      home: SightDetail(mocks[0]),
     );
   }
 }
