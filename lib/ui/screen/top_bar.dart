@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final Color backgroundColor;
+  final bool centerTextHorizontally;
   final Text title;
 
-  const MyAppBar({
+  const TopBar({
     Key? key,
     required this.height,
     required this.backgroundColor,
+    this.centerTextHorizontally = false,
     required this.title,
   }) : super(key: key);
 
@@ -19,7 +21,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       top: true,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        alignment: Alignment.centerLeft,
+        alignment: centerTextHorizontally ? Alignment.center : Alignment.centerLeft,
         height: height,
         color: backgroundColor,
         child: title,

@@ -1,5 +1,5 @@
 class Category {
-  late String name;
+  String name;
 
   Category(this.name);
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // Коды цветов взяты из Figma
 
 // Основной цвет текста
-const Color primaryTextColor = Color(0xFF3B3E5B);
+const Color primaryTextColor = Color(0xFF252849);
 
 const Color secondaryTextColor = Color(0xFF3B3E5B);
 const Color tertiaryTextColor = Color(0xFF7C7E92);

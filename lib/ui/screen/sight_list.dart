@@ -4,25 +4,20 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
-import 'my_app_bar.dart';
+import 'top_bar.dart';
 
-class SightListScreen extends StatefulWidget {
-  final String title;
-
-  SightListScreen(this.title);
-
+class SightList extends StatefulWidget {
   @override
-  _SightListScreenState createState() => _SightListScreenState();
+  _SightListState createState() => _SightListState();
 }
 
-class _SightListScreenState extends State<SightListScreen> {
+class _SightListState extends State<SightList> {
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-        builder: (context, orientation) {
+    return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
         backgroundColor: Colors.white,
-        appBar: MyAppBar(
+        appBar: TopBar(
           height: orientation == Orientation.portrait ? 100 : 55,
           backgroundColor: Colors.white,
           title: Text(
@@ -34,8 +29,8 @@ class _SightListScreenState extends State<SightListScreen> {
         ),
         body: SingleChildScrollView(
           child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 450), // ограничение для горизонтальной ориентации экрана
-                                                          // в будущем сделаю сетку шириной 1 или 2 от ориентации
+              // todo ограничение для горизонтальной ориентации экрана, потом сделать сетку шириной 1 или 2 в зависимости от ориентации
+              constraints: BoxConstraints(maxWidth: 450),
               child: Column(children: mocks.map((e) => SightCard(e)).toList())),
         ),
       );

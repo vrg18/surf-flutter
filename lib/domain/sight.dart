@@ -1,19 +1,19 @@
 import 'package:places/domain/category.dart';
 
 class Sight {
-  late String nameSight;
-  late double lat;
-  late double lon;
-  late String url;
-  late String details;
-  late Category type;
+  String name;
+  double lat;
+  double lon;
+  String url;
+  String details;
+  Category category;
 
   Sight(
-    this.nameSight,
+    this.name,
     this.lat,
     this.lon,
     this.url,
     this.details,
-    this.type,
+    this.category,
   );
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/strings.dart';
+import 'package:places/ui/screen/bottom_bar.dart';
 import 'package:places/ui/screen/sight_detail.dart';
-import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/sight_list.dart';
+import 'package:places/ui/screen/favorites.dart';
 
 import 'mocks.dart';
 
@@ -19,8 +21,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         fontFamily: 'Roboto',
       ),
-//      home: SightListScreen(firstPortraitScreenTitle),
-      home: SightDetail(mocks[0]),
+//      home: SightList(),
+//      home: SightDetail(mocks[0]),
+//      home: Favorites(),
+        home: BottomBar(),
     );
   }
 }

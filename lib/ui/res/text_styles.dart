@@ -54,3 +54,16 @@ const TextStyle sightDetailBuildRouteStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
+
+// Стиль текста заголовка экрана Избранное
+const TextStyle favoritesScreenTitleStyle = TextStyle(
+  color: primaryTextColor,
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+
+// Стиль текста выбранной вкладки на экране избранное
+const TextStyle selectTabfavoritesScreenStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 14,
+);

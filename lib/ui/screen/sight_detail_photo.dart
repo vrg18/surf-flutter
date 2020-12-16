@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 
 class SightDetailPhoto extends StatelessWidget {
-  late String _url;
+  final String _url;
 
   SightDetailPhoto(this._url);
 

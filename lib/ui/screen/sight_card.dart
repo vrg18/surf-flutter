@@ -5,9 +5,9 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 
 class SightCard extends StatelessWidget {
-  Sight sight;
+  final Sight _sight;
 
-  SightCard(this.sight);
+  SightCard(this._sight);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class SightCard extends StatelessWidget {
             Expanded(
               child: SizedBox.expand(
                 child: Image.network(
-                  sight.url,
+                  _sight.url,
                   fit: BoxFit.cover,
                   loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) return child;
@@ -40,14 +40,13 @@ class SightCard extends StatelessWidget {
               ),
               flex: 3,
             ),
-            SizedBox(height: 5),
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerLeft,
                 color: backgroundColorCardLabel,
                 child: Text(
-                  sight.nameSight,
+                  _sight.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: sightCardTitleStyle,
@@ -60,7 +59,7 @@ class SightCard extends StatelessWidget {
             left: 15,
             top: 15,
             child: Text(
-              sight.type.toString(),
+              _sight.category.toString(),
               style: sightCardCategoryStyle,
             ),
           ),
