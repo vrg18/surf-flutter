@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 
+/// Определения стилей текстов, применяемых в приложении
+
 // Стиль текста заголовков экранов
 const TextStyle screenTitleStyle = TextStyle(
   color: primaryTextColor,

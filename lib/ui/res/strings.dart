@@ -1,3 +1,5 @@
+/// Определения фраз и подписей, применяемых в приложении
+
 const String appTitle = 'Список интересных мест';
 const String firstLandscapeScreenTitle = 'Список интересных мест';
 const String firstPortraitScreenTitle = 'Список\nинтересных мест';

@@ -1,6 +1,8 @@
 import 'package:places/domain/category.dart';
 import 'package:places/domain/sight.dart';
 
+/// Моковые данные, примеры мест для тестирования приложения
+
 final dolmenCategory = Category('дольмен');
 
 final List mocks = [

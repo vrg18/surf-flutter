@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 
-class UnselectSliderTabs extends StatelessWidget {
+/// Виджет невыбранной части слайдера экрана Favorites
+class UnselectedPartOfSlider extends StatelessWidget {
   final String _tabText;
 
-  UnselectSliderTabs(this._tabText);
+  UnselectedPartOfSlider(this._tabText);
 
   @override
   Widget build(BuildContext context) {

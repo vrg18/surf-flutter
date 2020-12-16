@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Виджет кастомного верхнего бара, альтернатива AppBar
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final Color backgroundColor;

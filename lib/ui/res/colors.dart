@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Коды цветов взяты из Figma
+/// Определения нестандартных цветов, применяемых в приложении. Коды цветов взяты из Figma
 
 // Основной цвет текста
 const Color primaryTextColor = Color(0xFF252849);

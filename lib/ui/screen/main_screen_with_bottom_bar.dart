@@ -4,17 +4,24 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/screen/favorites.dart';
 import 'package:places/ui/screen/sight_list.dart';
 
-class BottomBar extends StatefulWidget {
+/// Основной экран приложения с BottomNavigationBar
+class MainScreenWithBottomBar extends StatefulWidget {
   @override
-  _BottomBarState createState() => _BottomBarState();
+  _MainScreenWithBottomBarState createState() => _MainScreenWithBottomBarState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     SightList(),
     Favorites(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,7 +31,6 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

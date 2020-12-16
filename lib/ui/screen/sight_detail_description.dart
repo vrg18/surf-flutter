@@ -4,6 +4,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
+/// Виджет - текстовая часть экрана детализации места
 class SightDetailDescription extends StatelessWidget {
   final Sight _sight;
 
