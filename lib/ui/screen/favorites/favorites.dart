@@ -4,9 +4,9 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/selected_part_of_slider.dart';
+import 'package:places/ui/screen/favorites/selected_part_of_slider.dart';
+import 'package:places/ui/screen/favorites/unselected_part_of_slider.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/screen/unselected_part_of_slider.dart';
 
 /// Экран Избранное
 class Favorites extends StatefulWidget {
@@ -64,23 +64,24 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: basicBorderSize),
-        child: TabBarView(controller: _tabController, children: [
-          GridView.extent(
-            maxCrossAxisExtent: wideScreenSizeOver,
-            crossAxisSpacing: basicBorderSize,
-            mainAxisSpacing: basicBorderSize,
-            childAspectRatio: 1.5,
-            children: [SightCard(mocks[1]), SightCard(mocks[2])],
-          ),
-          GridView.extent(
-            maxCrossAxisExtent: wideScreenSizeOver,
-            crossAxisSpacing: basicBorderSize,
-            mainAxisSpacing: basicBorderSize,
-            childAspectRatio: 1.5,
-            children: [SightCard(mocks[0])],
-          ),
-        ]),
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            _subScreen([mocks[1], mocks[2]]),
+            _subScreen([mocks[0]]),
+          ],
+        ),
       ),
+    );
+  }
+
+  GridView _subScreen(List mocks) {
+    return GridView.extent(
+      maxCrossAxisExtent: wideScreenSizeOver,
+      crossAxisSpacing: basicBorderSize,
+      mainAxisSpacing: basicBorderSize,
+      childAspectRatio: 1.5,
+      children: mocks.map((e) => SightCard(e)).toList(),
     );
   }
 
@@ -88,8 +89,9 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     var selectedPartOfSlider = Expanded(
       child: GestureDetector(
         onPanUpdate: (details) {
-          if (details.delta.dx > 0 && index == 0) _tabController.index = 1;       // свайп вправо
-          else if (details.delta.dx < 0 && index == 1) _tabController.index = 0;  // свайп влево
+          if (details.delta.dx > 0 && index == 0)
+            _tabController.index = 1; // свайп вправо
+          else if (details.delta.dx < 0 && index == 1) _tabController.index = 0; // свайп влево
         },
         child: SelectedPartOfSlider(index == 0 ? wantToVisitTab : visitedTab),
       ),
@@ -100,7 +102,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
         child: UnselectedPartOfSlider(index == 0 ? visitedTab : wantToVisitTab),
       ),
     );
-    return Row(children: index == 0
+    return Row(
+        children: index == 0
             ? [selectedPartOfSlider, unselectedPartOfSlider]
             : [unselectedPartOfSlider, selectedPartOfSlider]);
   }

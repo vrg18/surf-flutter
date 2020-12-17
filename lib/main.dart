@@ -6,7 +6,7 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
 import 'package:places/ui/screen/sight_detail.dart';
 import 'package:places/ui/screen/sight_list.dart';
-import 'package:places/ui/screen/favorites.dart';
+import 'package:places/ui/screen/favorites/favorites.dart';
 
 import 'mocks.dart';
 

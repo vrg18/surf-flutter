@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/screen/favorites.dart';
+import 'package:places/ui/screen/favorites/favorites.dart';
 import 'package:places/ui/screen/sight_list.dart';
 
 /// Основной экран приложения с BottomNavigationBar

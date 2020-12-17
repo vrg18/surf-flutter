@@ -1,4 +1,4 @@
-/// Определения размеров, применяемых в приложении. Коды цветов взяты из Figma
+/// Определения размеров, применяемых в приложении
 
 const double wideScreenSizeOver = 500;
 const double basicBorderSize = 18;
