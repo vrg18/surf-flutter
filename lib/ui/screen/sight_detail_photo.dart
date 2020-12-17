@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 
+/// Виджет - часть с фотографией места на экрана детализации
 class SightDetailPhoto extends StatelessWidget {
-  late String _url;
+  final String _url;
 
   SightDetailPhoto(this._url);
 

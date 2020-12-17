@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 
+/// Определения стилей текстов, применяемых в приложении
+
 // Стиль текста заголовков экранов
 const TextStyle screenTitleStyle = TextStyle(
   color: primaryTextColor,
@@ -53,4 +55,17 @@ const TextStyle sightDetailBuildRouteStyle = TextStyle(
   color: Colors.white,
   fontSize: 18,
   fontWeight: FontWeight.w700,
+);
+
+// Стиль текста заголовка экрана Избранное
+const TextStyle favoritesScreenTitleStyle = TextStyle(
+  color: primaryTextColor,
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+
+// Стиль текста выбранной вкладки на экране избранное
+const TextStyle selectTabfavoritesScreenStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 14,
 );

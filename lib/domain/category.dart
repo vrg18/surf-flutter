@@ -1,5 +1,6 @@
+/// Категоря места (ресторан, музей, театр и пр.)
 class Category {
-  late String name;
+  final String name;
 
   Category(this.name);
 

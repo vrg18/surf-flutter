@@ -4,8 +4,9 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
+/// Виджет - текстовая часть экрана детализации места
 class SightDetailDescription extends StatelessWidget {
-  late Sight _sight;
+  final Sight _sight;
 
   SightDetailDescription(this._sight);
 
@@ -18,7 +19,7 @@ class SightDetailDescription extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
           alignment: Alignment.bottomLeft,
           child: Text(
-            _sight.nameSight,
+            _sight.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: sightDetailTitleStyle,
@@ -32,7 +33,7 @@ class SightDetailDescription extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Row(children: [
             Text(
-              _sight.type.toString(),
+              _sight.category.toString(),
               style: sightDetailCategoryStyle,
             ),
             Container(
