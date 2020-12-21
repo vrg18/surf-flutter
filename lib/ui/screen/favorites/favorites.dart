@@ -42,18 +42,15 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(appBarTitleHeight + sliderHeightOnScreenFavorites + basicBorderSize),
-        child: TopBar(
-          titleHeight: appBarTitleHeight,
-          bottomHeight: sliderHeightOnScreenFavorites + basicBorderSize,
-          title: Text(
-            favoritesTitle,
-            style: screenTitleStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-          bottom: _slider(),
+      appBar: TopBar(
+        titleHeight: appBarTitleHeight,
+        bottomHeight: sliderHeightOnScreenFavorites + basicBorderSize,
+        title: Text(
+          favoritesTitle,
+          style: screenTitleStyle,
+          overflow: TextOverflow.ellipsis,
         ),
+        bottom: _slider(),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: basicBorderSize),
@@ -97,8 +94,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     var selectedPartOfSlider = Expanded(
       child: GestureDetector(
         onPanUpdate: (details) {
-          if (details.delta.dx > 0 && index == 0)
-            _tabController.index = 1; // свайп вправо
+          if (details.delta.dx > 0 && index == 0) _tabController.index = 1; // свайп вправо
           else if (details.delta.dx < 0 && index == 1) _tabController.index = 0; // свайп влево
         },
         child: SelectedPartOfSlider(index == 0 ? wantToVisitTab : visitedTab),

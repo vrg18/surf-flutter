@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/themes.dart';
 
-/// Виджет - часть с фотографией места на экрана детализации
+/// Виджет - часть с фотографией места на экране детализации
 class SightDetailPhoto extends StatelessWidget {
   final String _url;
 

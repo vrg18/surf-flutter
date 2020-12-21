@@ -27,18 +27,15 @@ class _SightListState extends State<SightList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(appBarTitleHeight),
-        child: TopBar(
-          titleHeight: appBarTitleHeight,
-          bottomHeight: 0,
-          title: Text(
-            firstLandscapeScreenTitle,
-            style: screenTitleStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-          bottom: Container(),
+      appBar: TopBar(
+        titleHeight: appBarTitleHeight,
+        bottomHeight: 0,
+        title: Text(
+          firstLandscapeScreenTitle,
+          style: screenTitleStyle,
+          overflow: TextOverflow.ellipsis,
         ),
+        bottom: Container(),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: basicBorderSize),

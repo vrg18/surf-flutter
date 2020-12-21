@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 
+/// Определения светлой и темной тем
+
 const currentThemeIsDark = false; // todo потом уйдет в "Настройки"
 
 final lightTheme = ThemeData(
