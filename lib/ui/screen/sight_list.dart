@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
 import 'top_bar.dart';
@@ -15,18 +17,27 @@ class SightList extends StatefulWidget {
 
 class _SightListState extends State<SightList> {
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    bool wideScreen = MediaQuery.of(context).size.width > wideScreenSizeOver;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: TopBar(
-        height: wideScreen ? 55 : 100,
-        backgroundColor: Colors.white,
-        title: Text(
-          wideScreen ? firstLandscapeScreenTitle : firstPortraitScreenTitle,
-          style: screenTitleStyle,
-          maxLines: wideScreen ? 1 : 2,
-          overflow: TextOverflow.ellipsis,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(appBarTitleHeight),
+        child: TopBar(
+          titleHeight: appBarTitleHeight,
+          bottomHeight: 0,
+          title: Text(
+            firstLandscapeScreenTitle,
+            style: screenTitleStyle,
+            overflow: TextOverflow.ellipsis,
+          ),
+          bottom: Container(),
         ),
       ),
       body: Container(

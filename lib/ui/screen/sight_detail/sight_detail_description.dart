@@ -3,6 +3,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/themes.dart';
 
 /// Виджет - текстовая часть экрана детализации места
 class SightDetailDescription extends StatelessWidget {
@@ -42,7 +43,7 @@ class SightDetailDescription extends StatelessWidget {
             ),
             Text(
               closedUntil,
-              style: closedUntilStyle,
+              style: lowSelectionStyle,
             ),
           ]),
         ),
@@ -99,14 +100,14 @@ class SightDetailDescription extends StatelessWidget {
             border: Border(
               top: BorderSide(
                 width: 1,
-                color: Colors.black12,
+                color: lmDarkerBackgroundColor,
               ),
             ),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(
               Icons.calendar_today_outlined,
-              color: tertiaryTextColor,
+              color: currentThemeIsDark ? dmElementTertiaryColor : lmElementTertiaryColor,
               size: 24,
             ),
             Container(
@@ -115,7 +116,7 @@ class SightDetailDescription extends StatelessWidget {
             ),
             Text(
               toSchedule,
-              style: closedUntilStyle,
+              style: lowSelectionStyle,
             ),
             Container(
               width: 30,
@@ -123,7 +124,7 @@ class SightDetailDescription extends StatelessWidget {
             ),
             Icon(
               Icons.favorite_border,
-              color: secondaryTextColor,
+              color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
               size: 28,
             ),
             Container(

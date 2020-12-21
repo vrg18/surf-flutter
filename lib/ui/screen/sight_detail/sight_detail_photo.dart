@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/themes.dart';
 
 /// Виджет - часть с фотографией места на экрана детализации
 class SightDetailPhoto extends StatelessWidget {
@@ -31,12 +32,12 @@ class SightDetailPhoto extends StatelessWidget {
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: currentThemeIsDark ? dmMainBackgroundColor : lmMainBackgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         child: Icon(
           Icons.chevron_left,
-          color: primaryTextColor,
+          color: currentThemeIsDark ? dmElementPrimaryColor : lmElementPrimaryColor,
           size: 28,
         ),
       )

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/themes.dart';
 
 /// Виджет карточки места нобольшого размера для Списка мест и Избранного
 class SightCard extends StatelessWidget {
@@ -42,7 +43,7 @@ class SightCard extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
               alignment: Alignment.centerLeft,
-              color: backgroundColorCardLabel,
+              color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
               child: Text(
                 _sight.name,
                 maxLines: 2,

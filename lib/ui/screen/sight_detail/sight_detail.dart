@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/ui/screen/sight_detail_description.dart';
-import 'package:places/ui/screen/sight_detail_photo.dart';
+import 'package:places/ui/screen/sight_detail/sight_detail_description.dart';
+import 'package:places/ui/screen/sight_detail/sight_detail_photo.dart';
 
 /// Экран детализации места
 class SightDetail extends StatelessWidget {
@@ -13,11 +13,12 @@ class SightDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
     return OrientationBuilder(builder: (context, orientation) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarIconBrightness: orientation == Orientation.portrait ? Brightness.light : Brightness.dark,
+        ),
+      );
       return Scaffold(
         body: orientation == Orientation.portrait
             ? Column(children: [

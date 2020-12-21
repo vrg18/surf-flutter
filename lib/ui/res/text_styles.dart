@@ -1,71 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
+import 'package:places/ui/res/themes.dart';
 
 /// Определения стилей текстов, применяемых в приложении
 
+// Основной цвет текста
+const TextStyle lmMainColorTextStyle = TextStyle(color: lmElementPrimaryColor);
+const TextStyle dmMainColorTextStyle = TextStyle(color: dmElementPrimaryColor);
+
 // Стиль текста заголовков экранов
-const TextStyle screenTitleStyle = TextStyle(
-  color: primaryTextColor,
-  fontSize: 32,
-  fontWeight: FontWeight.w700,
+final TextStyle screenTitleStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
 );
 
 // Стиль текста подписи карточки на главном экране
-const TextStyle sightCardTitleStyle = TextStyle(
-  color: primaryTextColor,
+final TextStyle sightCardTitleStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста категории на фото карточки на главном экране
-const TextStyle sightCardCategoryStyle = TextStyle(
-  color: Colors.white,
+final TextStyle sightCardCategoryStyle = TextStyle(
+  color: lmMainBackgroundColor,
   fontSize: 16,
 );
 
 // Стиль текста подписи карточки на экране детализации
-const TextStyle sightDetailTitleStyle = TextStyle(
-  color: primaryTextColor,
+final TextStyle sightDetailTitleStyle = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста категории карточки на экране детализации
-const TextStyle sightDetailCategoryStyle = TextStyle(
-  color: primaryTextColor,
+final TextStyle sightDetailCategoryStyle = TextStyle(
+  color: currentThemeIsDark ? dmElementSecondaryColor : lmElementSecondaryColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста часов работы
-const TextStyle closedUntilStyle = TextStyle(
-  color: tertiaryTextColor,
+final TextStyle lowSelectionStyle = TextStyle(
+  color: currentThemeIsDark ? dmElementTertiaryColor : lmElementTertiaryColor,
   fontSize: 14,
 );
 
-// Стиль текста описания на экране детализации
-const TextStyle sightDetailStyle = TextStyle(
-  color: secondaryTextColor,
+// Стиль текста невыбранной кнопки слайдера
+final TextStyle lowSelection700Style = TextStyle(
+  color: lmElementTertiaryColor,
   fontSize: 14,
-  fontWeight: FontWeight.w400,
-);
-
-// Стиль текста категории на фото карточки на главном экране
-const TextStyle sightDetailBuildRouteStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 18,
   fontWeight: FontWeight.w700,
 );
 
-// Стиль текста заголовка экрана Избранное
-const TextStyle favoritesScreenTitleStyle = TextStyle(
-  color: primaryTextColor,
+// Стиль текста описания на экране детализации
+final TextStyle sightDetailStyle = TextStyle(
+  color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
+  fontSize: 14,
+);
+
+// Стиль текста категории на фото карточки на главном экране
+final TextStyle sightDetailBuildRouteStyle = TextStyle(
+  color: lmMainBackgroundColor,
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста выбранной вкладки на экране избранное
-const TextStyle selectTabfavoritesScreenStyle = TextStyle(
-  color: Colors.white,
+final TextStyle selectTabFavoritesScreenStyle = TextStyle(
+  color: currentThemeIsDark ? dmDarkerBackgroundColor : lmMainBackgroundColor,
   fontSize: 14,
+  fontWeight: FontWeight.w700,
 );
