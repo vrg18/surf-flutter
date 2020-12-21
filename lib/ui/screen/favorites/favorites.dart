@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -6,7 +7,9 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/favorites/selected_part_of_slider.dart';
 import 'package:places/ui/screen/favorites/unselected_part_of_slider.dart';
+import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/screen/top_bar.dart';
 
 /// Экран Избранное
 class Favorites extends StatefulWidget {
@@ -20,6 +23,10 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
+    ));
     _tabController = TabController(length: 2, vsync: this);
     _tabController.index;
     _tabController.addListener(() {
@@ -36,31 +43,15 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 90,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Center(
-          child: Text(
-            favoritesTitle,
-            style: favoritesScreenTitleStyle,
-          ),
+      appBar: TopBar(
+        titleHeight: appBarTitleHeight,
+        bottomHeight: sliderHeightOnScreenFavorites + basicBorderSize,
+        title: Text(
+          favoritesTitle,
+          style: screenTitleStyle,
+          overflow: TextOverflow.ellipsis,
         ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(sliderHeightOnScreenFavorites),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: basicBorderSize, vertical: basicBorderSize),
-            height: sliderHeightOnScreenFavorites,
-            decoration: BoxDecoration(
-              color: backgroundColorCardLabel,
-              borderRadius: BorderRadius.all(Radius.circular(sliderHeightOnScreenFavorites / 2)),
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: wideScreenSizeOver),
-              child: _sliderTab(_tabController.index),
-            ),
-          ),
-        ),
+        bottom: _slider(),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: basicBorderSize),
@@ -75,6 +66,21 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
+  Container _slider() {
+    return Container(
+      margin: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, bottom: basicBorderSize),
+      height: sliderHeightOnScreenFavorites,
+      decoration: BoxDecoration(
+        color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
+        borderRadius: BorderRadius.all(Radius.circular(sliderHeightOnScreenFavorites / 2)),
+      ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: wideScreenSizeOver),
+        child: _partsOfSlider(_tabController.index),
+      ),
+    );
+  }
+
   GridView _subScreen(List mocks) {
     return GridView.extent(
       maxCrossAxisExtent: wideScreenSizeOver,
@@ -85,12 +91,11 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
-  Row _sliderTab(int index) {
+  Row _partsOfSlider(int index) {
     var selectedPartOfSlider = Expanded(
       child: GestureDetector(
         onPanUpdate: (details) {
-          if (details.delta.dx > 0 && index == 0)
-            _tabController.index = 1; // свайп вправо
+          if (details.delta.dx > 0 && index == 0) _tabController.index = 1; // свайп вправо
           else if (details.delta.dx < 0 && index == 1) _tabController.index = 0; // свайп влево
         },
         child: SelectedPartOfSlider(index == 0 ? wantToVisitTab : visitedTab),

@@ -4,7 +4,8 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
-import 'package:places/ui/screen/sight_detail.dart';
+import 'package:places/ui/res/themes.dart';
+import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:places/ui/screen/sight_list.dart';
 import 'package:places/ui/screen/favorites/favorites.dart';
 
@@ -15,7 +16,7 @@ main() => runApp(
         enabled: isWeb(),
         defaultDevice: Devices.android.samsungS20,
         isToolbarVisible: true,
-        builder: (context) => MyApp(), // Wrap your app
+        builder: (context) => MyApp(),
       ),
     );
 
@@ -41,10 +42,7 @@ class MyApp extends StatelessWidget {
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       title: appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        fontFamily: 'Roboto',
-      ),
+      theme: currentThemeIsDark ? darkTheme : lightTheme,
 //      home: SightList(),
 //      home: SightDetail(mocks[0]),
 //      home: Favorites(),
