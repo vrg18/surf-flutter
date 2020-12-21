@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/favorites/favorites.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
@@ -18,14 +17,6 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
     Favorites(),
     SightDetail(mocks[1]),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
-  }
 
   void _onItemTapped(int index) {
     setState(() {

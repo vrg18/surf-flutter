@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail_description.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail_photo.dart';
 
@@ -16,7 +17,8 @@ class SightDetail extends StatelessWidget {
     return OrientationBuilder(builder: (context, orientation) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
-          statusBarIconBrightness: orientation == Orientation.portrait ? Brightness.light : Brightness.dark,
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: orientation == Orientation.portrait || currentThemeIsDark ? Brightness.light : Brightness.dark,
         ),
       );
       return Scaffold(

@@ -24,6 +24,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
     ));
     _tabController = TabController(length: 2, vsync: this);

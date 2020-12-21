@@ -20,6 +20,7 @@ class _SightListState extends State<SightList> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
     ));
   }
