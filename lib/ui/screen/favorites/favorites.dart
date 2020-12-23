@@ -72,7 +72,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       height: sliderHeightOnScreenFavorites,
       decoration: BoxDecoration(
         color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(sliderHeightOnScreenFavorites / 2)),
+        borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
       ),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: wideScreenSizeOver),

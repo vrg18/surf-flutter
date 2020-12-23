@@ -10,3 +10,11 @@ const String toFavorites = 'В Избранное';
 const String favoritesTitle = 'Избранное';
 const String visitedTab = 'Посетил';
 const String wantToVisitTab = 'Хочу посетить';
+
+// Сообщения в консоль при нажатии кнопок. Временно
+const String toFavoritesPress = 'Нажата кнопка "В Избранное"',
+    toSchedulePress = 'Нажата кнопка "Запланировать"',
+    buildRoutePress = 'Нажата кнопка "Построить маршрут"',
+    toLeftPress = 'Нажата кнопка на фото "Влево"',
+    sightCardPress = 'Нажата карточка места',
+    toFavoritesOnPhotoPress = 'Нажата иконка "В Избранное"';
