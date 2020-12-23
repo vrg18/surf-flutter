@@ -58,9 +58,9 @@ final TextStyle sightDetailStyle = TextStyle(
   fontSize: 14,
 );
 
-// Стиль текста категории на фото карточки на главном экране
+// Стиль текста на кнопке "Построить маршрут"
 final TextStyle sightDetailBuildRouteStyle = TextStyle(
-  color: lmMainBackgroundColor,
+  color: buildRouteButtonTextColor,
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );

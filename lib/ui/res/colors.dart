@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/themes.dart';
 
 /// Определения нестандартных цветов, применяемых в приложении. Коды цветов взяты из Figma
 
 // Цвета светлой темы
-const Color lmElementPrimaryColor = currentThemeIsDark ? Colors.white : Color(0xFF252849),
+const Color lmElementPrimaryColor = Color(0xFF252849),
     lmElementSecondaryColor = Color(0xFF3B3E5B),
     lmElementTertiaryColor = Color(0xFF7C7E92),
     lmMainBackgroundColor = Colors.white,
@@ -17,3 +16,7 @@ const Color dmElementPrimaryColor = Colors.white,
     dmElementTertiaryColor = Color(0xFF3B3E5B),
     dmMainBackgroundColor = Color(0xFF21222C),
     dmDarkerBackgroundColor = Color(0xFF1A1A20);
+
+// Общие цвета
+const Color buildRouteButtonColor = Colors.green,
+    buildRouteButtonTextColor = Colors.white;

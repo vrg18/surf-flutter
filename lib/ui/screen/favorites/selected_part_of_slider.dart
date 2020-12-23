@@ -15,7 +15,7 @@ class SelectedPartOfSlider extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(sliderHeightOnScreenFavorites / 2)),
+        borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
       ),
       child: Center(
         child: Text(
