@@ -10,11 +10,19 @@ const String toFavorites = 'В Избранное';
 const String favoritesTitle = 'Избранное';
 const String visitedTab = 'Посетил';
 const String wantToVisitTab = 'Хочу посетить';
+const String filtersSliderTitle = 'Расстояние';
+const String filtersSliderValue = 'от %s до %s м';
+const String applyFilters = 'показать (%d)';
+const String clearFilters = 'Очистить';
+const String categoriesFilters = 'КАТЕГОРИИ';
 
 // Сообщения в консоль при нажатии кнопок. Временно
 const String toFavoritesPress = 'Нажата кнопка "В Избранное"',
     toSchedulePress = 'Нажата кнопка "Запланировать"',
     buildRoutePress = 'Нажата кнопка "Построить маршрут"',
+    applyFiltersPress = 'Нажата кнопка "Показать"',
     toLeftPress = 'Нажата кнопка на фото "Влево"',
     sightCardPress = 'Нажата карточка места',
-    toFavoritesOnPhotoPress = 'Нажата иконка "В Избранное"';
+    toFavoritesOnPhotoPress = 'Нажата иконка "В Избранное"',
+    clearFiltersPress = 'Нажата кнопка "Очистить"',
+    leaveFiltersPress = 'Нажата кнопка "<"';

@@ -13,7 +13,7 @@ class UnselectedPartOfSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
-      color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
+      color: currentThemeIsDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
       child: Center(
         child: Text(
           _tabText,

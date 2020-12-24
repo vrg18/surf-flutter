@@ -6,7 +6,7 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/res/themes.dart';
 
-/// Виджет - текстовая часть экрана детализации места
+/// Нижняя (правая) текстовая часть экрана детализации места
 class SightDetailDescription extends StatelessWidget {
   final Sight _sight;
 
@@ -36,13 +36,10 @@ class SightDetailDescription extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Row(children: [
                 Text(
-                  _sight.category.toString(),
+                  _sight.category.toStringLowerCase(),
                   style: sightDetailCategoryStyle,
                 ),
-                Container(
-                  width: 15,
-                  height: 0,
-                ),
+                SizedBox(width: 15),
                 Text(
                   closedUntil,
                   style: lowSelectionStyle,
@@ -63,37 +60,37 @@ class SightDetailDescription extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
-            child: RaisedButton(
-              onPressed: () => print(buildRoutePress),
-              color: buildRouteButtonColor,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.near_me_outlined,
-                    color: buildRouteButtonTextColor,
-                    size: 30,
-                  ),
-                  Container(
-                    width: 5,
-                    height: 0,
-                  ),
-                  Text(
-                    buildRoute,
-                    style: sightDetailBuildRouteStyle,
-                  ),
-                ],
+            flex: 3,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: heightOfBigGreenButton),
+              child: RaisedButton(
+                onPressed: () => print(buildRoutePress),
+                color: bigGreenButtonColor,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.near_me_outlined,
+                      color: bigGreenButtonLabelColor,
+                      size: 30,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      buildRoute,
+                      style: bigGreenButtonTextStyle,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Expanded(
             flex: 1,
-            child: Container(),
+            child: SizedBox.shrink(),
           ),
           Expanded(
             flex: 3,
@@ -102,7 +99,7 @@ class SightDetailDescription extends StatelessWidget {
                 border: Border(
                   top: BorderSide(
                     width: 1,
-                    color: lmDarkerBackgroundColor,
+                    color: lightDarkerBackgroundColor,
                   ),
                 ),
               ),
@@ -115,14 +112,11 @@ class SightDetailDescription extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.calendar_today_outlined,
-                            color: currentThemeIsDark ? dmElementTertiaryColor : lmElementTertiaryColor,
+                            Icons.today,
+                            color: currentThemeIsDark ? darkElementTertiaryColor : lightElementTertiaryColor,
                             size: 24,
                           ),
-                          Container(
-                            width: 5,
-                            height: 0,
-                          ),
+                          SizedBox(width: 5),
                           Text(
                             toSchedule,
                             style: lowSelectionStyle,
@@ -139,13 +133,10 @@ class SightDetailDescription extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.favorite_border,
-                            color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
+                            color: currentThemeIsDark ? darkElementPrimaryColor : lightElementSecondaryColor,
                             size: 28,
                           ),
-                          Container(
-                            width: 5,
-                            height: 0,
-                          ),
+                          SizedBox(width: 5),
                           Text(
                             toFavorites,
                             style: sightDetailStyle,

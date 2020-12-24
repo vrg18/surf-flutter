@@ -71,7 +71,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       margin: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, bottom: basicBorderSize),
       height: sliderHeightOnScreenFavorites,
       decoration: BoxDecoration(
-        color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
+        color: currentThemeIsDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
       ),
       child: ConstrainedBox(

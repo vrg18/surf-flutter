@@ -8,21 +8,21 @@ const currentThemeIsDark = false; // todo потом уйдет в "Настро
 
 final lightTheme = ThemeData(
     fontFamily: 'Roboto',
-    primaryColor: lmElementPrimaryColor,
-    backgroundColor: lmMainBackgroundColor,
-    scaffoldBackgroundColor: lmMainBackgroundColor,
-    textTheme: TextTheme(bodyText2: lmMainColorTextStyle),
+    primaryColor: lightElementPrimaryColor,
+    backgroundColor: lightMainBackgroundColor,
+    scaffoldBackgroundColor: lightMainBackgroundColor,
+    textTheme: TextTheme(bodyText2: lightMainColorTextStyle),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      unselectedItemColor: lmElementPrimaryColor,
+      unselectedItemColor: lightElementPrimaryColor,
     ));
 
 final darkTheme = ThemeData(
     fontFamily: 'Roboto',
-    primaryColor: dmElementPrimaryColor,
-    backgroundColor: dmMainBackgroundColor,
-    scaffoldBackgroundColor: dmMainBackgroundColor,
-    textTheme: TextTheme(bodyText2: dmMainColorTextStyle),
+    primaryColor: darkElementPrimaryColor,
+    backgroundColor: darkMainBackgroundColor,
+    scaffoldBackgroundColor: darkMainBackgroundColor,
+    textTheme: TextTheme(bodyText2: darkMainColorTextStyle),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: dmMainBackgroundColor,
-      unselectedItemColor: dmElementPrimaryColor,
+      backgroundColor: darkMainBackgroundColor,
+      unselectedItemColor: darkElementPrimaryColor,
     ));

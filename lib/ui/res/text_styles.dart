@@ -5,8 +5,8 @@ import 'package:places/ui/res/themes.dart';
 /// Определения стилей текстов, применяемых в приложении
 
 // Основной цвет текста
-const TextStyle lmMainColorTextStyle = TextStyle(color: lmElementPrimaryColor);
-const TextStyle dmMainColorTextStyle = TextStyle(color: dmElementPrimaryColor);
+const TextStyle lightMainColorTextStyle = TextStyle(color: lightElementPrimaryColor);
+const TextStyle darkMainColorTextStyle = TextStyle(color: darkElementPrimaryColor);
 
 // Стиль текста заголовков экранов
 final TextStyle screenTitleStyle = TextStyle(
@@ -22,7 +22,7 @@ final TextStyle sightCardTitleStyle = TextStyle(
 
 // Стиль текста категории на фото карточки на главном экране
 final TextStyle sightCardCategoryStyle = TextStyle(
-  color: lmMainBackgroundColor,
+  color: lightMainBackgroundColor,
   fontSize: 16,
 );
 
@@ -34,40 +34,64 @@ final TextStyle sightDetailTitleStyle = TextStyle(
 
 // Стиль текста категории карточки на экране детализации
 final TextStyle sightDetailCategoryStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementSecondaryColor : lmElementSecondaryColor,
+  color: currentThemeIsDark ? darkElementSecondaryColor : lightElementSecondaryColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста часов работы
 final TextStyle lowSelectionStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementTertiaryColor : lmElementTertiaryColor,
+  color: currentThemeIsDark ? darkElementTertiaryColor : lightElementTertiaryColor,
   fontSize: 14,
 );
 
 // Стиль текста невыбранной кнопки слайдера
 final TextStyle lowSelection700Style = TextStyle(
-  color: lmElementTertiaryColor,
+  color: lightElementTertiaryColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста описания на экране детализации
 final TextStyle sightDetailStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
+  color: currentThemeIsDark ? darkElementPrimaryColor : lightElementSecondaryColor,
   fontSize: 14,
 );
 
-// Стиль текста на кнопке "Построить маршрут"
-final TextStyle sightDetailBuildRouteStyle = TextStyle(
-  color: buildRouteButtonTextColor,
+// Стиль текста большой зеленой кнопки
+final TextStyle bigGreenButtonTextStyle = TextStyle(
+  color: bigGreenButtonLabelColor,
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста выбранной вкладки на экране избранное
 final TextStyle selectTabFavoritesScreenStyle = TextStyle(
-  color: currentThemeIsDark ? dmDarkerBackgroundColor : lmMainBackgroundColor,
+  color: currentThemeIsDark ? darkDarkerBackgroundColor : lightMainBackgroundColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
+);
+
+// Стиль надписи слайдера "Расстояние"
+final TextStyle filtersDistanceTitleStyle = TextStyle(
+  fontSize: 16,
+);
+
+// Стиль текущих значений слайдера "Расстояние"
+final TextStyle filtersDistanceValueStyle = TextStyle(
+  color: currentThemeIsDark ? darkElementSecondaryColor : lightElementTertiaryColor,
+  fontSize: 16,
+);
+
+// Стиль текста кнопки "Очистить фильтры"
+final TextStyle clearFiltersButtonTextStyle = TextStyle(
+  color: bigGreenButtonColor,
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+);
+
+// Стиль текста подписи иконки категории
+final TextStyle categoryIconLabelTextStyle = TextStyle(
+  color: currentThemeIsDark ? darkElementPrimaryColor : lightElementSecondaryColor,
+  fontSize: 12,
 );

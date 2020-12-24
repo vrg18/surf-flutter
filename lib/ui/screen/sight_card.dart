@@ -17,7 +17,7 @@ class SightCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: currentThemeIsDark ? dmDarkerBackgroundColor : lmDarkerBackgroundColor,
+        color: currentThemeIsDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Material(
@@ -49,7 +49,7 @@ class SightCard extends StatelessWidget {
                     left: 15,
                     top: 15,
                     child: Text(
-                      _sight.category.toString(),
+                      _sight.category.toStringLowerCase(),
                       style: sightCardCategoryStyle,
                     ),
                   ),
@@ -58,7 +58,7 @@ class SightCard extends StatelessWidget {
                     top: 0,
                     child: InkWell(
                       onTap: () => print(toFavoritesOnPhotoPress),
-                      child: Container(
+                      child: SizedBox(
                         width: 50,
                         height: 50,
                         child: Icon(

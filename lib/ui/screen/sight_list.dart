@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:places/domain/point.dart';
+import 'package:places/main.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_card.dart';
-
-import 'top_bar.dart';
+import 'package:places/ui/screen/top_bar.dart';
 
 /// Экран с основным списком мест
 class SightList extends StatefulWidget {
@@ -16,6 +17,8 @@ class SightList extends StatefulWidget {
 }
 
 class _SightListState extends State<SightList> {
+  List<SightCard> _listNearbySight = [];
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +26,15 @@ class _SightListState extends State<SightList> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
     ));
+
+    _listNearbySight.clear();
+    mocks.forEach((sight) {
+      if (!arePointsNear(sight.point, currentPoint, searchRadius.start) &&
+          arePointsNear(sight.point, currentPoint, searchRadius.end) &&
+          selectedCategories.contains(sight.category)) {
+        _listNearbySight.add(SightCard(sight));
+      }
+    });
   }
 
   @override
@@ -36,7 +48,7 @@ class _SightListState extends State<SightList> {
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
-        bottom: Container(),
+        bottom: SizedBox.shrink(),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: basicBorderSize),
@@ -45,7 +57,7 @@ class _SightListState extends State<SightList> {
           crossAxisSpacing: basicBorderSize,
           mainAxisSpacing: basicBorderSize,
           childAspectRatio: 1.5,
-          children: mocks.map((e) => SightCard(e)).toList(),
+          children: _listNearbySight,
         ),
       ),
     );

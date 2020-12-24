@@ -3,7 +3,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
 
-/// Виджет - часть с фотографией места на экране детализации
+/// Верхняя (левая) часть экрана детализации места с фотографией места
 class SightDetailPhoto extends StatelessWidget {
   final String _url;
 
@@ -36,7 +36,7 @@ class SightDetailPhoto extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: currentThemeIsDark ? dmMainBackgroundColor : lmMainBackgroundColor,
+              color: currentThemeIsDark ? darkMainBackgroundColor : lightMainBackgroundColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Material(
@@ -45,7 +45,7 @@ class SightDetailPhoto extends StatelessWidget {
                 onTap: () => print(toLeftPress),
                 child: Icon(
                   Icons.chevron_left,
-                  color: currentThemeIsDark ? dmElementPrimaryColor : lmElementPrimaryColor,
+                  color: currentThemeIsDark ? darkElementPrimaryColor : lightElementPrimaryColor,
                   size: 28,
                 ),
               ),
