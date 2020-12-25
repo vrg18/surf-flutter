@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 /// Виджет невыбранной части слайдера экрана Favorites
 class UnselectedPartOfSlider extends StatelessWidget {
@@ -11,9 +12,11 @@ class UnselectedPartOfSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.watch<CurrentTheme>().isDark;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
-      color: currentThemeIsDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
+      color: isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
       child: Center(
         child: Text(
           _tabText,

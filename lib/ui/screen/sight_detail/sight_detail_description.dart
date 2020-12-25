@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 /// Нижняя (правая) текстовая часть экрана детализации места
 class SightDetailDescription extends StatelessWidget {
@@ -14,6 +15,8 @@ class SightDetailDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.watch<CurrentTheme>().isDark;
+
     return Container(
       padding: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
       child: Column(
@@ -37,12 +40,12 @@ class SightDetailDescription extends StatelessWidget {
               child: Row(children: [
                 Text(
                   _sight.category.toStringLowerCase(),
-                  style: sightDetailCategoryStyle,
+                  style: isDark ? darkSightDetailCategoryStyle : lightSightDetailCategoryStyle,
                 ),
                 SizedBox(width: 15),
                 Text(
-                  closedUntil,
-                  style: lowSelectionStyle,
+                  letteringClosedUntil,
+                  style: lightFaintInscriptionStyle,
                 ),
               ]),
             ),
@@ -55,7 +58,7 @@ class SightDetailDescription extends StatelessWidget {
                 _sight.details,
                 maxLines: 6,
                 overflow: TextOverflow.ellipsis,
-                style: sightDetailStyle,
+                style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
               ),
             ),
           ),
@@ -80,7 +83,7 @@ class SightDetailDescription extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      buildRoute,
+                      buttonLabelBuildRoute,
                       style: bigGreenButtonTextStyle,
                     ),
                   ],
@@ -113,13 +116,13 @@ class SightDetailDescription extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.today,
-                            color: currentThemeIsDark ? darkElementTertiaryColor : lightElementTertiaryColor,
+                            color: isDark ? darkElementTertiaryColor : lightElementTertiaryColor,
                             size: 24,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            toSchedule,
-                            style: lowSelectionStyle,
+                            buttonLabelToSchedule,
+                            style: lightFaintInscriptionStyle,
                           ),
                         ],
                       ),
@@ -133,13 +136,13 @@ class SightDetailDescription extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.favorite_border,
-                            color: currentThemeIsDark ? darkElementPrimaryColor : lightElementSecondaryColor,
+                            color: isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
                             size: 28,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            toFavorites,
-                            style: sightDetailStyle,
+                            buttonLabelToFavorites,
+                            style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
                           )
                         ],
                       ),

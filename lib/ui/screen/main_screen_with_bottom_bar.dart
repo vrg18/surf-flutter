@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/favorites/favorites.dart';
 import 'package:places/ui/screen/filters/filters.dart';
+import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:places/ui/screen/sight_list.dart';
 
@@ -18,6 +19,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
     Filters(),
     Favorites(),
     SightDetail(mocks[1]),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -61,7 +63,6 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             ),
             activeIcon: Icon(
               Icons.favorite,
-              //               color: primaryTextColor,
             ),
             label: '',
           ),
@@ -71,7 +72,15 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             ),
             activeIcon: Icon(
               Icons.perm_media_rounded,
-              //               color: primaryTextColor,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings_outlined,
+            ),
+            activeIcon: Icon(
+              Icons.settings,
             ),
             label: '',
           ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 /// Виджет выбранной части слайдера экрана Favorites
 class SelectedPartOfSlider extends StatelessWidget {
@@ -12,15 +13,19 @@ class SelectedPartOfSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.watch<CurrentTheme>().isDark;
+
     return Container(
       decoration: BoxDecoration(
-        color: currentThemeIsDark ? darkElementPrimaryColor : lightElementSecondaryColor,
+        color: isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
         borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
       ),
       child: Center(
         child: Text(
           _tabText,
-          style: selectTabFavoritesScreenStyle,
+          style: context.watch<CurrentTheme>().isDark
+              ? darkSelectTabFavoritesScreenStyle
+              : lightSelectTabFavoritesScreenStyle,
         ),
       ),
     );

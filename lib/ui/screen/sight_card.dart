@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 /// Виджет карточки места нобольшого размера для Списка мест и Избранного
 class SightCard extends StatelessWidget {
@@ -14,14 +15,16 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.watch<CurrentTheme>().isDark;
+
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: currentThemeIsDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
+        color: isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Material(
-        color: Colors.transparent,
+        type: MaterialType.transparency,
         child: InkWell(
           onTap: () => print(sightCardPress),
           child: Column(children: [

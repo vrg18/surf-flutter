@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/main.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/filters/filters_category_icon.dart';
+import 'package:provider/provider.dart';
 
 /// Верхняя (левая) часть экрана фильтров с выбором категорий
 class FiltersSelectionOfCategories extends StatefulWidget {
@@ -30,7 +31,7 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
                 child: Icon(
                   Icons.chevron_left,
                   size: 28,
-                  color: currentThemeIsDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+                  color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
                 ),
               ),
               FlatButton(
@@ -39,7 +40,7 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
                   print(clearFiltersPress);
                 }),
                 child: Text(
-                  clearFilters,
+                  letteringClear,
                   style: clearFiltersButtonTextStyle,
                 ),
               ),
@@ -49,8 +50,8 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             margin: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
             width: double.infinity,
             child: Text(
-              categoriesFilters,
-              style: lowSelectionStyle,
+              letteringCategories,
+              style: context.watch<CurrentTheme>().isDark ? darkFaintInscriptionStyle : lightFaintInscriptionStyle,
             ),
           ),
           Container(

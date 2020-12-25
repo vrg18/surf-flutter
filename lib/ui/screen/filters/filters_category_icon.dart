@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/category.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/main.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 
 class FiltersCategoryIcon extends StatefulWidget {
   final Category _category;
@@ -30,7 +31,9 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
           Stack(
             children: [
               RawMaterialButton(
-                fillColor: currentThemeIsDark ? darkCategoryIconsBackgroundColor : lightCategoryIconsBackgroundColor,
+                fillColor: context.watch<CurrentTheme>().isDark
+                    ? darkCategoryIconsBackgroundColor
+                    : lightCategoryIconsBackgroundColor,
                 shape: CircleBorder(),
                 padding: EdgeInsets.all(16),
                 elevation: 0,
@@ -55,7 +58,8 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
                       bottom: 0,
                       child: Icon(
                         Icons.check_circle,
-                        color: currentThemeIsDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+                        color:
+                            context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
                         size: 20,
                       ),
                     )
@@ -65,7 +69,8 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
           SizedBox(height: 10),
           Text(
             widget._category.toString(),
-            style: categoryIconLabelTextStyle,
+            style:
+                context.watch<CurrentTheme>().isDark ? darkCategoryIconLabelTextStyle : lightCategoryIconLabelTextStyle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

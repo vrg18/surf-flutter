@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/point.dart';
 import 'package:places/main.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/screen/top_bar.dart';
+import 'package:provider/provider.dart';
 
 /// Экран с основным списком мест
 class SightList extends StatefulWidget {
@@ -24,7 +25,7 @@ class _SightListState extends State<SightList> {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: currentThemeIsDark ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness: context.read<CurrentTheme>().isDark ? Brightness.light : Brightness.dark,
     ));
 
     _listNearbySight.clear();

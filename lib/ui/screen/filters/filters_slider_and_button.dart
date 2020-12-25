@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/search_radius.dart';
 import 'package:places/main.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/res/themes.dart';
+import 'package:provider/provider.dart';
 import 'package:sprintf/sprintf.dart';
 
 /// Нижняя (правая) часть экрана фильтров с слайдером расстояни и кнопкой "Применить"
@@ -35,7 +36,7 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
                 children: [
                   Text(
                     filtersSliderTitle,
-                    style: filtersDistanceTitleStyle,
+                    style: letteringSimplePrimaryColorStyle,
                   ),
                   Text(
                     sprintf(
@@ -43,7 +44,9 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
                       [(_rangeValues.start * distanceValueUp).round(), (_rangeValues.end * distanceValueUp).round()],
                     ),
                     textAlign: TextAlign.right,
-                    style: filtersDistanceValueStyle,
+                    style: context.watch<CurrentTheme>().isDark
+                        ? darkFiltersDistanceValueStyle
+                        : lightFiltersDistanceValueStyle,
                   ),
                 ],
               ),
@@ -51,9 +54,10 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
             SizedBox(height: 16),
             SliderTheme(
               data: SliderThemeData(
-                thumbColor: Colors.white,
+                thumbColor: bigGreenButtonLabelColor,
                 activeTrackColor: bigGreenButtonColor,
-                inactiveTrackColor: currentThemeIsDark ? darkElementSecondaryColor : lightDarkerBackgroundColor,
+                inactiveTrackColor:
+                    context.watch<CurrentTheme>().isDark ? darkElementSecondaryColor : lightDarkerBackgroundColor,
                 trackHeight: 2,
               ),
               child: RangeSlider(
@@ -87,7 +91,7 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  sprintf(applyFilters, [190]),
+                  sprintf(buttonLabelShow, [190]),
                   style: bigGreenButtonTextStyle,
                 ),
               ),

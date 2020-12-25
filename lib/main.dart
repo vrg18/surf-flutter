@@ -9,6 +9,9 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
+import 'package:provider/provider.dart';
+
+import 'domain/current_theme.dart';
 
 var searchRadius = SearchRadius(distanceValueFrom, distanceValueUp);
 var selectedCategories = List<Category>.from(categories);
@@ -18,7 +21,10 @@ main() => runApp(
         enabled: isWeb(),
         defaultDevice: Devices.android.samsungS20,
         isToolbarVisible: true,
-        builder: (context) => MyApp(),
+        builder: (context) => ChangeNotifierProvider<CurrentTheme>(
+          create: (context) => CurrentTheme(),
+          child: MyApp(),
+        ),
       ),
     );
 
@@ -39,13 +45,15 @@ bool isWeb() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      title: appTitle,
-      theme: currentThemeIsDark ? darkTheme : lightTheme,
-      home: MainScreenWithBottomBar(),
+    return Consumer<CurrentTheme>(
+      builder: (context, theme, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
+        title: appTitle,
+        theme: theme.isDark ? darkTheme : lightTheme,
+        home: MainScreenWithBottomBar(),
+      ),
     );
   }
 }
