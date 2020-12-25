@@ -68,6 +68,9 @@ class _SettingsState extends State<Settings> {
                       setState(() {
                         _isDarkTheme = value;
                         context.read<CurrentTheme>().isDark = value;
+                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                          statusBarIconBrightness: value ? Brightness.light : Brightness.dark,
+                        ));
                       });
                     },
                   ),

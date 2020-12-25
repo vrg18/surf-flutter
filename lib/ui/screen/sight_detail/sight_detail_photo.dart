@@ -35,21 +35,20 @@ class SightDetailPhoto extends StatelessWidget {
         Positioned(
           left: 15,
           top: 30,
-          child: Container(
+          child: SizedBox(
             width: 36,
             height: 36,
-            decoration: BoxDecoration(
-              color: isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-            ),
-            child: Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: () => print(toLeftPress),
-                child: Icon(
-                  Icons.chevron_left,
-                  color: isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-                  size: 28,
+              child: Material(
+                color: isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
+                child: InkWell(
+                  onTap: () => print(toLeftPress),
+                  child: Icon(
+                    Icons.chevron_left,
+                    color: isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+                    size: 28,
+                  ),
                 ),
               ),
             ),
