@@ -23,11 +23,9 @@ class SightCard extends StatelessWidget {
         color: isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          onTap: () => print(sightCardPress),
-          child: Column(children: [
+      child: Stack(
+        children: [
+          Column(children: [
             Expanded(
               flex: 3,
               child: Stack(
@@ -89,7 +87,12 @@ class SightCard extends StatelessWidget {
               ),
             ),
           ]),
-        ),
+          Positioned.fill(
+            child: MaterialButton(
+              onPressed: () => print(sightCardPress),
+            ),
+          ),
+        ],
       ),
     );
   }
