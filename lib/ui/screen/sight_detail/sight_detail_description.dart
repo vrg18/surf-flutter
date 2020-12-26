@@ -5,6 +5,8 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/buttons/big_green_button.dart';
+import 'package:places/ui/screen/buttons/simple_white_button.dart';
 import 'package:provider/provider.dart';
 
 /// Нижняя (правая) текстовая часть экрана детализации места
@@ -18,141 +20,116 @@ class SightDetailDescription extends StatelessWidget {
     var isDark = context.watch<CurrentTheme>().isDark;
 
     return Container(
-      padding: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
+      padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
       child: Column(
         children: [
           Expanded(
             flex: 2,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _sight.name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: sightDetailTitleStyle,
-              ),
-            ),
+            child: _rowTitle(),
           ),
           Expanded(
             flex: 1,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Row(children: [
-                Text(
-                  _sight.category.toStringLowerCase(),
-                  style: isDark ? darkSightDetailCategoryStyle : lightSightDetailCategoryStyle,
-                ),
-                SizedBox(width: 15),
-                Text(
-                  letteringClosedUntil,
-                  style: lightFaintInscriptionStyle,
-                ),
-              ]),
-            ),
+            child: _rowCategory(isDark),
           ),
           Expanded(
             flex: 6,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _sight.details,
-                maxLines: 6,
-                overflow: TextOverflow.ellipsis,
-                style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
-              ),
-            ),
+            child: _rowDescription(isDark),
           ),
           Expanded(
             flex: 3,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: heightOfBigGreenButton),
-              child: RaisedButton(
-                onPressed: () => print(buildRoutePress),
-                color: bigGreenButtonColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.near_me_outlined,
-                      color: bigGreenButtonLabelColor,
-                      size: 30,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      buttonLabelBuildRoute,
-                      style: bigGreenButtonTextStyle,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: _rowBigGreenButton(),
           ),
           Expanded(
             flex: 1,
-            child: SizedBox.shrink(),
+            child: const SizedBox.shrink(),
           ),
           Expanded(
             flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 1,
-                    color: lightDarkerBackgroundColor,
-                  ),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () => print(toSchedulePress),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.today,
-                            color: isDark ? darkElementTertiaryColor : lightElementTertiaryColor,
-                            size: 24,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            buttonLabelToSchedule,
-                            style: lightFaintInscriptionStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () => print(toFavoritesPress),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.favorite_border,
-                            color: isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
-                            size: 28,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            buttonLabelToFavorites,
-                            style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: _rowToScheduleAndFavorite(isDark),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _rowTitle() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        _sight.name,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: sightDetailTitleStyle,
+      ),
+    );
+  }
+
+  Widget _rowCategory(bool isDark) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Row(children: [
+        Text(
+          _sight.category.toStringLowerCase(),
+          style: isDark ? darkSightDetailCategoryStyle : lightSightDetailCategoryStyle,
+        ),
+        const SizedBox(width: 15),
+        Text(
+          letteringClosedUntil,
+          style: lightFaintInscriptionStyle,
+        ),
+      ]),
+    );
+  }
+
+  Widget _rowDescription(bool isDark) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        _sight.details,
+        maxLines: 6,
+        overflow: TextOverflow.ellipsis,
+        style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
+      ),
+    );
+  }
+
+  Widget _rowBigGreenButton() {
+    return Center(
+      child: BigGreenButton(
+        label: buttonLabelBuildRoute,
+        iconData: Icons.near_me_outlined,
+        textToConsole: buildRoutePress,
+      ),
+    );
+  }
+
+  Widget _rowToScheduleAndFavorite(bool isDark) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            width: 1,
+            color: lightDarkerBackgroundColor,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          SimpleWhiteButton(
+            label: buttonLabelToSchedule,
+            isActive: false,
+            isDark: isDark,
+            iconData: Icons.today,
+            textToConsole: toSchedulePress,
+          ),
+          SimpleWhiteButton(
+            label: buttonLabelToFavorites,
+            isActive: true,
+            isDark: isDark,
+            iconData: Icons.favorite_border,
+            textToConsole: toFavoritesPress,
+          ),
+       ],
       ),
     );
   }

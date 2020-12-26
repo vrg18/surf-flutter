@@ -49,10 +49,10 @@ class _SightListState extends State<SightList> {
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
-        bottom: SizedBox.shrink(),
+        bottom: const SizedBox.shrink(),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: basicBorderSize),
+        padding: const EdgeInsets.symmetric(horizontal: basicBorderSize),
         child: GridView.extent(
           maxCrossAxisExtent: wideScreenSizeOver,
           crossAxisSpacing: basicBorderSize,

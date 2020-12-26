@@ -39,10 +39,10 @@ class _SettingsState extends State<Settings> {
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
-        bottom: SizedBox.shrink(),
+        bottom: const SizedBox.shrink(),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: basicBorderSize),
+        margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
         child: Column(
           children: [
             Container(

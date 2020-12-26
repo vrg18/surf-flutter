@@ -19,6 +19,13 @@ const String headerSettings = 'Настройки';
 const String letteringDarkTheme = 'Тёмная тема';
 const String letteringViewTutorial = 'Смотреть туториал';
 
+// Всплывающие подсказки BottomNavigationBar
+const String tooltipList = 'Список',
+    tooltipFilters = 'Фильтры',
+    tooltipFavorites = 'Любимые',
+    tooltipDetail = 'Подробно',
+    tooltipSettings = 'Настройки';
+
 // Сообщения в консоль при нажатии кнопок. Временно
 const String toFavoritesPress = 'Нажата кнопка "В Избранное"',
     toSchedulePress = 'Нажата кнопка "Запланировать"',

@@ -47,7 +47,7 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
+            margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
             width: double.infinity,
             child: Text(
               letteringCategories,
@@ -55,7 +55,7 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 40, right: 40, top: 10),
+            margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
             height: 260,
             child: GridView.extent(
               shrinkWrap: true,

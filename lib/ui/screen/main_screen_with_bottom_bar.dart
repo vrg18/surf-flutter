@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/screen/favorites/favorites.dart';
+import 'package:places/ui/res/strings.dart';
+import 'package:places/ui/screen/favorites.dart';
 import 'package:places/ui/screen/filters/filters.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
@@ -46,7 +47,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             activeIcon: Icon(
               Icons.ballot,
             ),
-            label: '',
+            label: tooltipList,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -55,7 +56,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             activeIcon: Icon(
               Icons.filter_alt,
             ),
-            label: '',
+            label: tooltipFilters,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -64,7 +65,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             activeIcon: Icon(
               Icons.favorite,
             ),
-            label: '',
+            label: tooltipFavorites,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -73,7 +74,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             activeIcon: Icon(
               Icons.perm_media_rounded,
             ),
-            label: '',
+            label: tooltipDetail,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -82,7 +83,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
             activeIcon: Icon(
               Icons.settings,
             ),
-            label: '',
+            label: tooltipSettings,
           ),
         ],
       ),

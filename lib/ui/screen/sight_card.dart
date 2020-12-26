@@ -54,29 +54,13 @@ class SightCard extends StatelessWidget {
                       style: sightCardCategoryStyle,
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: InkWell(
-                      onTap: () => print(toFavoritesOnPhotoPress),
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
             Expanded(
               flex: 1,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   _sight.name,
@@ -90,6 +74,20 @@ class SightCard extends StatelessWidget {
           Positioned.fill(
             child: MaterialButton(
               onPressed: () => print(sightCardPress),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: MaterialButton(
+              onPressed: () => print(toFavoritesOnPhotoPress),
+              minWidth: 50,
+              height: 50,
+              child: Icon(
+                Icons.favorite_border,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ),
         ],

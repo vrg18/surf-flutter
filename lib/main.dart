@@ -19,7 +19,8 @@ var selectedCategories = List<Category>.from(categories);
 main() => runApp(
       DevicePreview(
         enabled: isWeb(),
-        defaultDevice: Devices.android.samsungS20,
+        devices: [Devices.android.samsungS20, Devices.android.samsungNote10Plus],
+        defaultDevice: Devices.android.samsungNote10Plus,
         isToolbarVisible: true,
         builder: (context) => ChangeNotifierProvider<CurrentTheme>(
           create: (context) => CurrentTheme(),

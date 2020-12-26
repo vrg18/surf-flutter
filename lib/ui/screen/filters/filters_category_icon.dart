@@ -30,28 +30,7 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
         children: [
           Stack(
             children: [
-              RawMaterialButton(
-                fillColor: context.watch<CurrentTheme>().isDark
-                    ? darkCategoryIconsBackgroundColor
-                    : lightCategoryIconsBackgroundColor,
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(16),
-                elevation: 0,
-                onPressed: () => setState(() {
-                  if (_selectedCategory) {
-                    _selectedCategory = false;
-                    selectedCategories.remove(_category);
-                  } else {
-                    _selectedCategory = true;
-                    selectedCategories.add(_category);
-                  }
-                }),
-                child: Icon(
-                  widget._category.icon,
-                  color: bigGreenButtonColor,
-                  size: 32,
-                ),
-              ),
+              _roundButton(context),
               _selectedCategory
                   ? Positioned(
                       right: 8,
@@ -63,7 +42,7 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
                         size: 20,
                       ),
                     )
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
             ],
           ),
           SizedBox(height: 10),
@@ -77,5 +56,30 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
         ],
       ),
     );
+  }
+
+  RawMaterialButton _roundButton(BuildContext context) {
+    return RawMaterialButton(
+              fillColor: context.watch<CurrentTheme>().isDark
+                  ? darkCategoryIconsBackgroundColor
+                  : lightCategoryIconsBackgroundColor,
+              shape: CircleBorder(),
+              padding: const EdgeInsets.all(16),
+              elevation: 0,
+              onPressed: () => setState(() {
+                if (_selectedCategory) {
+                  _selectedCategory = false;
+                  selectedCategories.remove(_category);
+                } else {
+                  _selectedCategory = true;
+                  selectedCategories.add(_category);
+                }
+              }),
+              child: Icon(
+                widget._category.icon,
+                color: bigGreenButtonColor,
+                size: 32,
+              ),
+            );
   }
 }

@@ -6,6 +6,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/buttons/big_green_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -28,9 +29,9 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
       children: [
         Column(
           children: [
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: basicBorderSize),
+              margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -51,7 +52,7 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             SliderTheme(
               data: SliderThemeData(
                 thumbColor: bigGreenButtonLabelColor,
@@ -80,23 +81,13 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
         Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: basicBorderSize),
-              height: heightOfBigGreenButton,
-              width: double.infinity,
-              child: RaisedButton(
-                onPressed: () => print(applyFiltersPress),
-                color: bigGreenButtonColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  sprintf(buttonLabelShow, [190]),
-                  style: bigGreenButtonTextStyle,
-                ),
+              margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
+              child: BigGreenButton(
+                label: sprintf(buttonLabelShow, [190]),
+                textToConsole: applyFiltersPress,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ],
