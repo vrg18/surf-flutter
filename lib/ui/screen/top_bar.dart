@@ -22,7 +22,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       top: true,
       child: Column(children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           alignment: Alignment.center,
           height: titleHeight,
           child: title,

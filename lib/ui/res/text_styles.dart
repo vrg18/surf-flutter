@@ -1,73 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/res/themes.dart';
 
 /// Определения стилей текстов, применяемых в приложении
 
 // Основной цвет текста
-const TextStyle lmMainColorTextStyle = TextStyle(color: lmElementPrimaryColor);
-const TextStyle dmMainColorTextStyle = TextStyle(color: dmElementPrimaryColor);
+const TextStyle lightMainColorTextStyle = TextStyle(color: lightElementPrimaryColor);
+const TextStyle darkMainColorTextStyle = TextStyle(color: darkElementPrimaryColor);
 
 // Стиль текста заголовков экранов
-final TextStyle screenTitleStyle = TextStyle(
+const TextStyle screenTitleStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,
 );
 
 // Стиль текста подписи карточки на главном экране
-final TextStyle sightCardTitleStyle = TextStyle(
+const TextStyle sightCardTitleStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста категории на фото карточки на главном экране
-final TextStyle sightCardCategoryStyle = TextStyle(
-  color: lmMainBackgroundColor,
+const TextStyle sightCardCategoryStyle = TextStyle(
+  color: lightMainBackgroundColor,
   fontSize: 16,
 );
 
 // Стиль текста подписи карточки на экране детализации
-final TextStyle sightDetailTitleStyle = TextStyle(
+const TextStyle sightDetailTitleStyle = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста категории карточки на экране детализации
-final TextStyle sightDetailCategoryStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementSecondaryColor : lmElementSecondaryColor,
+const TextStyle lightSightDetailCategoryStyle = TextStyle(
+  color: lightElementSecondaryColor,
+  fontSize: 14,
+  fontWeight: FontWeight.w700,
+);
+const TextStyle darkSightDetailCategoryStyle = TextStyle(
+  color: darkElementSecondaryColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
-// Стиль текста часов работы
-final TextStyle lowSelectionStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementTertiaryColor : lmElementTertiaryColor,
+// Стиль текста часов работы и прочих неярких надписей
+const TextStyle lightFaintInscriptionStyle = TextStyle(
+  color: lightElementTertiaryColor,
+  fontSize: 14,
+);
+const TextStyle darkFaintInscriptionStyle = TextStyle(
+  color: darkElementSecondaryColor,
   fontSize: 14,
 );
 
 // Стиль текста невыбранной кнопки слайдера
-final TextStyle lowSelection700Style = TextStyle(
-  color: lmElementTertiaryColor,
+const TextStyle lowSelection700Style = TextStyle(
+  color: lightElementTertiaryColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста описания на экране детализации
-final TextStyle sightDetailStyle = TextStyle(
-  color: currentThemeIsDark ? dmElementPrimaryColor : lmElementSecondaryColor,
+const TextStyle lightSightDetailStyle = TextStyle(
+  color: lightElementSecondaryColor,
+  fontSize: 14,
+);
+const TextStyle darkSightDetailStyle = TextStyle(
+  color: darkElementPrimaryColor,
   fontSize: 14,
 );
 
-// Стиль текста категории на фото карточки на главном экране
-final TextStyle sightDetailBuildRouteStyle = TextStyle(
-  color: lmMainBackgroundColor,
+// Стиль текста большой зеленой кнопки
+const TextStyle bigGreenButtonTextStyle = TextStyle(
+  color: bigGreenButtonLabelColor,
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
 
 // Стиль текста выбранной вкладки на экране избранное
-final TextStyle selectTabFavoritesScreenStyle = TextStyle(
-  color: currentThemeIsDark ? dmDarkerBackgroundColor : lmMainBackgroundColor,
+const TextStyle lightSelectTabFavoritesScreenStyle = TextStyle(
+  color: lightMainBackgroundColor,
   fontSize: 14,
   fontWeight: FontWeight.w700,
+);
+const TextStyle darkSelectTabFavoritesScreenStyle = TextStyle(
+  color: darkDarkerBackgroundColor,
+  fontSize: 14,
+  fontWeight: FontWeight.w700,
+);
+
+// Стиль надписи слайдера "Расстояние" и надписей экрана настроек
+const TextStyle letteringSimplePrimaryColorStyle = TextStyle(
+  fontSize: 16,
+);
+
+// Стиль текущих значений слайдера "Расстояние"
+const TextStyle lightFiltersDistanceValueStyle = TextStyle(
+  color: lightElementTertiaryColor,
+  fontSize: 16,
+);
+const TextStyle darkFiltersDistanceValueStyle = TextStyle(
+  color: darkElementSecondaryColor,
+  fontSize: 16,
+);
+
+// Стиль текста кнопки "Очистить фильтры"
+const TextStyle clearFiltersButtonTextStyle = TextStyle(
+  color: bigGreenButtonColor,
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+);
+
+// Стиль текста подписи иконки категории
+const TextStyle lightCategoryIconLabelTextStyle = TextStyle(
+  color: lightElementSecondaryColor,
+  fontSize: 12,
+);
+const TextStyle darkCategoryIconLabelTextStyle = TextStyle(
+  color: darkElementPrimaryColor,
+  fontSize: 12,
 );

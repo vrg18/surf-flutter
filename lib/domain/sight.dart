@@ -1,18 +1,17 @@
 import 'package:places/domain/category.dart';
+import 'package:places/domain/point.dart';
 
 /// Основной класс места (достопримечательности)
 class Sight {
   final String name;
-  final double lat;
-  final double lon;
+  final Point point;
   final String url;
   final String details;
   final Category category;
 
   Sight(
     this.name,
-    this.lat,
-    this.lon,
+    this.point,
     this.url,
     this.details,
     this.category,

@@ -2,21 +2,30 @@ import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:places/domain/category.dart';
+import 'package:places/domain/search_radius.dart';
+import 'package:places/mocks.dart';
+import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
-import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
 import 'package:places/ui/res/themes.dart';
-import 'package:places/ui/screen/sight_detail/sight_detail.dart';
-import 'package:places/ui/screen/sight_list.dart';
-import 'package:places/ui/screen/favorites/favorites.dart';
+import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
+import 'package:provider/provider.dart';
 
-import 'mocks.dart';
+import 'domain/current_theme.dart';
+
+var searchRadius = SearchRadius(distanceValueFrom, distanceValueUp);
+var selectedCategories = List<Category>.from(categories);
 
 main() => runApp(
       DevicePreview(
         enabled: isWeb(),
-        defaultDevice: Devices.android.samsungS20,
+        devices: [Devices.android.samsungS20, Devices.android.samsungNote10Plus],
+        defaultDevice: Devices.android.samsungNote10Plus,
         isToolbarVisible: true,
-        builder: (context) => MyApp(),
+        builder: (context) => ChangeNotifierProvider<CurrentTheme>(
+          create: (context) => CurrentTheme(),
+          child: MyApp(),
+        ),
       ),
     );
 
@@ -37,16 +46,15 @@ bool isWeb() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      title: appTitle,
-      theme: currentThemeIsDark ? darkTheme : lightTheme,
-//      home: SightList(),
-//      home: SightDetail(mocks[0]),
-//      home: Favorites(),
-      home: MainScreenWithBottomBar(),
+    return Consumer<CurrentTheme>(
+      builder: (context, theme, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
+        title: appTitle,
+        theme: theme.isDark ? darkTheme : lightTheme,
+        home: MainScreenWithBottomBar(),
+      ),
     );
   }
 }
