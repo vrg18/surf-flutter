@@ -15,13 +15,13 @@ class SightDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = context.watch<CurrentTheme>().isDark;
+    var _isDark = context.watch<CurrentTheme>().isDark;
 
     return OrientationBuilder(builder: (context, orientation) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness: orientation == Orientation.portrait || isDark ? Brightness.light : Brightness.dark,
+          statusBarIconBrightness: orientation == Orientation.portrait || _isDark ? Brightness.light : Brightness.dark,
         ),
       );
       return Scaffold(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/search_radius.dart';
-import 'package:places/main.dart';
+import 'package:places/domain/nearby_sights.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
@@ -17,65 +16,24 @@ class FiltersSliderAndButton extends StatefulWidget {
 }
 
 class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
-  RangeValues _rangeValues = RangeValues(
-    1 / distanceValueUp * searchRadius.start,
-    1 / distanceValueUp * searchRadius.end,
-  );
+  late RangeValues _rangeValues;
 
   @override
   Widget build(BuildContext context) {
+    _rangeValues = RangeValues(
+      1 / distanceValueUp * context.watch<NearbySights>().startOfSearchRadius,
+      1 / distanceValueUp * context.watch<NearbySights>().endOfSearchRadius,
+    );
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           children: [
             const SizedBox(height: 32),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    filtersSliderTitle,
-                    style: letteringSimplePrimaryColorStyle,
-                  ),
-                  Text(
-                    sprintf(
-                      filtersSliderValue,
-                      [(_rangeValues.start * distanceValueUp).round(), (_rangeValues.end * distanceValueUp).round()],
-                    ),
-                    textAlign: TextAlign.right,
-                    style: context.watch<CurrentTheme>().isDark
-                        ? darkFiltersDistanceValueStyle
-                        : lightFiltersDistanceValueStyle,
-                  ),
-                ],
-              ),
-            ),
+            _sliderTitle(context),
             const SizedBox(height: 16),
-            SliderTheme(
-              data: SliderThemeData(
-                thumbColor: bigGreenButtonLabelColor,
-                activeTrackColor: bigGreenButtonColor,
-                inactiveTrackColor:
-                    context.watch<CurrentTheme>().isDark ? darkElementSecondaryColor : lightDarkerBackgroundColor,
-                trackHeight: 2,
-              ),
-              child: RangeSlider(
-                min: 1 / distanceValueUp * distanceValueFrom,
-                max: 1,
-                values: _rangeValues,
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _rangeValues = values;
-                    searchRadius = SearchRadius(
-                      (_rangeValues.start * distanceValueUp).round(),
-                      (_rangeValues.end * distanceValueUp).round(),
-                    );
-                  });
-                },
-              ),
-            )
+            _sliderItself(context)
           ],
         ),
         Column(
@@ -83,7 +41,8 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
               child: BigGreenButton(
-                label: sprintf(buttonLabelShow, [190]),
+                label: sprintf(buttonLabelShow, [context.watch<NearbySights>().listOfNearbySights.length]),
+                isActive: context.watch<NearbySights>().listOfNearbySights.length == 0 ? false : true,
                 textToConsole: applyFiltersPress,
               ),
             ),
@@ -91,6 +50,55 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
           ],
         ),
       ],
+    );
+  }
+
+  Container _sliderTitle(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            filtersSliderTitle,
+            style: letteringSimplePrimaryColorStyle,
+          ),
+          Text(
+            sprintf(
+              filtersSliderValue,
+              [(_rangeValues.start * distanceValueUp).round(), (_rangeValues.end * distanceValueUp).round()],
+            ),
+            textAlign: TextAlign.right,
+            style:
+                context.watch<CurrentTheme>().isDark ? darkFiltersDistanceValueStyle : lightFiltersDistanceValueStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  SliderTheme _sliderItself(BuildContext context) {
+    return SliderTheme(
+      data: SliderThemeData(
+        thumbColor: bigGreenButtonLabelColor,
+        activeTrackColor: bigGreenButtonColor,
+        inactiveTrackColor:
+            context.watch<CurrentTheme>().isDark ? darkElementSecondaryColor : lightDarkerBackgroundColor,
+        trackHeight: 2,
+      ),
+      child: RangeSlider(
+        min: 1 / distanceValueUp * distanceValueFrom,
+        max: 1,
+        values: _rangeValues,
+        onChanged: (RangeValues values) {
+          setState(() {
+            _rangeValues = values;
+            context.read<NearbySights>().startOfSearchRadius = (_rangeValues.start * distanceValueUp).round();
+            context.read<NearbySights>().endOfSearchRadius = (_rangeValues.end * distanceValueUp).round();
+            context.read<NearbySights>().fillListOfNearbySights();
+          });
+        },
+      ),
     );
   }
 }

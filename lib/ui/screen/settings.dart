@@ -45,69 +45,64 @@ class _SettingsState extends State<Settings> {
         margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
         child: Column(
           children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 1,
-                    color: _isDarkTheme ? darkElementTertiaryColor : lightDarkerBackgroundColor,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    letteringDarkTheme,
-                    style: letteringSimplePrimaryColorStyle,
-                  ),
-                  CupertinoSwitch(
-                    value: _isDarkTheme,
-                    onChanged: (value) {
-                      setState(() {
-                        _isDarkTheme = value;
-                        context.read<CurrentTheme>().isDark = value;
-                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                          statusBarIconBrightness: value ? Brightness.light : Brightness.dark,
-                        ));
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 1,
-                    color: _isDarkTheme ? darkElementTertiaryColor : lightDarkerBackgroundColor,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    letteringViewTutorial,
-                    style: letteringSimplePrimaryColorStyle,
-                  ),
-                  FlatButton(
-                    onPressed: () => print(viewTutorialPress),
-                    minWidth: 20,
-                    child: Icon(
-                      Icons.info_outline,
-                      size: 28,
-                      color: bigGreenButtonColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _oneSetting(letteringDarkTheme, _switcherDarkTheme(context)),
+            _oneSetting(letteringViewTutorial, _buttonViewTutorial()),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _oneSetting(String text, Widget controlElement) {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: _isDarkTheme ? darkElementTertiaryColor : lightDarkerBackgroundColor,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: letteringSimplePrimaryColorStyle,
+          ),
+          controlElement,
+        ],
+      ),
+    );
+  }
+
+  Widget _switcherDarkTheme(BuildContext context) {
+    return CupertinoSwitch(
+      value: _isDarkTheme,
+      onChanged: (value) {
+        setState(() {
+          _isDarkTheme = value;
+          context.read<CurrentTheme>().isDark = value;
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarIconBrightness: value ? Brightness.light : Brightness.dark,
+          ));
+        });
+      },
+    );
+  }
+
+  Widget _buttonViewTutorial() {
+    return FlatButton(
+      onPressed: () => print(viewTutorialPress),
+      minWidth: 20,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Icon(
+        Icons.info_outline,
+        size: 28,
+        color: bigGreenButtonColor,
       ),
     );
   }

@@ -4,15 +4,15 @@ import 'package:places/ui/res/text_styles.dart';
 
 class SimpleWhiteButton extends StatelessWidget {
   final String label;
-  final bool isActive;
   final bool isDark;
+  final bool isActive;
   final IconData? iconData;
   final String? textToConsole;
 
   SimpleWhiteButton({
     required this.label,
-    required this.isActive,
     required this.isDark,
+    this.isActive = true,
     this.iconData,
     this.textToConsole,
   });
@@ -22,6 +22,9 @@ class SimpleWhiteButton extends StatelessWidget {
     return Expanded(
       child: FlatButton(
         onPressed: () => {if (textToConsole != null) print(textToConsole)},
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

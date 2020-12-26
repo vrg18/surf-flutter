@@ -12,7 +12,7 @@ class SightDetailPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = context.watch<CurrentTheme>().isDark;
+    var _isDark = context.watch<CurrentTheme>().isDark;
 
     return Stack(
       children: [
@@ -41,12 +41,12 @@ class SightDetailPhoto extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Material(
-                color: isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
+                color: _isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
                 child: InkWell(
                   onTap: () => print(toLeftPress),
                   child: Icon(
                     Icons.chevron_left,
-                    color: isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+                    color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
                     size: 28,
                   ),
                 ),

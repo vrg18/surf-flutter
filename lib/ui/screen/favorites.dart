@@ -44,7 +44,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     return Scaffold(
       appBar: TopBar(
         titleHeight: appBarTitleHeight,
-        bottomHeight: sliderHeightOnScreenFavorites + basicBorderSize,
+        bottomHeight: heightSwitchOnScreenFavorites + basicBorderSize,
         title: Text(
           headerFavorites,
           style: screenTitleStyle,
@@ -68,33 +68,19 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   Container _customSwitch() {
     return Container(
       margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, bottom: basicBorderSize),
-      height: sliderHeightOnScreenFavorites,
+      height: heightSwitchOnScreenFavorites,
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
+            borderRadius: BorderRadius.circular(heightSwitchOnScreenFavorites / 2),
             child: Material(
               color: context.watch<CurrentTheme>().isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
               child: InkWell(
                 onTap: () => _tabController.index = 1 - _tabController.index,
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          switchLabelWantToVisit,
-                          style: lowSelection700Style,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          switchLabelVisited,
-                          style: lowSelection700Style,
-                        ),
-                      ),
-                    ),
+                    _halfSwitchBase(switchLabelWantToVisit),
+                    _halfSwitchBase(switchLabelVisited),
                   ],
                 ),
               ),
@@ -103,12 +89,12 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
           Row(
             children: _tabController.index == 0
                 ? [
-                    Expanded(child: _activatedPartOfSwitch()),
+                    _activatedPartOfSwitch(),
                     Expanded(child: const SizedBox.shrink()),
                   ]
                 : [
                     Expanded(child: const SizedBox.shrink()),
-                    Expanded(child: _activatedPartOfSwitch()),
+                    _activatedPartOfSwitch(),
                   ],
           ),
         ],
@@ -116,25 +102,36 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
-  Widget _activatedPartOfSwitch() {
-    return Container(
-//      width: 150,
-//      height: sliderHeightOnScreenFavorites,
-      decoration: BoxDecoration(
-        color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
-        borderRadius: BorderRadius.circular(sliderHeightOnScreenFavorites / 2),
+  Widget _halfSwitchBase(String text) {
+    return Expanded(
+      child: Center(
+        child: Text(
+          text,
+          style: lowSelection700Style,
+        ),
       ),
-      child: GestureDetector(
-        onHorizontalDragUpdate: (details) => setState(() {
-          if (details.delta.dx > 0 && _tabController.index == 0) _tabController.index = 1; // свайп вправо
-          else if (details.delta.dx < 0 && _tabController.index == 1) _tabController.index = 0; // свайп влево
-        }),
-        child: Center(
-          child: Text(
-            _tabController.index == 0 ? switchLabelWantToVisit : switchLabelVisited,
-            style: context.watch<CurrentTheme>().isDark
-                ? darkSelectTabFavoritesScreenStyle
-                : lightSelectTabFavoritesScreenStyle,
+    );
+  }
+
+  Widget _activatedPartOfSwitch() {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
+          borderRadius: BorderRadius.circular(heightSwitchOnScreenFavorites / 2),
+        ),
+        child: GestureDetector(
+          onHorizontalDragUpdate: (details) => setState(() {
+            if (details.delta.dx > 0 && _tabController.index == 0) _tabController.index = 1; // свайп вправо
+            else if (details.delta.dx < 0 && _tabController.index == 1) _tabController.index = 0; // свайп влево
+          }),
+          child: Center(
+            child: Text(
+              _tabController.index == 0 ? switchLabelWantToVisit : switchLabelVisited,
+              style: context.watch<CurrentTheme>().isDark
+                  ? darkSelectTabFavoritesScreenStyle
+                  : lightSelectTabFavoritesScreenStyle,
+            ),
           ),
         ),
       ),

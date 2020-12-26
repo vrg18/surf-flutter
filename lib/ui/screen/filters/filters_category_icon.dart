@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/category.dart';
 import 'package:places/domain/current_theme.dart';
-import 'package:places/main.dart';
+import 'package:places/domain/nearby_sights.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
 
   @override
   Widget build(BuildContext context) {
-    _selectedCategory = selectedCategories.contains(_category);
+    _selectedCategory = context.watch<NearbySights>().selectedCategories.contains(_category);
     return SizedBox(
       width: 80,
       child: Column(
@@ -58,28 +58,28 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
     );
   }
 
-  RawMaterialButton _roundButton(BuildContext context) {
+  Widget _roundButton(BuildContext context) {
     return RawMaterialButton(
-              fillColor: context.watch<CurrentTheme>().isDark
-                  ? darkCategoryIconsBackgroundColor
-                  : lightCategoryIconsBackgroundColor,
-              shape: CircleBorder(),
-              padding: const EdgeInsets.all(16),
-              elevation: 0,
-              onPressed: () => setState(() {
-                if (_selectedCategory) {
-                  _selectedCategory = false;
-                  selectedCategories.remove(_category);
-                } else {
-                  _selectedCategory = true;
-                  selectedCategories.add(_category);
-                }
-              }),
-              child: Icon(
-                widget._category.icon,
-                color: bigGreenButtonColor,
-                size: 32,
-              ),
-            );
+      fillColor:
+          context.watch<CurrentTheme>().isDark ? darkCategoryIconsBackgroundColor : lightCategoryIconsBackgroundColor,
+      shape: CircleBorder(),
+      padding: const EdgeInsets.all(16),
+      elevation: 0,
+      onPressed: () => setState(() {
+        if (_selectedCategory) {
+          _selectedCategory = false;
+          context.read<NearbySights>().selectedCategories.remove(_category);
+        } else {
+          _selectedCategory = true;
+          context.read<NearbySights>().selectedCategories.add(_category);
+        }
+        context.read<NearbySights>().fillListOfNearbySights();
+      }),
+      child: Icon(
+        widget._category.icon,
+        color: bigGreenButtonColor,
+        size: 32,
+      ),
+    );
   }
 }
