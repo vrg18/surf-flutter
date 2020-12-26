@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:places/domain/category.dart';
-import 'package:places/domain/search_radius.dart';
-import 'package:places/mocks.dart';
-import 'package:places/ui/res/sizes.dart';
+import 'package:places/domain/nearby_sights.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
@@ -13,17 +10,17 @@ import 'package:provider/provider.dart';
 
 import 'domain/current_theme.dart';
 
-var searchRadius = SearchRadius(distanceValueFrom, distanceValueUp);
-var selectedCategories = List<Category>.from(categories);
-
 main() => runApp(
       DevicePreview(
         enabled: isWeb(),
         devices: [Devices.android.samsungS20, Devices.android.samsungNote10Plus],
         defaultDevice: Devices.android.samsungNote10Plus,
         isToolbarVisible: true,
-        builder: (context) => ChangeNotifierProvider<CurrentTheme>(
-          create: (context) => CurrentTheme(),
+        builder: (context) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider<CurrentTheme>(create: (context) => CurrentTheme()),
+            ChangeNotifierProvider<NearbySights>(create: (context) => NearbySights()),
+          ],
           child: MyApp(),
         ),
       ),

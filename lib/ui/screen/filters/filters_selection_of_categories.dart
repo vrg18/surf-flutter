@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/current_theme.dart';
-import 'package:places/main.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -21,31 +19,6 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
     return OrientationBuilder(builder: (context, orientation) {
       return Column(
         children: [
-          SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FlatButton(
-                onPressed: () => print(leaveFiltersPress),
-                minWidth: 20,
-                child: Icon(
-                  Icons.chevron_left,
-                  size: 28,
-                  color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => setState(() {
-                  selectedCategories.clear();
-                  print(clearFiltersPress);
-                }),
-                child: Text(
-                  letteringClear,
-                  style: clearFiltersButtonTextStyle,
-                ),
-              ),
-            ],
-          ),
           Container(
             margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
             width: double.infinity,
@@ -56,12 +29,12 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
           ),
           Container(
             margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
-            height: 260,
+            height: orientation == Orientation.portrait ? 320 : 180,
             child: GridView.extent(
               shrinkWrap: true,
               maxCrossAxisExtent: 80,
               crossAxisSpacing: 32,
-              mainAxisSpacing: 16,
+              mainAxisSpacing: orientation == Orientation.portrait ? 16 : 0,
               childAspectRatio: .8,
               children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
             ),

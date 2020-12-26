@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/domain/current_theme.dart';
+import 'package:places/domain/nearby_sights.dart';
 import 'package:places/domain/point.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/main.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -18,8 +20,6 @@ class SightList extends StatefulWidget {
 }
 
 class _SightListState extends State<SightList> {
-  List<SightCard> _listNearbySight = [];
-
   @override
   void initState() {
     super.initState();
@@ -27,15 +27,6 @@ class _SightListState extends State<SightList> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: context.read<CurrentTheme>().isDark ? Brightness.light : Brightness.dark,
     ));
-
-    _listNearbySight.clear();
-    mocks.forEach((sight) {
-      if (!arePointsNear(sight.point, currentPoint, searchRadius.start) &&
-          arePointsNear(sight.point, currentPoint, searchRadius.end) &&
-          selectedCategories.contains(sight.category)) {
-        _listNearbySight.add(SightCard(sight));
-      }
-    });
   }
 
   @override
@@ -58,7 +49,7 @@ class _SightListState extends State<SightList> {
           crossAxisSpacing: basicBorderSize,
           mainAxisSpacing: basicBorderSize,
           childAspectRatio: 1.5,
-          children: _listNearbySight,
+          children: context.watch<NearbySights>().listOfNearbySights,
         ),
       ),
     );

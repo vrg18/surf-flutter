@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final double titleHeight;
   final double bottomHeight;
-  final Text title;
+  final Widget title;
   final Widget bottom;
 
   const TopBar({

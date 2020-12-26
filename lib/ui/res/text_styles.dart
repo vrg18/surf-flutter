@@ -31,7 +31,7 @@ const TextStyle sightDetailTitleStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// Стиль текста категории карточки на экране детализации
+// Стили текста категории карточки на экране детализации
 const TextStyle lightSightDetailCategoryStyle = TextStyle(
   color: lightElementSecondaryColor,
   fontSize: 14,
@@ -43,7 +43,7 @@ const TextStyle darkSightDetailCategoryStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// Стиль текста часов работы и прочих неярких надписей
+// Стили текста часов работы и прочих неярких надписей
 const TextStyle lightFaintInscriptionStyle = TextStyle(
   color: lightElementTertiaryColor,
   fontSize: 14,
@@ -60,7 +60,7 @@ const TextStyle lowSelection700Style = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// Стиль текста описания на экране детализации
+// Стили текста описания на экране детализации
 const TextStyle lightSightDetailStyle = TextStyle(
   color: lightElementSecondaryColor,
   fontSize: 14,
@@ -70,14 +70,19 @@ const TextStyle darkSightDetailStyle = TextStyle(
   fontSize: 14,
 );
 
-// Стиль текста большой зеленой кнопки
-const TextStyle bigGreenButtonTextStyle = TextStyle(
+// Стили текста большой зеленой кнопки в активном и пассивном состоянии
+const TextStyle activeBigGreenButtonTextStyle = TextStyle(
   color: bigGreenButtonLabelColor,
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
+const TextStyle passiveBigGreenButtonTextStyle = TextStyle(
+  color: lightElementTertiaryColor,
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
 
-// Стиль текста выбранной вкладки на экране избранное
+// Стили текста выбранной вкладки на экране избранное
 const TextStyle lightSelectTabFavoritesScreenStyle = TextStyle(
   color: lightMainBackgroundColor,
   fontSize: 14,
@@ -94,7 +99,7 @@ const TextStyle letteringSimplePrimaryColorStyle = TextStyle(
   fontSize: 16,
 );
 
-// Стиль текущих значений слайдера "Расстояние"
+// Стили текущих значений слайдера "Расстояние"
 const TextStyle lightFiltersDistanceValueStyle = TextStyle(
   color: lightElementTertiaryColor,
   fontSize: 16,
@@ -111,7 +116,7 @@ const TextStyle clearFiltersButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
-// Стиль текста подписи иконки категории
+// Стили текста подписи иконки категории
 const TextStyle lightCategoryIconLabelTextStyle = TextStyle(
   color: lightElementSecondaryColor,
   fontSize: 12,

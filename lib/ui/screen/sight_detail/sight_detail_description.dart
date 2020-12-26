@@ -17,7 +17,7 @@ class SightDetailDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = context.watch<CurrentTheme>().isDark;
+    var _isDark = context.watch<CurrentTheme>().isDark;
 
     return Container(
       padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
@@ -29,11 +29,11 @@ class SightDetailDescription extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: _rowCategory(isDark),
+            child: _rowCategory(_isDark),
           ),
           Expanded(
             flex: 6,
-            child: _rowDescription(isDark),
+            child: _rowDescription(_isDark),
           ),
           Expanded(
             flex: 3,
@@ -45,7 +45,7 @@ class SightDetailDescription extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: _rowToScheduleAndFavorite(isDark),
+            child: _rowToScheduleAndFavorite(_isDark),
           ),
         ],
       ),
@@ -117,19 +117,18 @@ class SightDetailDescription extends StatelessWidget {
         children: [
           SimpleWhiteButton(
             label: buttonLabelToSchedule,
-            isActive: false,
             isDark: isDark,
+            isActive: false,
             iconData: Icons.today,
             textToConsole: toSchedulePress,
           ),
           SimpleWhiteButton(
             label: buttonLabelToFavorites,
-            isActive: true,
             isDark: isDark,
             iconData: Icons.favorite_border,
             textToConsole: toFavoritesPress,
           ),
-       ],
+        ],
       ),
     );
   }
