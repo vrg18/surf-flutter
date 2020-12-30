@@ -3,39 +3,50 @@ import 'package:flutter/material.dart';
 /// Виджет кастомного верхнего бара, альтернатива AppBar
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final double titleHeight;
-  final double bottomHeight;
   final Widget title;
-  final Widget bottom;
+  final Widget? leftButton;
+  final Widget? rightButton;
+  final double? bottomHeight;
+  final Widget? bottom;
 
   const TopBar({
     Key? key,
     required this.titleHeight,
-    required this.bottomHeight,
     required this.title,
-    required this.bottom,
+    this.leftButton,
+    this.rightButton,
+    this.bottomHeight,
+    this.bottom,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      bottom: false,
       top: true,
+      bottom: false,
       child: Column(children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          alignment: Alignment.center,
+        SizedBox(
           height: titleHeight,
-          child: title,
+          child: Stack(
+            children: [
+              Center(
+                child: title,
+              ),
+              if (leftButton != null) Positioned(left: 0, child: SizedBox(height: titleHeight, child: leftButton!)),
+              if (rightButton != null) Positioned(right: 0, child: SizedBox(height: titleHeight, child: rightButton!)),
+            ],
+          ),
         ),
-        Container(
-          alignment: Alignment.center,
-          height: bottomHeight,
-          child: bottom,
-        ),
+        if (bottomHeight != null && bottom != null)
+          Container(
+            alignment: Alignment.center,
+            height: bottomHeight!,
+            child: bottom!,
+          ),
       ]),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(titleHeight + bottomHeight);
+  Size get preferredSize => Size.fromHeight(titleHeight + (bottomHeight != null ? bottomHeight! : 0));
 }

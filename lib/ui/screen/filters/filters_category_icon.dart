@@ -31,18 +31,16 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
           Stack(
             children: [
               _roundButton(context),
-              _selectedCategory
-                  ? Positioned(
-                      right: 8,
-                      bottom: 0,
-                      child: Icon(
-                        Icons.check_circle,
-                        color:
-                            context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-                        size: 20,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
+              if (_selectedCategory)
+                Positioned(
+                  right: 8,
+                  bottom: 0,
+                  child: Icon(
+                    Icons.check_circle,
+                    color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+                    size: 20,
+                  ),
+                ),
             ],
           ),
           SizedBox(height: 10),
@@ -58,6 +56,7 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
     );
   }
 
+  /// Виджет-кнопка категории
   Widget _roundButton(BuildContext context) {
     return RawMaterialButton(
       fillColor:

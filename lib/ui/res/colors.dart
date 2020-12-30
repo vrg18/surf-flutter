@@ -21,4 +21,10 @@ const Color darkElementPrimaryColor = Colors.white,
 
 // Общие цвета
 const Color bigGreenButtonColor = Colors.green,
-    bigGreenButtonLabelColor = Colors.white;
+    bigGreenButtonLabelColor = Colors.white,
+    newSightButtonLeftColor = Color(0xFFFCDD3D),
+    newSightButtonRightColor = Color(0xFF4CAF50);
+
+final Color translucent56TertiaryColor = lightElementTertiaryColor.withOpacity(0.56);
+final Color translucent40GreenColor = bigGreenButtonColor.withOpacity(0.4);
+

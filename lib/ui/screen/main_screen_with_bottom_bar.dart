@@ -7,6 +7,8 @@ import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:places/ui/screen/sight_list.dart';
 
+import 'add_sight.dart';
+
 /// Основной экран приложения с BottomNavigationBar
 class MainScreenWithBottomBar extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     SightList(),
+    AddSight(),
     Filters(),
     Favorites(),
     SightDetail(mocks[1]),
@@ -41,48 +44,33 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.ballot_outlined,
-            ),
-            activeIcon: Icon(
-              Icons.ballot,
-            ),
+            icon: Icon(Icons.ballot_outlined),
+            activeIcon: Icon(Icons.ballot),
             label: tooltipList,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.filter_alt_outlined,
-            ),
-            activeIcon: Icon(
-              Icons.filter_alt,
-            ),
+            icon: Icon(Icons.add_comment_outlined),
+            activeIcon: Icon(Icons.add_comment_rounded),
+            label: tooltipList,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_alt_outlined),
+            activeIcon: Icon(Icons.filter_alt),
             label: tooltipFilters,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite_border,
-            ),
-            activeIcon: Icon(
-              Icons.favorite,
-            ),
+            icon: Icon(Icons.favorite_border),
+            activeIcon: Icon(Icons.favorite),
             label: tooltipFavorites,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.perm_media_outlined,
-            ),
-            activeIcon: Icon(
-              Icons.perm_media_rounded,
-            ),
+            icon: Icon(Icons.mms_outlined),
+            activeIcon: Icon(Icons.mms_rounded),
             label: tooltipDetail,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_outlined,
-            ),
-            activeIcon: Icon(
-              Icons.settings,
-            ),
+            icon: Icon(Icons.settings_outlined),
+            activeIcon: Icon(Icons.settings),
             label: tooltipSettings,
           ),
         ],

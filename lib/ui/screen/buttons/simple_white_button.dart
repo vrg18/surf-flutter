@@ -2,50 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 
+/// Простая белая кнопка
 class SimpleWhiteButton extends StatelessWidget {
   final String label;
   final bool isDark;
   final bool isActive;
   final IconData? iconData;
-  final String? textToConsole;
+  final String? toConsole;
 
   SimpleWhiteButton({
     required this.label,
     required this.isDark,
     this.isActive = true,
     this.iconData,
-    this.textToConsole,
+    this.toConsole,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FlatButton(
-        onPressed: () => {if (textToConsole != null) print(textToConsole)},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            iconData != null
-                ? Icon(
-                    iconData,
-                    color: _buttonColor(),
-                    size: 24,
-                  )
-                : const SizedBox.shrink(),
-            iconData != null ? const SizedBox(width: 5) : const SizedBox.shrink(),
-            Text(
-              label,
-              style: _buttonTextStyle(),
+    return FlatButton(
+      onPressed: isActive ? () => {if (toConsole != null) print(toConsole)} : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (iconData != null)
+            Icon(
+              iconData,
+              color: _buttonColor(),
+              size: 24,
             ),
-          ],
-        ),
+          if (iconData != null) const SizedBox(width: 5),
+          Text(
+            label,
+            style: _buttonTextStyle(),
+          ),
+        ],
       ),
     );
   }
 
+  /// Цвет кнопки в зависимости от активности и темной/светлой тем
   Color _buttonColor() {
     if (isActive && !isDark)
       return lightElementSecondaryColor;
@@ -57,6 +56,7 @@ class SimpleWhiteButton extends StatelessWidget {
       return darkElementTertiaryColor;
   }
 
+  /// Стиль текста кнопки в зависимости от активности и темной/светлой тем
   TextStyle _buttonTextStyle() {
     if (!isActive)
       return lightFaintInscriptionStyle;

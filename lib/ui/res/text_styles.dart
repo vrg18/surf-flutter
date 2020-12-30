@@ -73,12 +73,12 @@ const TextStyle darkSightDetailStyle = TextStyle(
 // Стили текста большой зеленой кнопки в активном и пассивном состоянии
 const TextStyle activeBigGreenButtonTextStyle = TextStyle(
   color: bigGreenButtonLabelColor,
-  fontSize: 18,
+  fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 const TextStyle passiveBigGreenButtonTextStyle = TextStyle(
   color: lightElementTertiaryColor,
-  fontSize: 18,
+  fontSize: 14,
   fontWeight: FontWeight.w700,
 );
 
@@ -99,17 +99,13 @@ const TextStyle letteringSimplePrimaryColorStyle = TextStyle(
   fontSize: 16,
 );
 
-// Стили текущих значений слайдера "Расстояние"
+// Стили текущих значений слайдера "Расстояние" и "Не выбрано" нового места
 const TextStyle lightFiltersDistanceValueStyle = TextStyle(
   color: lightElementTertiaryColor,
   fontSize: 16,
 );
-const TextStyle darkFiltersDistanceValueStyle = TextStyle(
-  color: darkElementSecondaryColor,
-  fontSize: 16,
-);
 
-// Стиль текста кнопки "Очистить фильтры"
+// Стиль текста кнопки "Очистить фильтры" и "Указать на карте"
 const TextStyle clearFiltersButtonTextStyle = TextStyle(
   color: bigGreenButtonColor,
   fontSize: 16,
@@ -124,4 +120,20 @@ const TextStyle lightCategoryIconLabelTextStyle = TextStyle(
 const TextStyle darkCategoryIconLabelTextStyle = TextStyle(
   color: darkElementPrimaryColor,
   fontSize: 12,
+);
+
+// Стиль текста названий секций и хинтов на экране "Новое место"
+final TextStyle addSightSectionLabelAndHintTextStyle = TextStyle(
+  color: translucent56TertiaryColor,
+  fontSize: 12,
+);
+
+// Стиль для текстовых полей ввода
+const TextStyle lightMainTextFieldStyle = TextStyle(
+  color: lightElementPrimaryColor,
+  fontSize: 16,
+);
+const TextStyle darkMainTextFieldStyle = TextStyle(
+  color: darkElementPrimaryColor,
+  fontSize: 16,
 );

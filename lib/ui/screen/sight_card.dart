@@ -43,7 +43,8 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  Expanded _topWithPhoto() {
+  /// Верхняя часть карточки с фото
+  Widget _topWithPhoto() {
     return Expanded(
       flex: 3,
       child: Stack(
@@ -77,7 +78,8 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  Expanded _photoCaption() {
+  /// Нижняя част карточки с наименованием места
+  Widget _photoCaption() {
     return Expanded(
       flex: 1,
       child: Container(
@@ -93,12 +95,13 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  Positioned _buttonAndIconToFavorites() {
+  /// Кнопка "В избранное"
+  Widget _buttonAndIconToFavorites() {
     return Positioned(
       right: 0,
       top: 0,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(cornerRadiusOfSightCard)),
+        borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
         child: MaterialButton(
           onPressed: () => print(toFavoritesOnPhotoPress),
           minWidth: 50,

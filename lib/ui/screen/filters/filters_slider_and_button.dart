@@ -5,7 +5,6 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/buttons/big_green_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -26,33 +25,16 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
     );
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          children: [
-            const SizedBox(height: 32),
-            _sliderTitle(context),
-            const SizedBox(height: 16),
-            _sliderItself(context)
-          ],
-        ),
-        Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
-              child: BigGreenButton(
-                label: sprintf(buttonLabelShow, [context.watch<NearbySights>().listOfNearbySights.length]),
-                isActive: context.watch<NearbySights>().listOfNearbySights.length == 0 ? false : true,
-                textToConsole: applyFiltersPress,
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
-        ),
+        const SizedBox(height: 32),
+        _sliderTitle(context),
+        const SizedBox(height: 16),
+        _sliderItself(context),
       ],
     );
   }
 
+  /// Заголовок слайдера
   Container _sliderTitle(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
@@ -69,14 +51,14 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
               [(_rangeValues.start * distanceValueUp).round(), (_rangeValues.end * distanceValueUp).round()],
             ),
             textAlign: TextAlign.right,
-            style:
-                context.watch<CurrentTheme>().isDark ? darkFiltersDistanceValueStyle : lightFiltersDistanceValueStyle,
+            style: lightFiltersDistanceValueStyle,
           ),
         ],
       ),
     );
   }
 
+  /// Сам слайдер
   SliderTheme _sliderItself(BuildContext context) {
     return SliderTheme(
       data: SliderThemeData(
