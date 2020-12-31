@@ -214,6 +214,16 @@ class _AddSightState extends State<AddSight> {
           contentPadding: const EdgeInsets.all(12),
           hintText: hint,
           hintStyle: addSightSectionLabelAndHintTextStyle,
+          suffixIcon: currentController.text.isEmpty
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    currentController.clear();
+                    _values[nameField] = '';
+                    _checkReadiness();
+                  },
+                  icon: Icon(Icons.cancel),
+                ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: translucent40GreenColor),
