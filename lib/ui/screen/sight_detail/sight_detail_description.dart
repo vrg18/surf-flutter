@@ -6,7 +6,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/big_green_button.dart';
-import 'package:places/ui/screen/buttons/simple_white_button.dart';
+import 'package:places/ui/screen/buttons/universal_white_button.dart';
 import 'package:provider/provider.dart';
 
 /// Нижняя (правая) текстовая часть экрана детализации места
@@ -120,14 +120,14 @@ class SightDetailDescription extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SimpleWhiteButton(
+          UniversalWhiteButton(
             label: buttonLabelToSchedule,
             isDark: isDark,
             isActive: false,
             iconData: Icons.today,
             toConsole: toSchedulePress,
           ),
-          SimpleWhiteButton(
+          UniversalWhiteButton(
             label: buttonLabelToFavorites,
             isDark: isDark,
             iconData: Icons.favorite_border,

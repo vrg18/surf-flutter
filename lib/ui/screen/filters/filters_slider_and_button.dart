@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/nearby_sights.dart';
+import 'package:places/domain/res/magnitudes.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';

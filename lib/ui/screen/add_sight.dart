@@ -12,8 +12,8 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/big_green_button.dart';
-import 'package:places/ui/screen/buttons/simple_white_button.dart';
-import 'package:places/ui/screen/top_bar.dart';
+import 'package:places/ui/screen/buttons/universal_white_button.dart';
+import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
 /// Экран добавления нового места
@@ -43,8 +43,22 @@ class _AddSightState extends State<AddSight> {
   late Orientation orientation;
 
   @override
+  void initState() {
+    super.initState();
+    _isDark = context.read<CurrentTheme>().isDark;
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _latController.dispose();
+    _lonController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _isDark = context.watch<CurrentTheme>().isDark;
     node = FocusScope.of(context);
 
     return OrientationBuilder(builder: (context, orientation) {
@@ -58,7 +72,11 @@ class _AddSightState extends State<AddSight> {
               style: screenTitleStyle,
               overflow: TextOverflow.ellipsis,
             ),
-            leftButton: SimpleWhiteButton(label: letteringCanceling, isDark: _isDark, toConsole: cancelingPress),
+            leftButton: UniversalWhiteButton(
+              iconData: Icons.chevron_left,
+              isDark: _isDark,
+              callback: () => Navigator.pop(context, false),
+            ),
           ),
           body: SingleChildScrollView(
             child: orientation == Orientation.portrait
@@ -86,7 +104,7 @@ class _AddSightState extends State<AddSight> {
                         Expanded(child: _getBigGreenButton()),
                       ],
                     ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
       });
     });
@@ -98,31 +116,28 @@ class _AddSightState extends State<AddSight> {
       children: [
         _addSightScreenSection(letteringCategory, _sectionCategory()),
         _addSightScreenSection(letteringName, _valueInputField('name', _nameController, null, _latNode)),
-        Row(children: [
-          Expanded(
-              child: _addSightScreenSection(
-                  letteringLatitude,
-                  _valueInputField('lat', _latController, _latNode, _lonNode,
-                      hint: textFieldHintLat, onlyNumbers: true))),
-          Expanded(
-              child: _addSightScreenSection(
-                  letteringLongitude,
-                  _valueInputField('lon', _lonController, _lonNode, _descriptionNode,
-                      hint: textFieldHintLon, onlyNumbers: true))),
-        ]),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: FlatButton(
-            onPressed: () => print(pointOnMapPress),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+        Row(
+          children: [
+            Expanded(
+                child: _addSightScreenSection(
+                    letteringLatitude,
+                    _valueInputField('lat', _latController, _latNode, _lonNode,
+                        hint: textFieldHintLat, onlyNumbers: true))),
+            Expanded(
+                child: _addSightScreenSection(
+                    letteringLongitude,
+                    _valueInputField('lon', _lonController, _lonNode, _descriptionNode,
+                        hint: textFieldHintLon, onlyNumbers: true))),
+          ],
+        ),
+        Row(
+          children: [
+            UniversalWhiteButton(
+              label: letteringPointOnMap,
+              textStyle: clearFiltersButtonTextStyle,
+              toConsole: pointOnMapPress,
             ),
-            focusNode: null,
-            child: Text(
-              letteringPointOnMap,
-              style: clearFiltersButtonTextStyle,
-            ),
-          ),
+          ],
         ),
       ],
     );
@@ -223,6 +238,7 @@ class _AddSightState extends State<AddSight> {
                     _checkReadiness();
                   },
                   icon: Icon(Icons.cancel),
+                  focusNode: FocusNode(skipTraversal: true),
                 ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),

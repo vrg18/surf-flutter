@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 /// Класс, хранящий текущую тему (темная/светлая)
 /// Используется Provider

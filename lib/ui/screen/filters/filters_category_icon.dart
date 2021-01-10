@@ -12,18 +12,15 @@ class FiltersCategoryIcon extends StatefulWidget {
   FiltersCategoryIcon(this._category);
 
   @override
-  _FiltersCategoryIconState createState() => _FiltersCategoryIconState(_category);
+  _FiltersCategoryIconState createState() => _FiltersCategoryIconState();
 }
 
 class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
-  late Category _category;
   late bool _selectedCategory;
-
-  _FiltersCategoryIconState(this._category);
 
   @override
   Widget build(BuildContext context) {
-    _selectedCategory = context.watch<NearbySights>().selectedCategories.contains(_category);
+    _selectedCategory = context.watch<NearbySights>().selectedCategories.contains(widget._category);
     return SizedBox(
       width: 80,
       child: Column(
@@ -67,10 +64,10 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
       onPressed: () => setState(() {
         if (_selectedCategory) {
           _selectedCategory = false;
-          context.read<NearbySights>().selectedCategories.remove(_category);
+          context.read<NearbySights>().selectedCategories.remove(widget._category);
         } else {
           _selectedCategory = true;
-          context.read<NearbySights>().selectedCategories.add(_category);
+          context.read<NearbySights>().selectedCategories.add(widget._category);
         }
         context.read<NearbySights>().fillListOfNearbySights();
       }),

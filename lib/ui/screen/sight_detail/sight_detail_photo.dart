@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
-import 'package:places/ui/res/strings.dart';
 import 'package:provider/provider.dart';
 
 /// Верхняя (левая) часть экрана детализации места с фотографией места
@@ -43,7 +42,7 @@ class SightDetailPhoto extends StatelessWidget {
               child: Material(
                 color: _isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
                 child: InkWell(
-                  onTap: () => print(toLeftPress),
+                  onTap: () => Navigator.pop(context),
                   child: Icon(
                     Icons.chevron_left,
                     color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,

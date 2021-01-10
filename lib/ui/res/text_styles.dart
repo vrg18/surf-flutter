@@ -19,6 +19,12 @@ const TextStyle sightCardTitleStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
+// Стиль текста подписи мини-карточки на экране поиска
+const TextStyle sightMiniCardTitleStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w500,
+);
+
 // Стиль текста категории на фото карточки на главном экране
 const TextStyle sightCardCategoryStyle = TextStyle(
   color: lightMainBackgroundColor,
@@ -109,7 +115,7 @@ const TextStyle lightFiltersDistanceValueStyle = TextStyle(
 const TextStyle clearFiltersButtonTextStyle = TextStyle(
   color: bigGreenButtonColor,
   fontSize: 16,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
 );
 
 // Стили текста подписи иконки категории
@@ -136,4 +142,17 @@ const TextStyle lightMainTextFieldStyle = TextStyle(
 const TextStyle darkMainTextFieldStyle = TextStyle(
   color: darkElementPrimaryColor,
   fontSize: 16,
+);
+
+// Стиль текста "Ничего не найдено"
+final TextStyle nothingFoundTextStyle = TextStyle(
+  color: translucent56TertiaryColor,
+  fontSize: 18,
+  fontWeight: FontWeight.w500,
+);
+
+// Стиль текста "Попробуйте изменить параметры поиска"
+final TextStyle tryChangingSearchTextStyle = TextStyle(
+  color: translucent56TertiaryColor,
+  fontSize: 14,
 );
