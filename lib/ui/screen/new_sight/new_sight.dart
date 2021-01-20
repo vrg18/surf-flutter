@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:places/domain/category.dart';
 import 'package:places/domain/current_theme.dart';
@@ -13,32 +12,21 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/big_green_button.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
+import 'package:places/ui/screen/new_sight/new_sight_field.dart';
 import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
 /// Экран добавления нового места
-class AddSight extends StatefulWidget {
+class NewSight extends StatefulWidget {
   @override
-  _AddSightState createState() => _AddSightState();
+  _NewSightState createState() => _NewSightState();
 }
 
-class _AddSightState extends State<AddSight> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _latController = TextEditingController();
-  final TextEditingController _lonController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-
-  final FocusNode _latNode = FocusNode();
-  final FocusNode _lonNode = FocusNode();
-  final FocusNode _descriptionNode = FocusNode();
-
-  final _numericInputOnly = FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,6}'));
+class _NewSightState extends State<NewSight> {
   Map _values = {};
+  Map _verified = {};
   Category? _category;
-  late double? _lat;
-  late double? _lon;
   bool _readiness = false;
-  late FocusScopeNode node;
   late bool _isDark;
   late Orientation orientation;
 
@@ -49,18 +37,7 @@ class _AddSightState extends State<AddSight> {
   }
 
   @override
-  void dispose() {
-    _nameController.dispose();
-    _latController.dispose();
-    _lonController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    node = FocusScope.of(context);
-
     return OrientationBuilder(builder: (context, orientation) {
       this.orientation = orientation;
       return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
@@ -115,19 +92,35 @@ class _AddSightState extends State<AddSight> {
     return Column(
       children: [
         _addSightScreenSection(letteringCategory, _sectionCategory()),
-        _addSightScreenSection(letteringName, _valueInputField('name', _nameController, null, _latNode)),
+        _addSightScreenSection(
+          letteringName,
+          NewSightField(
+            nameField: 'name',
+            callback: _saveStringAndCheckReadiness,
+          ),
+        ),
         Row(
           children: [
             Expanded(
-                child: _addSightScreenSection(
-                    letteringLatitude,
-                    _valueInputField('lat', _latController, _latNode, _lonNode,
-                        hint: textFieldHintLat, onlyNumbers: true))),
+              child: _addSightScreenSection(
+                letteringLatitude,
+                NewSightField(
+                  nameField: 'lat',
+                  callback: _saveStringAndCheckReadiness,
+                  numericRange: 90,
+                ),
+              ),
+            ),
             Expanded(
-                child: _addSightScreenSection(
-                    letteringLongitude,
-                    _valueInputField('lon', _lonController, _lonNode, _descriptionNode,
-                        hint: textFieldHintLon, onlyNumbers: true))),
+              child: _addSightScreenSection(
+                letteringLongitude,
+                NewSightField(
+                  nameField: 'lon',
+                  callback: _saveStringAndCheckReadiness,
+                  numericRange: 180,
+                ),
+              ),
+            ),
           ],
         ),
         Row(
@@ -135,6 +128,7 @@ class _AddSightState extends State<AddSight> {
             UniversalWhiteButton(
               label: letteringPointOnMap,
               textStyle: clearFiltersButtonTextStyle,
+              skipFocus: true,
               toConsole: pointOnMapPress,
             ),
           ],
@@ -146,9 +140,16 @@ class _AddSightState extends State<AddSight> {
   /// Метод возвращает нижнюю (правую) часть экрана добавления нового места
   Widget _bottomRightPartOfScreen() {
     return _addSightScreenSection(
-        letteringDescription,
-        _valueInputField('description', _descriptionController, _descriptionNode, null,
-            hint: textFieldHintEnterText, multiLine: true, lastField: true));
+      letteringDescription,
+      NewSightField(
+        nameField: 'description',
+        callback: _saveStringAndCheckReadiness,
+        hint: textFieldHintEnterText,
+        mandatoryFilling: false,
+        multiLine: true,
+        lastField: true,
+      ),
+    );
   }
 
   /// Метод возвращает одну секцию экрана добавления нового места
@@ -189,7 +190,7 @@ class _AddSightState extends State<AddSight> {
         ),
         onChanged: (value) {
           _category = value;
-          _checkReadiness();
+          _saveStringAndCheckReadiness('category', value, true);
         },
         items: categories
             .map((e) => DropdownMenuItem(
@@ -197,58 +198,6 @@ class _AddSightState extends State<AddSight> {
                   child: Text(e.name),
                 ))
             .toList(),
-      ),
-    );
-  }
-
-  /// Метод возвращает содержимое (поле ввода) остальных секции (кроме "Категория")
-  Widget _valueInputField(
-      String nameField, TextEditingController currentController, FocusNode? currentFocus, FocusNode? nextFocus,
-      {String hint = '', bool onlyNumbers = false, bool multiLine = false, bool lastField = false}) {
-    return SizedBox(
-      height: multiLine ? verticalScreenPitchAddSight * 2 : verticalScreenPitchAddSight,
-      child: TextField(
-        controller: currentController,
-        focusNode: currentFocus,
-        onChanged: (value) {
-          _values[nameField] = value;
-          _checkReadiness();
-        },
-        onEditingComplete: () => lastField ? node.unfocus() : node.requestFocus(nextFocus),
-        textInputAction: lastField ? TextInputAction.done : TextInputAction.next,
-        inputFormatters: [if (onlyNumbers) _numericInputOnly],
-        expands: multiLine,
-        textAlignVertical: TextAlignVertical.top,
-        style: _isDark ? darkMainTextFieldStyle : lightMainTextFieldStyle,
-        cursorColor: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-        keyboardType: onlyNumbers ? TextInputType.number : TextInputType.text,
-        maxLines: multiLine ? null : 1,
-        minLines: multiLine ? null : 1,
-        autofocus: true,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(12),
-          hintText: hint,
-          hintStyle: addSightSectionLabelAndHintTextStyle,
-          suffixIcon: currentController.text.isEmpty
-              ? null
-              : IconButton(
-                  onPressed: () {
-                    currentController.clear();
-                    _values[nameField] = '';
-                    _checkReadiness();
-                  },
-                  icon: Icon(Icons.cancel),
-                  focusNode: FocusNode(skipTraversal: true),
-                ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: translucent40GreenColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: translucent40GreenColor, width: 2),
-          ),
-        ),
       ),
     );
   }
@@ -266,43 +215,30 @@ class _AddSightState extends State<AddSight> {
     );
   }
 
-  /// Метод проверят введенные данные, и если Ок, активирует большую зеленую кнопку
-  void _checkReadiness() {
-    _readiness = false;
-    if (_category != null &&
-        _values.containsKey('name') &&
-        _values['name'] != null &&
-        _values['name'].trim() != '' &&
-        _values.containsKey('lat') &&
-        _values['lat'] != null &&
-        _values.containsKey('lon') &&
-        _values['lon'] != null) {
-      _lat = double.tryParse(_values['lat']);
-      _lon = double.tryParse(_values['lon']);
-      if (_lat != null && _lat! > -90 && _lat! < 90 && _lon != null && _lon! > -180 && _lon! < 180) _readiness = true;
+  /// Метод сохраняет введенную строку и проверят комплектность обязательных полей,
+  /// и если Ок, активирует большую зеленую кнопку
+  void _saveStringAndCheckReadiness<T>(String nameField, T value, bool verified) {
+    _values[nameField] = value;
+    _verified[nameField] = verified ? 1 : 0;
+    bool _readinessNew = _verified.values.reduce((sum, element) => sum + element) >= 4; // 4 - кол-во обязательных полей
+    if (_readiness != _readinessNew) {
+      _readiness = _readinessNew;
+      setState(() {});
     }
-    setState(() {});
   }
 
-  /// Метод вызывается при нажатии на большую зеленую кнопку и создает новое место
+  /// Метод вызывается при нажатии на большую зеленую кнопку, создает новое место
+  /// (с пометкой "не подчиняется фильтрам", что бы сразу видеть его в списке) и возвращает нас на экран списка
   void _pressingBigGreenButton() {
-    var newSight = Sight(
+    mocks.add(Sight(
       name: _values['name'].trim(),
-      point: Point(_lat!, _lon!),
+      point: Point(_values['lat'], _values['lon']),
       category: _category!,
       description:
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
-    );
-    mocks.add(newSight);
+      notObeyFilters: true,
+    ));
     context.read<NearbySights>().fillListOfNearbySights(); // обновляем список мест в соответствии с фильтрами поиска
-
-    _category = null;
-    _nameController.clear();
-    _latController.clear();
-    _lonController.clear();
-    _descriptionController.clear();
-    _readiness = false;
-
-    setState(() {});
+    Navigator.pop(context, true);
   }
 }

@@ -6,10 +6,11 @@ import 'package:places/ui/res/text_styles.dart';
 class UniversalWhiteButton extends StatelessWidget {
   final String? label;
   final bool? isDark;
-  final bool? isActive;
+  final bool isActive;
   final IconData? iconData;
   final TextStyle? textStyle;
   final VoidCallback? callback;
+  final bool skipFocus;
   final String? toConsole;
 
   UniversalWhiteButton({
@@ -19,23 +20,24 @@ class UniversalWhiteButton extends StatelessWidget {
     this.iconData,
     this.textStyle,
     this.callback,
+    this.skipFocus = false,
     this.toConsole,
   });
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: isActive!
+      onPressed: isActive
           ? () {
               if (toConsole != null) print(toConsole);
-              if (callback != null && isActive!) callback!();
+              if (callback != null && isActive) callback!();
             }
           : null,
       minWidth: label == null ? 20 : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-//      focusNode: FocusNode(skipTraversal: true),
+      focusNode: skipFocus ? FocusNode(skipTraversal: true) : null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -60,11 +62,11 @@ class UniversalWhiteButton extends StatelessWidget {
   Color _iconColor() {
     if (textStyle != null)
       return textStyle!.color!;
-    else if (isActive! && !isDark!)
+    else if (isActive && !isDark!)
       return lightElementSecondaryColor;
-    else if (isActive! && isDark!)
+    else if (isActive && isDark!)
       return darkElementPrimaryColor;
-    else if (!isActive! && !isDark!)
+    else if (!isActive && !isDark!)
       return lightElementTertiaryColor;
     else
       return darkElementTertiaryColor;
@@ -74,7 +76,7 @@ class UniversalWhiteButton extends StatelessWidget {
   TextStyle _buttonTextStyle() {
     if (textStyle != null)
       return textStyle!;
-    else if (!isActive!)
+    else if (!isActive)
       return lightFaintInscriptionStyle;
     else if (!isDark!)
       return lightSightDetailStyle;

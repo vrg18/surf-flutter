@@ -9,8 +9,8 @@ import 'package:places/ui/res/icons.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/add_sight.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
+import 'package:places/ui/screen/new_sight/new_sight.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
 import 'package:places/ui/screen/widgets/sight_card_mini.dart';
@@ -161,7 +161,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
     );
   }
 
-  /// Возвращает результет поиска мест
+  /// Возвращает результат поиска мест
   Widget _sightsSearchStreamBuilder() {
     return Padding(
       padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
@@ -257,7 +257,12 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ),
         ),
         child: MaterialButton(
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AddSight())),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => NewSight())).then((needRefresh) {
+            if (needRefresh != null && needRefresh)
+              setState(() {
+                _listOfNearbySights = List.from(context.read<NearbySights>().listOfNearbySights);
+              });
+          }),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

@@ -20,7 +20,6 @@ class NearbySights with ChangeNotifier {
   bool _isSearchStringEmpty = true;
 
   String _previousSearchString = '';
-  int _previousSearchStringLength = 0;
 
   final _subjectSights = BehaviorSubject<List<Sight>>.seeded([]);
 
@@ -29,13 +28,11 @@ class NearbySights with ChangeNotifier {
   bool get isSearchStringEmpty => _isSearchStringEmpty;
 
   String get previousSearchString {
-    _previousSearchStringLength = _previousSearchString.length;
     _isSearchStringEmpty = _previousSearchString.length == 0;
     return _previousSearchString;
   }
 
   void cancelSearch() {
-    _previousSearchStringLength = 0;
     _isSearchStringEmpty = true;
     _previousSearchString = '';
     listOfDesiredSights.clear();
@@ -50,32 +47,36 @@ class NearbySights with ChangeNotifier {
   void fillListOfNearbySights() {
     listOfNearbySights.clear();
     mocks.forEach((sight) {
-      if (!arePointsNear(sight.point, currentPoint, startOfSearchRadius) &&
-          arePointsNear(sight.point, currentPoint, endOfSearchRadius) &&
-          selectedCategories.contains(sight.category)) {
+      if (sight.notObeyFilters ||
+          (!arePointsNear(sight.point, currentPoint, startOfSearchRadius) &&
+              arePointsNear(sight.point, currentPoint, endOfSearchRadius) &&
+              selectedCategories.contains(sight.category))) {
         listOfNearbySights.add(sight);
       }
     });
     notifyListeners();
   }
 
-  /// Метод запускает, если нужно, поиск и добавляет результет поиска в Stream
-  void addSightsToStream(String searchString) {
-    if (_isSearchStringEmpty != (searchString.length == 0)) {
-      _isSearchStringEmpty = !_isSearchStringEmpty;
-    }
-
+  /// Условие начала поиска - длина строки не менее minimumSearchWordLength
+  /// Метод запускает для удовлетворяющей условию строки новый поиск
+  /// Для неудовлетворяющей условию поиск сбрасывается (один раз)
+  /// Результат поиска (в т.ч. пустой) кладется в Stream
+  /// Также проверяется и, если надо, корректируется флаг isSearchStringEmpty
+  void startingNewSearchAndAddingResultsToStream(String searchString) {
     if (searchString.length >= minimumSearchWordLength && searchString != _previousSearchString) {
       _searchingSightsByString(searchString);
       _subjectSights.sink.add(listOfDesiredSights);
     } else if (searchString.length < minimumSearchWordLength &&
-        _previousSearchStringLength >= minimumSearchWordLength) {
+        _previousSearchString.length >= minimumSearchWordLength) {
       listOfDesiredSights.clear();
       _subjectSights.sink.add(listOfDesiredSights);
     }
-    _previousSearchStringLength = searchString.length;
     _previousSearchString = searchString;
-    notifyListeners();
+
+    if (_isSearchStringEmpty != (searchString.length == 0)) {
+      _isSearchStringEmpty = !_isSearchStringEmpty;
+      notifyListeners();
+    }
   }
 
   /// Метод заполняет список мест в соответствии со строкой поиска

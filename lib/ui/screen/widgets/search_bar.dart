@@ -120,6 +120,6 @@ class _SearchBarState extends State<SearchBar> {
   /// и добавление результата поиска в Stream для отработки StreamBuilder
   void _startSearchAfterPause(String searchString) {
     print('Получили строку для поиска "$searchString"');
-    context.read<NearbySights>().addSightsToStream(searchString);
+    context.read<NearbySights>().startingNewSearchAndAddingResultsToStream(searchString);
   }
 }
