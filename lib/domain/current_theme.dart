@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Класс, хранящий текущую тему (темная/светлая)
+/// Используется Provider
 class CurrentTheme with ChangeNotifier {
   bool _isDark = false;
 

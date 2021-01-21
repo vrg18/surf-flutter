@@ -26,6 +26,7 @@ main() => runApp(
       ),
     );
 
+/// Приложение запущено в WEB?
 bool isWeb() {
   bool _isWeb;
   try {

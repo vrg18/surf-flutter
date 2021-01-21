@@ -65,6 +65,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
+  /// Большой-пребольшой Tab-Switch
   Container _customSwitch() {
     return Container(
       margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, bottom: basicBorderSize),
@@ -90,10 +91,10 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
             children: _tabController.index == 0
                 ? [
                     _activatedPartOfSwitch(),
-                    Expanded(child: const SizedBox.shrink()),
+                    Spacer(),
                   ]
                 : [
-                    Expanded(child: const SizedBox.shrink()),
+                    Spacer(),
                     _activatedPartOfSwitch(),
                   ],
           ),
@@ -102,6 +103,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
+  /// Половинка подложки таб-свитча с надписью
   Widget _halfSwitchBase(String text) {
     return Expanded(
       child: Center(
@@ -113,6 +115,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
+  /// "Движок" таб-свитча
   Widget _activatedPartOfSwitch() {
     return Expanded(
       child: Container(
@@ -138,6 +141,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     );
   }
 
+  /// Содержимое одной вкладки таб-свитча
   GridView _subScreen(List mocks) {
     return GridView.extent(
       maxCrossAxisExtent: wideScreenSizeOver,

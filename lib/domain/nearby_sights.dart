@@ -7,6 +7,7 @@ import 'package:places/ui/screen/sight_card.dart';
 
 /// Класс, хранящий список мест в соответствии с установленными фильтрами
 /// и сами установки фильтров
+/// Используется Provider
 class NearbySights with ChangeNotifier {
   List<SightCard> listOfNearbySights = [];
   var selectedCategories = List<Category>.from(categories);

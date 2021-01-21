@@ -39,9 +39,8 @@ class SightDetailDescription extends StatelessWidget {
             flex: 3,
             child: _rowBigGreenButton(),
           ),
-          Expanded(
+          Spacer(
             flex: 1,
-            child: const SizedBox.shrink(),
           ),
           Expanded(
             flex: 3,
@@ -52,6 +51,7 @@ class SightDetailDescription extends StatelessWidget {
     );
   }
 
+  /// Строка с названием места
   Widget _rowTitle() {
     return Container(
       alignment: Alignment.centerLeft,
@@ -64,6 +64,7 @@ class SightDetailDescription extends StatelessWidget {
     );
   }
 
+  /// Строка с категорией и часами работы
   Widget _rowCategory(bool isDark) {
     return Container(
       alignment: Alignment.centerLeft,
@@ -81,11 +82,12 @@ class SightDetailDescription extends StatelessWidget {
     );
   }
 
+  /// Строка с подробным описанием места
   Widget _rowDescription(bool isDark) {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        _sight.details,
+        _sight.description,
         maxLines: 6,
         overflow: TextOverflow.ellipsis,
         style: isDark ? darkSightDetailStyle : lightSightDetailStyle,
@@ -93,16 +95,18 @@ class SightDetailDescription extends StatelessWidget {
     );
   }
 
+  /// Большая зеленая кнопка
   Widget _rowBigGreenButton() {
     return Center(
       child: BigGreenButton(
         label: buttonLabelBuildRoute,
         iconData: Icons.near_me_outlined,
-        textToConsole: buildRoutePress,
+        toConsole: buildRoutePress,
       ),
     );
   }
 
+  /// Строка с кнопками "Запланировать" и "В избранное"
   Widget _rowToScheduleAndFavorite(bool isDark) {
     return Container(
       decoration: BoxDecoration(
@@ -114,19 +118,20 @@ class SightDetailDescription extends StatelessWidget {
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SimpleWhiteButton(
             label: buttonLabelToSchedule,
             isDark: isDark,
             isActive: false,
             iconData: Icons.today,
-            textToConsole: toSchedulePress,
+            toConsole: toSchedulePress,
           ),
           SimpleWhiteButton(
             label: buttonLabelToFavorites,
             isDark: isDark,
             iconData: Icons.favorite_border,
-            textToConsole: toFavoritesPress,
+            toConsole: toFavoritesPress,
           ),
         ],
       ),

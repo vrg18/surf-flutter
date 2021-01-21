@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/nearby_sights.dart';
-import 'package:places/domain/point.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/main.dart';
-import 'package:places/mocks.dart';
+import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/screen/top_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -34,22 +30,55 @@ class _SightListState extends State<SightList> {
     return Scaffold(
       appBar: TopBar(
         titleHeight: appBarTitleHeight,
-        bottomHeight: 0,
         title: Text(
           firstLandscapeScreenTitle,
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
-        bottom: const SizedBox.shrink(),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: basicBorderSize),
         child: GridView.extent(
           maxCrossAxisExtent: wideScreenSizeOver,
           crossAxisSpacing: basicBorderSize,
-          mainAxisSpacing: basicBorderSize,
-          childAspectRatio: 1.5,
+          mainAxisSpacing: basicBorderSize * 1.25,
+          childAspectRatio: 1.75,
           children: context.watch<NearbySights>().listOfNearbySights,
+        ),
+      ),
+      floatingActionButton: _getButtonNewLocation(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  /// Кнопка "Новое место" с градиентной заливкой
+  Widget _getButtonNewLocation() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(heightOfBigGreenButton / 2),
+      child: Container(
+        height: heightOfBigGreenButton,
+        width: widthOfNewSightButton,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [newSightButtonLeftColor, newSightButtonRightColor],
+          ),
+        ),
+        child: MaterialButton(
+          onPressed: () => print(newSightPress),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(
+                Icons.add,
+                color: bigGreenButtonLabelColor,
+                size: 28,
+              ),
+              Text(
+                letteringNewSight,
+                style: activeBigGreenButtonTextStyle,
+              ),
+            ],
+          ),
         ),
       ),
     );

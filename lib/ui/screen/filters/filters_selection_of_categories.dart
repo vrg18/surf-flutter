@@ -9,38 +9,44 @@ import 'package:provider/provider.dart';
 
 /// Верхняя (левая) часть экрана фильтров с выбором категорий
 class FiltersSelectionOfCategories extends StatefulWidget {
+  final Orientation _orientation;
+
+  FiltersSelectionOfCategories(this._orientation);
+
   @override
-  _FiltersSelectionOfCategoriesState createState() => _FiltersSelectionOfCategoriesState();
+  _FiltersSelectionOfCategoriesState createState() => _FiltersSelectionOfCategoriesState(_orientation);
 }
 
 class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategories> {
+  final Orientation _orientation;
+
+  _FiltersSelectionOfCategoriesState(this._orientation);
+
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
-      return Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
-            width: double.infinity,
-            child: Text(
-              letteringCategories,
-              style: context.watch<CurrentTheme>().isDark ? darkFaintInscriptionStyle : lightFaintInscriptionStyle,
-            ),
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: 20),
+          width: double.infinity,
+          child: Text(
+            letteringCategories,
+            style: context.watch<CurrentTheme>().isDark ? darkFaintInscriptionStyle : lightFaintInscriptionStyle,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
-            height: orientation == Orientation.portrait ? 320 : 180,
-            child: GridView.extent(
-              shrinkWrap: true,
-              maxCrossAxisExtent: 80,
-              crossAxisSpacing: 32,
-              mainAxisSpacing: orientation == Orientation.portrait ? 16 : 0,
-              childAspectRatio: .8,
-              children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
-            ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
+          height: _orientation == Orientation.portrait ? 300 : 180,
+          child: GridView.extent(
+            shrinkWrap: true,
+            maxCrossAxisExtent: 80,
+            crossAxisSpacing: 32,
+            mainAxisSpacing: _orientation == Orientation.portrait ? 16 : 8,
+            childAspectRatio: .8,
+            children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
           ),
-        ],
-      );
-    });
+        ),
+      ],
+    );
   }
 }

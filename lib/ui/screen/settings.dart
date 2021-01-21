@@ -33,13 +33,11 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: TopBar(
         titleHeight: appBarTitleHeight,
-        bottomHeight: 20,
         title: Text(
           headerSettings,
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
-        bottom: const SizedBox.shrink(),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
@@ -53,6 +51,7 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  /// Одна строка настроек
   Widget _oneSetting(String text, Widget controlElement) {
     return Container(
       height: 50,
@@ -77,6 +76,7 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  /// Настройка включения темной темы
   Widget _switcherDarkTheme(BuildContext context) {
     return CupertinoSwitch(
       value: _isDarkTheme,
@@ -92,6 +92,7 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  /// Ссылка на туториал
   Widget _buttonViewTutorial() {
     return FlatButton(
       onPressed: () => print(viewTutorialPress),
