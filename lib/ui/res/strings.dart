@@ -32,6 +32,12 @@ const String letteringNonSelect = 'Не выбрано';
 const String letteringPointOnMap = 'Указать на карте';
 const String letteringCanceling = 'Отмена';
 const String letteringNewSight = 'НОВОЕ МЕСТО';
+const String letteringSearch = 'ПОИСК';
+const String letteringNothingFound = 'Ничего не найдено';
+const String letteringTryChangingSearch = 'Попробуйте изменить параметры поиска';
+const String letteringYouWereLookingFor = 'ВЫ ИСКАЛИ';
+const String letteringClearHistory = 'Очистить историю';
+const String letteringSearchHistoryIsEmpty = 'История поиска пуста';
 
 // Всплывающие подсказки BottomNavigationBar
 const String tooltipList = 'Список',

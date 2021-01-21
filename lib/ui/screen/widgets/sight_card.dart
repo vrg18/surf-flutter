@@ -6,6 +6,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:provider/provider.dart';
 
 /// Виджет карточки места нобольшого размера для Списка мест и Избранного
@@ -34,7 +35,7 @@ class SightCard extends StatelessWidget {
           ),
           Positioned.fill(
             child: MaterialButton(
-              onPressed: () => print(sightCardPress),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SightDetail(_sight))),
             ),
           ),
           _buttonAndIconToFavorites(),

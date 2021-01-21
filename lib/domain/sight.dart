@@ -8,6 +8,7 @@ class Sight {
   final String url;
   final String description;
   final Category category;
+  final bool notObeyFilters;
 
   Sight({
     required this.name,
@@ -15,5 +16,6 @@ class Sight {
     this.url = '',
     this.description = '',
     required this.category,
+    this.notObeyFilters = false,
   });
 }

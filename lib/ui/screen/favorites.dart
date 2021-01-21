@@ -6,8 +6,8 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/screen/top_bar.dart';
+import 'package:places/ui/screen/widgets/sight_card.dart';
+import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
 /// Экран Избранное
@@ -17,14 +17,16 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMixin {
+  late bool _isDark;
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _isDark = context.read<CurrentTheme>().isDark;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: context.read<CurrentTheme>().isDark ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness: _isDark ? Brightness.light : Brightness.dark,
     ));
     _tabController = TabController(length: 2, vsync: this);
     _tabController.index;
@@ -35,8 +37,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,7 +46,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     return Scaffold(
       appBar: TopBar(
         titleHeight: appBarTitleHeight,
-        bottomHeight: heightSwitchOnScreenFavorites + basicBorderSize,
+        bottomHeight: heightBigSwitchAndSearchLine + basicBorderSize,
         title: Text(
           headerFavorites,
           style: screenTitleStyle,
@@ -69,13 +71,13 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
   Container _customSwitch() {
     return Container(
       margin: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, bottom: basicBorderSize),
-      height: heightSwitchOnScreenFavorites,
+      height: heightBigSwitchAndSearchLine,
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(heightSwitchOnScreenFavorites / 2),
+            borderRadius: BorderRadius.circular(heightBigSwitchAndSearchLine / 2),
             child: Material(
-              color: context.watch<CurrentTheme>().isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
+              color: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
               child: InkWell(
                 onTap: () => _tabController.index = 1 - _tabController.index,
                 child: Row(
@@ -88,15 +90,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
             ),
           ),
           Row(
-            children: _tabController.index == 0
-                ? [
-                    _activatedPartOfSwitch(),
-                    Spacer(),
-                  ]
-                : [
-                    Spacer(),
-                    _activatedPartOfSwitch(),
-                  ],
+            children:
+                _tabController.index == 0 ? [_activatedPartOfSwitch(), Spacer()] : [Spacer(), _activatedPartOfSwitch()],
           ),
         ],
       ),
@@ -120,8 +115,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: context.watch<CurrentTheme>().isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
-          borderRadius: BorderRadius.circular(heightSwitchOnScreenFavorites / 2),
+          color: _isDark ? darkElementPrimaryColor : lightElementSecondaryColor,
+          borderRadius: BorderRadius.circular(heightBigSwitchAndSearchLine / 2),
         ),
         child: GestureDetector(
           onHorizontalDragUpdate: (details) => setState(() {
@@ -131,9 +126,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
           child: Center(
             child: Text(
               _tabController.index == 0 ? switchLabelWantToVisit : switchLabelVisited,
-              style: context.watch<CurrentTheme>().isDark
-                  ? darkSelectTabFavoritesScreenStyle
-                  : lightSelectTabFavoritesScreenStyle,
+              style: _isDark ? darkSelectTabFavoritesScreenStyle : lightSelectTabFavoritesScreenStyle,
             ),
           ),
         ),

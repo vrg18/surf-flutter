@@ -6,7 +6,8 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/top_bar.dart';
+import 'package:places/ui/screen/buttons/universal_white_button.dart';
+import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
 /// Экран настроек приложения
@@ -21,11 +22,11 @@ class _SettingsState extends State<Settings> {
   @override
   void initState() {
     super.initState();
+    _isDarkTheme = context.read<CurrentTheme>().isDark;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: context.read<CurrentTheme>().isDark ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness: _isDarkTheme ? Brightness.light : Brightness.dark,
     ));
-    _isDarkTheme = context.read<CurrentTheme>().isDark;
   }
 
   @override
@@ -58,7 +59,7 @@ class _SettingsState extends State<Settings> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            width: 1,
+            width: 0.8,
             color: _isDarkTheme ? darkElementTertiaryColor : lightDarkerBackgroundColor,
           ),
         ),
@@ -94,17 +95,10 @@ class _SettingsState extends State<Settings> {
 
   /// Ссылка на туториал
   Widget _buttonViewTutorial() {
-    return FlatButton(
-      onPressed: () => print(viewTutorialPress),
-      minWidth: 20,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(
-        Icons.info_outline,
-        size: 28,
-        color: bigGreenButtonColor,
-      ),
+    return UniversalWhiteButton(
+      iconData: Icons.info_outline,
+      textStyle: clearFiltersButtonTextStyle,
+      toConsole: viewTutorialPress,
     );
   }
 }

@@ -20,7 +20,7 @@ const Color darkElementPrimaryColor = Colors.white,
     darkCategoryIconsBackgroundColor = Color(0xFF183828);
 
 // Общие цвета
-const Color bigGreenButtonColor = Colors.green,
+const Color bigGreenButtonColor = Color(0xFF4CAF50),
     bigGreenButtonLabelColor = Colors.white,
     newSightButtonLeftColor = Color(0xFFFCDD3D),
     newSightButtonRightColor = Color(0xFF4CAF50);

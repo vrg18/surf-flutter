@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Виджет кастомного верхнего бара, альтернатива AppBar
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final double titleHeight;
-  final Widget title;
+  final Widget? title;
   final Widget? leftButton;
   final Widget? rightButton;
   final double? bottomHeight;
@@ -12,7 +12,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar({
     Key? key,
     required this.titleHeight,
-    required this.title,
+    this.title,
     this.leftButton,
     this.rightButton,
     this.bottomHeight,
@@ -29,9 +29,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           height: titleHeight,
           child: Stack(
             children: [
-              Center(
-                child: title,
-              ),
+              if (title != null)
+                Center(
+                  child: title,
+                ),
               if (leftButton != null) Positioned(left: 0, child: SizedBox(height: titleHeight, child: leftButton!)),
               if (rightButton != null) Positioned(right: 0, child: SizedBox(height: titleHeight, child: rightButton!)),
             ],
@@ -47,6 +48,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  /// Переопределяем метод, возвращающий виджет Size высотой равной высоте нашего аппбара
   @override
   Size get preferredSize => Size.fromHeight(titleHeight + (bottomHeight != null ? bottomHeight! : 0));
 }

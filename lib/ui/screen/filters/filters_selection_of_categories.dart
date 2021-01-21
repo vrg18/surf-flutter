@@ -14,14 +14,10 @@ class FiltersSelectionOfCategories extends StatefulWidget {
   FiltersSelectionOfCategories(this._orientation);
 
   @override
-  _FiltersSelectionOfCategoriesState createState() => _FiltersSelectionOfCategoriesState(_orientation);
+  _FiltersSelectionOfCategoriesState createState() => _FiltersSelectionOfCategoriesState();
 }
 
 class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategories> {
-  final Orientation _orientation;
-
-  _FiltersSelectionOfCategoriesState(this._orientation);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,13 +31,15 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
-          height: _orientation == Orientation.portrait ? 300 : 180,
+          margin: const EdgeInsets.only(left: 40, right: 40, top: basicBorderSize, bottom: basicBorderSize),
+          height: widget._orientation == Orientation.portrait
+              ? heightOfCategorySelectionListForPortrait
+              : heightOfCategorySelectionListForLandscape,
           child: GridView.extent(
             shrinkWrap: true,
             maxCrossAxisExtent: 80,
             crossAxisSpacing: 32,
-            mainAxisSpacing: _orientation == Orientation.portrait ? 16 : 8,
+            mainAxisSpacing: widget._orientation == Orientation.portrait ? 16 : 8,
             childAspectRatio: .8,
             children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
           ),
