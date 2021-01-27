@@ -30,6 +30,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   late int _tempStartOfSearchRadius;
   late int _tempEndOfSearchRadius;
   late bool _isDark;
+  late Stream<List<Sight>> _streamSights;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
       setState(() {});
     });
     _listOfNearbySights = List.from(context.read<NearbySights>().listOfNearbySights);
+    _streamSights = context.read<NearbySights>().streamSights;
     _saveFilterSettings();
   }
 
@@ -168,60 +170,61 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   /// Возвращает результат поиска мест
   Widget _sightsSearchStreamBuilder() {
-    return Padding(
-      padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
-      child: StreamBuilder<List<Sight>>(
-        stream: context.watch<NearbySights>().streamSights,
-        builder: (context, snapshot) {
-          print('Has error: ${snapshot.hasError}');
-          print('Has data: ${snapshot.hasData}');
-          print('Snapshot Data: ${snapshot.data}');
-          print('ConnectionState: ${snapshot.connectionState}');
-          if (snapshot.hasError) {
-            return Icon(
-              Icons.error_outline,
-              color: Colors.red,
-              size: 40,
-            );
-          } else {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Icon(
-                  Icons.info,
-                  color: Colors.blue,
-                  size: 40,
-                );
-              case ConnectionState.waiting:
-                return Center(
-                  child: SizedBox(
-                    child: const CircularProgressIndicator(),
-                    width: 40,
-                    height: 40,
-                  ),
-                );
-              case ConnectionState.active:
-              // return Icon(
-              //   Icons.check_circle_outline,
-              //   color: Colors.green,
-              //   size: 60,
-              // );
-              case ConnectionState.done:
-                List<Sight> sights = snapshot.data!;
-                return sights.length > 0
-                    ? GridView.extent(
+    return StreamBuilder<List<Sight>>(
+      stream: _streamSights,
+      builder: (context, snapshot) {
+        print('Has error: ${snapshot.hasError}');
+        print('Has data: ${snapshot.hasData}');
+        print('Snapshot Data: ${snapshot.data}');
+        print('ConnectionState: ${snapshot.connectionState}');
+        if (snapshot.hasError) {
+          return Icon(
+            Icons.error_outline,
+            color: Colors.red,
+            size: 40,
+          );
+        } else {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return Icon(
+                Icons.info,
+                color: Colors.blue,
+                size: 40,
+              );
+            case ConnectionState.waiting:
+              return Center(
+                child: SizedBox(
+                  child: const CircularProgressIndicator(),
+                  width: 40,
+                  height: 40,
+                ),
+              );
+            case ConnectionState.active:
+            // return Icon(
+            //   Icons.check_circle_outline,
+            //   color: Colors.green,
+            //   size: 60,
+            // );
+            case ConnectionState.done:
+              List<Sight> sights = snapshot.data!;
+              return sights.isEmpty
+                  ? _stubNothingFound()
+                  : Padding(
+                      padding:
+                          const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
+                      child: GridView.extent(
                         maxCrossAxisExtent: wideScreenSizeOver,
                         crossAxisSpacing: basicBorderSize,
                         mainAxisSpacing: basicBorderSize,
                         childAspectRatio: 6,
                         children: sights.map((e) => SightCardMini(e)).toList(),
-                      )
-                    : _stubNothingFound();
-              default:
-                return const SizedBox.shrink();
-            }
+                      ),
+                    );
+            default:
+              return const SizedBox.shrink();
           }
-        },
-      ),
+        }
+      },
     );
   }
 
@@ -290,12 +293,12 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   /// Обработка нажаития на виджет поиска
   _clickingOnSearchWidget() {
     _tabController.index = 1;
+    context.read<NearbySights>().cancelSearch();
   }
 
   /// Обработка нажаития на иконку отмены поиска
   _clickingOnCancelSearch() {
     _tabController.index = 0;
-    context.read<NearbySights>().cancelSearch();
   }
 
   /// Метод обновляет список мест и выполняется при возврате из экрана фильтров по кнопке "Показать"
