@@ -11,25 +11,22 @@ class MainScreenWithBottomBar extends StatefulWidget {
 }
 
 class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
-  int _selectedIndex = 0;
-  final List<Widget> _widgetOptions = [
+  int _selectedPage = 0;
+  final List<Widget> _pages = [
     SightList(),
     Favorites(),
     Settings(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: IndexedStack(
+        index: _selectedPage,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedPage,
         onTap: _onItemTapped,
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -53,5 +50,12 @@ class _MainScreenWithBottomBarState extends State<MainScreenWithBottomBar> {
         ],
       ),
     );
+  }
+
+  /// Метод переключает страницы BottomNavigationBar
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedPage = index;
+    });
   }
 }

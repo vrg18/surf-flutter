@@ -84,7 +84,12 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
               crossAxisSpacing: basicBorderSize,
               mainAxisSpacing: basicBorderSize * 1.25,
               childAspectRatio: 1.75,
-              children: _listOfNearbySights.map((e) => SightCard(e)).toList(),
+              children: _listOfNearbySights
+                  .map((e) => SightCard(
+                        sight: e,
+                        cornerIcon: Icons.favorite_border,
+                      ))
+                  .toList(),
             ),
           ),
           context.watch<NearbySights>().isSearchStringEmpty ? _searchHistory() : _sightsSearchStreamBuilder(),

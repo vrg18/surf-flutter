@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 class NewSightField extends StatefulWidget {
   final String nameField;
-
   final Function<T>(String, T, bool) callback;
   final String hint;
   final bool mandatoryFilling;
