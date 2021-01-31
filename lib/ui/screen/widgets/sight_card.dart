@@ -9,11 +9,17 @@ import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:provider/provider.dart';
 
-/// Виджет карточки места нобольшого размера для Списка мест и Избранного
+/// Виджет карточки места небольшого размера для Списка мест и Избранного
 class SightCard extends StatelessWidget {
-  final Sight _sight;
+  final Sight sight;
+  final IconData? cornerIcon;
+  final Function(Sight)? callback;
 
-  SightCard(this._sight);
+  SightCard({
+    required this.sight,
+    this.cornerIcon,
+    this.callback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +41,10 @@ class SightCard extends StatelessWidget {
           ),
           Positioned.fill(
             child: MaterialButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SightDetail(_sight))),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SightDetail(sight))),
             ),
           ),
-          _buttonAndIconToFavorites(),
+          if (cornerIcon != null) _buttonAndIconToFavorites(),
         ],
       ),
     );
@@ -52,7 +58,7 @@ class SightCard extends StatelessWidget {
         children: [
           SizedBox.expand(
             child: Image.network(
-              _sight.url,
+              sight.url,
               fit: BoxFit.cover,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                 if (loadingProgress == null) return child;
@@ -70,7 +76,7 @@ class SightCard extends StatelessWidget {
             left: 15,
             top: 15,
             child: Text(
-              _sight.category.toStringLowerCase(),
+              sight.category.toStringLowerCase(),
               style: sightCardCategoryStyle,
             ),
           ),
@@ -87,7 +93,7 @@ class SightCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: basicBorderSize),
         alignment: Alignment.centerLeft,
         child: Text(
-          _sight.name,
+          sight.name,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: sightCardTitleStyle,
@@ -96,7 +102,7 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  /// Кнопка "В избранное"
+  /// Кнопка в правом верхнем углу карточки
   Widget _buttonAndIconToFavorites() {
     return Positioned(
       right: 0,
@@ -104,11 +110,14 @@ class SightCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
         child: MaterialButton(
-          onPressed: () => print(toFavoritesOnPhotoPress),
+          onPressed: () {
+            print(cornerIconPress);
+            if (callback != null) callback!(sight);
+          },
           minWidth: 50,
           height: 50,
           child: Icon(
-            Icons.favorite_border,
+            cornerIcon,
             color: Colors.white,
             size: 30,
           ),

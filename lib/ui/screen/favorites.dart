@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/domain/current_theme.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -19,6 +20,7 @@ class Favorites extends StatefulWidget {
 class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMixin {
   late bool _isDark;
   late TabController _tabController;
+  late List<List<Sight>> _sightLists;
 
   @override
   void initState() {
@@ -33,6 +35,10 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
     _tabController.addListener(() {
       setState(() {});
     });
+    _sightLists = [
+      [mocks[1], mocks[2]],
+      [mocks[0]]
+    ];
   }
 
   @override
@@ -59,8 +65,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
         child: TabBarView(
           controller: _tabController,
           children: [
-            _subScreen([mocks[1], mocks[2]]),
-            _subScreen([mocks[0]]),
+            _subScreen(_sightLists[0]),
+            _subScreen(_sightLists[1]),
           ],
         ),
       ),
@@ -120,7 +126,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
         ),
         child: GestureDetector(
           onHorizontalDragUpdate: (details) => setState(() {
-            if (details.delta.dx > 0 && _tabController.index == 0) _tabController.index = 1; // свайп вправо
+            if (details.delta.dx > 0 && _tabController.index == 0)
+              _tabController.index = 1; // свайп вправо
             else if (details.delta.dx < 0 && _tabController.index == 1) _tabController.index = 0; // свайп влево
           }),
           child: Center(
@@ -141,7 +148,20 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       crossAxisSpacing: basicBorderSize,
       mainAxisSpacing: basicBorderSize,
       childAspectRatio: 1.5,
-      children: mocks.map((e) => SightCard(e)).toList(),
+      children: mocks
+          .map((e) => SightCard(
+                sight: e,
+                cornerIcon: Icons.clear,
+                callback: _removeSight,
+              ))
+          .toList(),
     );
+  }
+
+  /// Коллбэк-метод удаляет карточку места с экрана Favorites
+  void _removeSight(Sight sight) {
+    setState(() {
+      _sightLists[_tabController.index].remove(sight);
+    });
   }
 }
