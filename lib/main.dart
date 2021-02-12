@@ -10,18 +10,20 @@ import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 main() => runApp(
-      DevicePreview(
-        enabled: isWeb(),
-        devices: [Devices.android.samsungS8],
-        defaultDevice: Devices.android.samsungS8,
-        isToolbarVisible: true,
-        builder: (_) => MultiProvider(
-          providers: [
-            ChangeNotifierProvider<CurrentTheme>(create: (_) => CurrentTheme()),
-            ChangeNotifierProvider<NearbySights>(create: (_) => NearbySights()),
-          ],
-          child: MyApp(),
-        ),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<CurrentTheme>(create: (_) => CurrentTheme()),
+          ChangeNotifierProvider<NearbySights>(create: (_) => NearbySights()),
+        ],
+        builder: (context, _) {
+          return DevicePreview(
+            enabled: isWeb(),
+            devices: [Devices.android.samsungS8],
+            defaultDevice: Devices.android.samsungS8,
+            isToolbarVisible: true,
+            builder: (_) => MyApp(),
+          );
+        },
       ),
     );
 
