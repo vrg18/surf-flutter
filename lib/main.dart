@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/current_theme.dart';
 import 'package:places/domain/nearby_sights.dart';
@@ -15,15 +14,7 @@ main() => runApp(
           ChangeNotifierProvider<CurrentTheme>(create: (_) => CurrentTheme()),
           ChangeNotifierProvider<NearbySights>(create: (_) => NearbySights()),
         ],
-        builder: (context, _) {
-          return DevicePreview(
-            enabled: isWeb(),
-            devices: [Devices.android.samsungS8],
-            defaultDevice: Devices.android.samsungS8,
-            isToolbarVisible: true,
-            builder: (_) => MyApp(),
-          );
-        },
+        builder: (context, _) => MyApp(),
       ),
     );
 
@@ -48,8 +39,8 @@ class MyApp extends StatelessWidget {
     return Consumer<CurrentTheme>(
       builder: (context, theme, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
+//        locale: DevicePreview.locale(context),
+//        builder: DevicePreview.appBuilder,
         title: appTitle,
         theme: theme.isDark ? darkTheme : lightTheme,
         home: MainScreenWithBottomBar(),
