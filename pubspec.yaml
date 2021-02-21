@@ -15,6 +15,7 @@ dependencies:
   provider: ^5.0.0-nullsafety.5
   rxdart: ^0.26.0-nullsafety.1
   flutter_keyboard_visibility: ^5.0.0-nullsafety.2
+  intl: ^0.17.0-nullsafety.2
   sprintf:
 
 dev_dependencies:

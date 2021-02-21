@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
+import 'package:places/data/provider/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:provider/provider.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
-import 'package:places/domain/res/magnitudes.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
+import 'package:places/data/repository/nearby_sights.dart';
+import 'package:places/data/res/magnitudes.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -30,7 +31,7 @@ class _FiltersState extends State<Filters> {
 
   @override
   Widget build(BuildContext context) {
-    var _numberOfNearbySights = context.watch<NearbySights>().listOfNearbySights.length;
+    var _numberOfNearbySights = context.watch<SightProvider>().nearbySights.listOfNearbySights.length;
 
     return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
@@ -90,10 +91,11 @@ class _FiltersState extends State<Filters> {
   /// Метод сбрасывает все фильтры
   _clearFilters() {
     setState(() {
-      context.read<NearbySights>().selectedCategories.clear();
-      context.read<NearbySights>().startOfSearchRadius = distanceValueFrom;
-      context.read<NearbySights>().endOfSearchRadius = distanceValueUp;
-      context.read<NearbySights>().fillListOfNearbySights();
+      NearbySights nearbySights = context.read<SightProvider>().nearbySights;
+      nearbySights.selectedCategories.clear();
+      nearbySights.startOfSearchRadius = distanceValueFrom;
+      nearbySights.endOfSearchRadius = distanceValueUp;
+      nearbySights.fillListOfNearbySights();
     });
   }
 }

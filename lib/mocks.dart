@@ -19,7 +19,7 @@ final List<Category> categories = [
 ];
 
 /// Список интересных мест
-final List mocks = [
+final List<Sight> mocks = [
   Sight(
       name: 'Дольмен Сердце матери',
       point: Point(44.480153, 38.406548),

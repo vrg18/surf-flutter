@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/domain/category.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
+import 'package:places/data/repository/nearby_sights.dart';
 import 'package:places/domain/point.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
@@ -238,7 +239,7 @@ class _NewSightState extends State<NewSight> {
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
       notObeyFilters: true,
     ));
-    context.read<NearbySights>().fillListOfNearbySights(); // обновляем список мест в соответствии с фильтрами поиска
+    context.read<SightProvider>().fillListOfNearbySights(); // обновляем список мест в соответствии с фильтрами поиска
     Navigator.pop(context, true);
   }
 }

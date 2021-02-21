@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
+import 'package:places/data/provider/sight_provider.dart';
+import 'package:places/data/repository/nearby_sights.dart';
 import 'package:places/domain/category.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/icons.dart';
@@ -11,6 +13,7 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
 import 'package:places/ui/screen/new_sight/new_sight.dart';
+import 'package:places/ui/screen/shell_screens.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
 import 'package:places/ui/screen/widgets/sight_card_mini.dart';
@@ -45,8 +48,8 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
     _tabController.addListener(() {
       setState(() {});
     });
-    _listOfNearbySights = List.from(context.read<NearbySights>().listOfNearbySights);
-    _streamSights = context.read<NearbySights>().streamSights;
+    _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
+    _streamSights = context.read<SightProvider>().searchSights.streamSights;
     _saveFilterSettings();
   }
 
@@ -94,7 +97,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
                   .toList(),
             ),
           ),
-          context.watch<NearbySights>().isSearchStringEmpty ? _searchHistory() : _sightsSearchStreamBuilder(),
+          context.watch<SightProvider>().searchSights.isSearchStringEmpty ? _searchHistory() : _sightsSearchStreamBuilder(),
         ],
       ),
       floatingActionButton: _tabController.index == 0 ? _getButtonNewLocation() : null,
@@ -104,7 +107,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   /// Возвращает историю поиска
   Widget _searchHistory() {
-    bool _isSearchHistoryEmpty = context.watch<NearbySights>().listOfSearchHistory.length == 0;
+    bool _isSearchHistoryEmpty = context.watch<SightProvider>().searchSights.listOfSearchHistory.length == 0;
 
     return SingleChildScrollView(
       child: Column(
@@ -117,7 +120,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ),
           const SizedBox(height: 8),
           if (!_isSearchHistoryEmpty)
-            Column(children: context.watch<NearbySights>().listOfSearchHistory.map((e) => _historyLine(e)).toList()),
+            Column(children: context.watch<SightProvider>().searchSights.listOfSearchHistory.map((e) => _historyLine(e)).toList()),
           const SizedBox(height: 20),
           if (!_isSearchHistoryEmpty)
             Row(
@@ -125,7 +128,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
                 UniversalWhiteButton(
                   label: letteringClearHistory,
                   textStyle: clearFiltersButtonTextStyle,
-                  callback: () => setState(() => context.read<NearbySights>().listOfSearchHistory.clear()),
+                  callback: () => setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.clear()),
                 ),
               ],
             )
@@ -155,7 +158,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
               style: lightFiltersDistanceValueStyle,
             ),
             IconButton(
-              onPressed: () => setState(() => context.read<NearbySights>().listOfSearchHistory.remove(sight)),
+              onPressed: () => setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.remove(sight)),
               icon: Icon(
                 Icons.clear,
                 color: lightElementTertiaryColor,
@@ -265,10 +268,15 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ),
         ),
         child: MaterialButton(
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => NewSight())).then((needRefresh) {
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => context.read<Web>().isWeb ? ShellScreens(NewSight()) : NewSight(),
+            ),
+          ).then((needRefresh) {
             if (needRefresh != null && needRefresh)
               setState(() {
-                _listOfNearbySights = List.from(context.read<NearbySights>().listOfNearbySights);
+                _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
               });
           }),
           child: Row(
@@ -290,13 +298,13 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
     );
   }
 
-  /// Обработка нажаития на виджет поиска
+  /// Обработка нажатия на виджет поиска
   _clickingOnSearchWidget() {
     _tabController.index = 1;
-    context.read<NearbySights>().cancelSearch();
+    context.read<SightProvider>().cancelSearch();
   }
 
-  /// Обработка нажаития на иконку отмены поиска
+  /// Обработка нажатия на иконку отмены поиска
   _clickingOnCancelSearch() {
     _tabController.index = 0;
   }
@@ -304,14 +312,14 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   /// Метод обновляет список мест и выполняется при возврате из экрана фильтров по кнопке "Показать"
   _filtersHaveBeenChanged() {
     setState(() {
-      _listOfNearbySights = List.from(context.read<NearbySights>().listOfNearbySights);
+      _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
       _saveFilterSettings();
     });
   }
 
   /// Метод "откатывает" настройки фильтров, выполняется при возврате из экрана фильтров по кнопке "Назад/Отмена"
   _filtersHaveBeenCanceled() {
-    NearbySights nearbySights = context.read<NearbySights>();
+    NearbySights nearbySights = context.read<SightProvider>().nearbySights;
     nearbySights.selectedCategories = List<Category>.from(_tempSelectedCategories);
     nearbySights.startOfSearchRadius = _tempStartOfSearchRadius;
     nearbySights.endOfSearchRadius = _tempEndOfSearchRadius;
@@ -320,7 +328,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   /// Метод сохраняет настройки фильтров для возможности "откатить" изменения фильтров
   _saveFilterSettings() {
-    NearbySights nearbySights = context.read<NearbySights>();
+    NearbySights nearbySights = context.read<SightProvider>().nearbySights;
     _tempSelectedCategories = List<Category>.from(nearbySights.selectedCategories);
     _tempStartOfSearchRadius = nearbySights.startOfSearchRadius;
     _tempEndOfSearchRadius = nearbySights.endOfSearchRadius;
