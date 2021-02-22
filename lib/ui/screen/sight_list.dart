@@ -4,7 +4,6 @@ import 'package:places/data/provider/current_theme.dart';
 import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/data/repository/nearby_sights.dart';
-import 'package:places/domain/category.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/icons.dart';
@@ -28,8 +27,9 @@ class SightList extends StatefulWidget {
 
 class _SightListState extends State<SightList> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late NearbySights _nearbySights;
   late List<Sight> _listOfNearbySights;
-  late List<Category> _tempSelectedCategories;
+  List<bool> _tempListOfCategories = [];
   late int _tempStartOfSearchRadius;
   late int _tempEndOfSearchRadius;
   late bool _isDark;
@@ -48,7 +48,8 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
     _tabController.addListener(() {
       setState(() {});
     });
-    _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
+    _nearbySights = context.read<SightProvider>().nearbySights;
+    _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
     _streamSights = context.read<SightProvider>().searchSights.streamSights;
     _saveFilterSettings();
   }
@@ -97,7 +98,9 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
                   .toList(),
             ),
           ),
-          context.watch<SightProvider>().searchSights.isSearchStringEmpty ? _searchHistory() : _sightsSearchStreamBuilder(),
+          context.watch<SightProvider>().searchSights.isSearchStringEmpty
+              ? _searchHistory()
+              : _sightsSearchStreamBuilder(),
         ],
       ),
       floatingActionButton: _tabController.index == 0 ? _getButtonNewLocation() : null,
@@ -120,7 +123,13 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ),
           const SizedBox(height: 8),
           if (!_isSearchHistoryEmpty)
-            Column(children: context.watch<SightProvider>().searchSights.listOfSearchHistory.map((e) => _historyLine(e)).toList()),
+            Column(
+                children: context
+                    .watch<SightProvider>()
+                    .searchSights
+                    .listOfSearchHistory
+                    .map((e) => _historyLine(e))
+                    .toList()),
           const SizedBox(height: 20),
           if (!_isSearchHistoryEmpty)
             Row(
@@ -128,7 +137,8 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
                 UniversalWhiteButton(
                   label: letteringClearHistory,
                   textStyle: clearFiltersButtonTextStyle,
-                  callback: () => setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.clear()),
+                  callback: () =>
+                      setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.clear()),
                 ),
               ],
             )
@@ -158,7 +168,8 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
               style: lightFiltersDistanceValueStyle,
             ),
             IconButton(
-              onPressed: () => setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.remove(sight)),
+              onPressed: () =>
+                  setState(() => context.read<SightProvider>().searchSights.listOfSearchHistory.remove(sight)),
               icon: Icon(
                 Icons.clear,
                 color: lightElementTertiaryColor,
@@ -276,7 +287,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ).then((needRefresh) {
             if (needRefresh != null && needRefresh)
               setState(() {
-                _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
+                _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
               });
           }),
           child: Row(
@@ -312,25 +323,26 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   /// Метод обновляет список мест и выполняется при возврате из экрана фильтров по кнопке "Показать"
   _filtersHaveBeenChanged() {
     setState(() {
-      _listOfNearbySights = List.from(context.read<SightProvider>().nearbySights.listOfNearbySights);
+      _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
       _saveFilterSettings();
     });
   }
 
   /// Метод "откатывает" настройки фильтров, выполняется при возврате из экрана фильтров по кнопке "Назад/Отмена"
   _filtersHaveBeenCanceled() {
-    NearbySights nearbySights = context.read<SightProvider>().nearbySights;
-    nearbySights.selectedCategories = List<Category>.from(_tempSelectedCategories);
-    nearbySights.startOfSearchRadius = _tempStartOfSearchRadius;
-    nearbySights.endOfSearchRadius = _tempEndOfSearchRadius;
-    nearbySights.fillListOfNearbySights();
+    for (var i = 0; i < _nearbySights.listOfCategories.length; i++) {
+      _nearbySights.listOfCategories[i].selected = _tempListOfCategories[i];
+    }
+    _nearbySights.startOfSearchRadius = _tempStartOfSearchRadius;
+    _nearbySights.endOfSearchRadius = _tempEndOfSearchRadius;
+    _nearbySights.fillListOfNearbySights();
   }
 
   /// Метод сохраняет настройки фильтров для возможности "откатить" изменения фильтров
   _saveFilterSettings() {
-    NearbySights nearbySights = context.read<SightProvider>().nearbySights;
-    _tempSelectedCategories = List<Category>.from(nearbySights.selectedCategories);
-    _tempStartOfSearchRadius = nearbySights.startOfSearchRadius;
-    _tempEndOfSearchRadius = nearbySights.endOfSearchRadius;
+    _tempListOfCategories.clear();
+    _nearbySights.listOfCategories.forEach((e) => _tempListOfCategories.add(e.selected));
+    _tempStartOfSearchRadius = _nearbySights.startOfSearchRadius;
+    _tempEndOfSearchRadius = _nearbySights.endOfSearchRadius;
   }
 }

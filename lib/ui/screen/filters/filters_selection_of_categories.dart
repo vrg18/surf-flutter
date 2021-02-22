@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/provider/current_theme.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -41,7 +41,7 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             crossAxisSpacing: 32,
             mainAxisSpacing: widget._orientation == Orientation.portrait ? 16 : 8,
             childAspectRatio: .8,
-            children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
+            children: context.read<SightProvider>().nearbySights.listOfCategories.map((e) => FiltersCategoryIcon(e)).toList(),
           ),
         ),
       ],

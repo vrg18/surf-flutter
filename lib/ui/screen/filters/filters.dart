@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/data/provider/sight_provider.dart';
-import 'package:places/data/repository/nearby_sights.dart';
-import 'package:places/data/res/magnitudes.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -90,12 +88,6 @@ class _FiltersState extends State<Filters> {
 
   /// Метод сбрасывает все фильтры
   _clearFilters() {
-    setState(() {
-      NearbySights nearbySights = context.read<SightProvider>().nearbySights;
-      nearbySights.selectedCategories.clear();
-      nearbySights.startOfSearchRadius = distanceValueFrom;
-      nearbySights.endOfSearchRadius = distanceValueUp;
-      nearbySights.fillListOfNearbySights();
-    });
+    setState(() => context.read<SightProvider>().nearbySights.clearFilters());
   }
 }

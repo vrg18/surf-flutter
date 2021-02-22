@@ -22,17 +22,16 @@ class SearchSights {
 
   Stream<List<Sight>> get streamSights => _subjectSights.stream;
 
+  /// Метод сбрасывает текущий поиск
   void cancelSearch() {
     _isSearchStringEmpty = true;
     _previousSearchString = '';
     _listOfDesiredSights.clear();
   }
 
+  /// Метод запускает новый поиск
   /// Условие начала поиска - длина строки не менее minimumSearchWordLength
-  /// Метод запускает для удовлетворяющей условию строки новый поиск
-  /// Для неудовлетворяющей условию поиск сбрасывается (один раз)
   /// Результат поиска (в т.ч. пустой) кладется в Stream
-  /// Также проверяется и, если надо, корректируется флаг isSearchStringEmpty
   bool startingNewSearchAndAddingResultsToStream(String searchString, NearbySights nearbySights) {
     if (searchString.length >= minimumSearchWordLength && searchString != _previousSearchString) {
       _searchingSightsByString(searchString, nearbySights);

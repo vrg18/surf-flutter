@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
@@ -36,8 +36,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       setState(() {});
     });
     _sightLists = [
-      [mocks[1], mocks[2]],
-      [mocks[0]]
+      context.read<SightProvider>().favoritesSights.listOfSightsWantToVisit,
+      context.read<SightProvider>().favoritesSights.listOfSightsVisited,
     ];
   }
 

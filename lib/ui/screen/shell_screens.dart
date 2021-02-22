@@ -22,7 +22,7 @@ class ShellScreens extends StatelessWidget {
                 constraints: BoxConstraints(
                   maxWidth: wideScreenSizeOver,
                 ),
-//                color: primaryBackgroundColor,
+                //color: primaryBackgroundColor,
                 child: _child,
               ),
             ),
