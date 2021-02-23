@@ -7,7 +7,7 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/shell_screens.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +46,7 @@ class SightCard extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => context.read<Web>().isWeb ? ShellScreens(SightDetail(sight)) : SightDetail(sight),
+                  builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightDetail(sight)) : SightDetail(sight),
                 ),
               ),
             ),

@@ -16,7 +16,7 @@ dependencies:
   rxdart: ^0.26.0-nullsafety.1
   flutter_keyboard_visibility: ^5.0.0-nullsafety.2
   intl: ^0.17.0-nullsafety.2
-  sprintf:
+  sprintf: ^6.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:

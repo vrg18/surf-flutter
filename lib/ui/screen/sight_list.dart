@@ -12,7 +12,7 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
 import 'package:places/ui/screen/new_sight/new_sight.dart';
-import 'package:places/ui/screen/shell_screens.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/widgets/search_bar.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
 import 'package:places/ui/screen/widgets/sight_card_mini.dart';
@@ -29,9 +29,6 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   late TabController _tabController;
   late NearbySights _nearbySights;
   late List<Sight> _listOfNearbySights;
-  List<bool> _tempListOfCategories = [];
-  late int _tempStartOfSearchRadius;
-  late int _tempEndOfSearchRadius;
   late bool _isDark;
   late Stream<List<Sight>> _streamSights;
 
@@ -51,7 +48,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
     _nearbySights = context.read<SightProvider>().nearbySights;
     _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
     _streamSights = context.read<SightProvider>().searchSights.streamSights;
-    _saveFilterSettings();
+    _nearbySights.saveFilterSettings();
   }
 
   @override
@@ -76,8 +73,9 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           callbackPressing: () => _clickingOnSearchWidget(),
           callbackCancelSearch: () => _clickingOnCancelSearch(),
           callbackChangedFilters: () => _filtersHaveBeenChanged(),
-          callbackCanceledFilters: () => _filtersHaveBeenCanceled(),
+          callbackCanceledFilters: () => _nearbySights.filtersHaveBeenCanceled(),
         ),
+        isWeb: context.read<Web>().isWeb,
       ),
       body: TabBarView(
         controller: _tabController,
@@ -282,7 +280,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => context.read<Web>().isWeb ? ShellScreens(NewSight()) : NewSight(),
+              builder: (_) => context.read<Web>().isWeb ? WebWrapper(NewSight()) : NewSight(),
             ),
           ).then((needRefresh) {
             if (needRefresh != null && needRefresh)
@@ -324,25 +322,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   _filtersHaveBeenChanged() {
     setState(() {
       _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
-      _saveFilterSettings();
+      _nearbySights.saveFilterSettings();
     });
-  }
-
-  /// Метод "откатывает" настройки фильтров, выполняется при возврате из экрана фильтров по кнопке "Назад/Отмена"
-  _filtersHaveBeenCanceled() {
-    for (var i = 0; i < _nearbySights.listOfCategories.length; i++) {
-      _nearbySights.listOfCategories[i].selected = _tempListOfCategories[i];
-    }
-    _nearbySights.startOfSearchRadius = _tempStartOfSearchRadius;
-    _nearbySights.endOfSearchRadius = _tempEndOfSearchRadius;
-    _nearbySights.fillListOfNearbySights();
-  }
-
-  /// Метод сохраняет настройки фильтров для возможности "откатить" изменения фильтров
-  _saveFilterSettings() {
-    _tempListOfCategories.clear();
-    _nearbySights.listOfCategories.forEach((e) => _tempListOfCategories.add(e.selected));
-    _tempStartOfSearchRadius = _nearbySights.startOfSearchRadius;
-    _tempEndOfSearchRadius = _nearbySights.endOfSearchRadius;
   }
 }

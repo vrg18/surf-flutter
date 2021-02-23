@@ -16,6 +16,9 @@ class NearbySights {
   late List<Category> _listOfCategories;
   int _startOfSearchRadius = distanceValueFrom;
   int _endOfSearchRadius = distanceValueUp;
+  List<bool> _tempListOfCategories = [];
+  late int _tempStartOfSearchRadius;
+  late int _tempEndOfSearchRadius;
 
   List<Sight> get listOfNearbySights => _listOfNearbySights;
 
@@ -47,11 +50,35 @@ class NearbySights {
     });
   }
 
+  /// Метод добавляет в исходный список мест новое место
+  void addNewSightToOriginalListOfSights(Sight sight) {
+    _sightStorage.originalListOfSights.add(sight);
+    fillListOfNearbySights();
+  }
+
   /// Метод сбрасывает все фильтры
   void clearFilters() {
     _listOfCategories.forEach((element) => element.selected = false);
     _startOfSearchRadius = distanceValueFrom;
     _endOfSearchRadius = distanceValueUp;
+    fillListOfNearbySights();
+  }
+
+  /// Метод сохраняет настройки фильтров для возможности "откатить" изменения фильтров
+  void saveFilterSettings() {
+    _tempListOfCategories.clear();
+    _listOfCategories.forEach((e) => _tempListOfCategories.add(e.selected));
+    _tempStartOfSearchRadius = _startOfSearchRadius;
+    _tempEndOfSearchRadius = _endOfSearchRadius;
+  }
+
+  /// Метод "откатывает" настройки фильтров, выполняется при возврате из экрана фильтров по кнопке "Назад/Отмена"
+  void filtersHaveBeenCanceled() {
+    for (var i = 0; i < _listOfCategories.length; i++) {
+      _listOfCategories[i].selected = _tempListOfCategories[i];
+    }
+    _startOfSearchRadius = _tempStartOfSearchRadius;
+    _endOfSearchRadius = _tempEndOfSearchRadius;
     fillListOfNearbySights();
   }
 

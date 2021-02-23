@@ -30,18 +30,29 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             style: context.watch<CurrentTheme>().isDark ? darkFaintInscriptionStyle : lightFaintInscriptionStyle,
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(left: 40, right: 40, top: basicBorderSize, bottom: basicBorderSize),
-          height: widget._orientation == Orientation.portrait
-              ? heightOfCategorySelectionListForPortrait
-              : heightOfCategorySelectionListForLandscape,
-          child: GridView.extent(
-            shrinkWrap: true,
-            maxCrossAxisExtent: 80,
-            crossAxisSpacing: 32,
-            mainAxisSpacing: widget._orientation == Orientation.portrait ? 16 : 8,
-            childAspectRatio: .8,
-            children: context.read<SightProvider>().nearbySights.listOfCategories.map((e) => FiltersCategoryIcon(e)).toList(),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(basicBorderSize),
+            // height: widget._orientation == Orientation.portrait
+            //     ? heightOfCategorySelectionListForPortrait
+            //     : heightOfCategorySelectionListForLandscape,
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 20,
+                // shrinkWrap: true,
+                // maxCrossAxisExtent: 90,
+                // crossAxisSpacing: 20,
+                // mainAxisSpacing: widget._orientation == Orientation.portrait ? 8 : 8,
+                // childAspectRatio: .75,
+                children: context
+                    .read<SightProvider>()
+                    .nearbySights
+                    .listOfCategories
+                    .map((e) => FiltersCategoryIcon(e))
+                    .toList(),
+              ),
+            ),
           ),
         ),
       ],

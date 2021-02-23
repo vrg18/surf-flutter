@@ -9,7 +9,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/filters/filters.dart';
-import 'package:places/ui/screen/shell_screens.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -98,7 +98,7 @@ class _SearchBarState extends State<SearchBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => context.read<Web>().isWeb ? ShellScreens(Filters()) : Filters(),
+                        builder: (_) => context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters(),
                       ),
                     ).then((needRefresh) {
                       if (needRefresh != null && needRefresh)

@@ -21,6 +21,10 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
   @override
   Widget build(BuildContext context) {
     _selectedCategory = widget._category.selected;
+    String categoryName = widget._category.toString();
+    bool moreThanOneLine = categoryName.split(' ').length > 1;
+    if (moreThanOneLine) categoryName = categoryName.replaceFirst(' ', '\n');
+
     return SizedBox(
       width: 80,
       child: Column(
@@ -40,12 +44,13 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
                 ),
             ],
           ),
-          SizedBox(height: 10),
+          moreThanOneLine ? const SizedBox(height: 6) : const SizedBox(height: 12),
           Text(
-            widget._category.toString(),
+            categoryName,
+            textAlign: TextAlign.center,
             style:
                 context.watch<CurrentTheme>().isDark ? darkCategoryIconLabelTextStyle : lightCategoryIconLabelTextStyle,
-            maxLines: 1,
+            maxLines: moreThanOneLine ? 2 : 1,
             overflow: TextOverflow.ellipsis,
           ),
         ],

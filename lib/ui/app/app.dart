@@ -5,7 +5,7 @@ import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
-import 'package:places/ui/screen/shell_screens.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
 
 /// Начало приложения
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             locale: Locale('ru', 'RU'),
             title: appTitle,
             theme: theme.isDark ? darkTheme : lightTheme,
-            home: context.read<Web>().isWeb ? ShellScreens(MainScreenWithBottomBar()) : MainScreenWithBottomBar(),
+            home: context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar(),
           ),
         ),
       );

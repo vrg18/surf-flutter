@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 
-class ShellScreens extends StatelessWidget {
+/// Обертка для Web-экранов, своеобразный "закос" под телефон для Web
+/// Отказался от device_preview, т.к. он не поддерживает null-safety
+class WebWrapper extends StatelessWidget {
   final Widget _child;
 
-  ShellScreens(this._child);
+  WebWrapper(this._child);
 
   @override
   Widget build(BuildContext context) {

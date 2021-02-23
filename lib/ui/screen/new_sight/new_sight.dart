@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/domain/category.dart';
 import 'package:places/data/repository/nearby_sights.dart';
@@ -56,6 +57,7 @@ class _NewSightState extends State<NewSight> {
               isDark: _isDark,
               callback: () => Navigator.pop(context, false),
             ),
+            isWeb: context.read<Web>().isWeb,
           ),
           body: SingleChildScrollView(
             child: orientation == Orientation.portrait
@@ -92,6 +94,7 @@ class _NewSightState extends State<NewSight> {
   /// Метод возвращает верхнюю (левую) часть экрана добавления нового места
   Widget _topLeftPartOfScreen() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _addSightScreenSection(letteringCategory, _sectionCategory()),
         _addSightScreenSection(
@@ -127,6 +130,7 @@ class _NewSightState extends State<NewSight> {
         ),
         Row(
           children: [
+            const SizedBox(width: 12),
             UniversalWhiteButton(
               label: letteringPointOnMap,
               textStyle: clearFiltersButtonTextStyle,
@@ -217,7 +221,7 @@ class _NewSightState extends State<NewSight> {
     );
   }
 
-  /// Метод сохраняет введенную строку и проверят комплектность обязательных полей,
+  /// Метод сохраняет введенную строку и проверяет комплектность обязательных полей,
   /// и если Ок, активирует большую зеленую кнопку
   void _saveStringAndCheckReadiness<T>(String nameField, T value, bool verified) {
     _values[nameField] = value;
@@ -232,7 +236,7 @@ class _NewSightState extends State<NewSight> {
   /// Метод вызывается при нажатии на большую зеленую кнопку, создает новое место
   /// (с пометкой "не подчиняется фильтрам", что бы сразу видеть его в списке) и возвращает нас на экран списка
   void _pressingBigGreenButton() {
-    _nearbySights.listOfNearbySights.add(Sight(
+    _nearbySights.addNewSightToOriginalListOfSights(Sight(
       name: _values['name'].trim(),
       point: Point(_values['lat'], _values['lon']),
       category: _category!,
@@ -240,7 +244,6 @@ class _NewSightState extends State<NewSight> {
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
       notObeyFilters: true,
     ));
-    context.read<SightProvider>().fillListOfNearbySights(); // обновляем список мест в соответствии с фильтрами поиска
     Navigator.pop(context, true);
   }
 }

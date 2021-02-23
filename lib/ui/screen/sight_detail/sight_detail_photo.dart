@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,13 @@ class SightDetailPhoto extends StatelessWidget {
               child: Material(
                 color: _isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent,
+                      statusBarIconBrightness: _isDark ? Brightness.light : Brightness.dark,
+                    ));
+                    Navigator.pop(context);
+                  },
                   child: Icon(
                     Icons.chevron_left,
                     color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,

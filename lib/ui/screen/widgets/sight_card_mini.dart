@@ -3,7 +3,7 @@ import 'package:places/data/provider/is_web.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/shell_screens.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +64,7 @@ class SightCardMini extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => context.read<Web>().isWeb ? ShellScreens(SightDetail(_sight)) : SightDetail(_sight),
+                  builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightDetail(_sight)) : SightDetail(_sight),
                 ),
               ),
             ),
