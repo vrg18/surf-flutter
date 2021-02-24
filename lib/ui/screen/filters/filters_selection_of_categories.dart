@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -30,18 +30,29 @@ class _FiltersSelectionOfCategoriesState extends State<FiltersSelectionOfCategor
             style: context.watch<CurrentTheme>().isDark ? darkFaintInscriptionStyle : lightFaintInscriptionStyle,
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(left: 40, right: 40, top: basicBorderSize, bottom: basicBorderSize),
-          height: widget._orientation == Orientation.portrait
-              ? heightOfCategorySelectionListForPortrait
-              : heightOfCategorySelectionListForLandscape,
-          child: GridView.extent(
-            shrinkWrap: true,
-            maxCrossAxisExtent: 80,
-            crossAxisSpacing: 32,
-            mainAxisSpacing: widget._orientation == Orientation.portrait ? 16 : 8,
-            childAspectRatio: .8,
-            children: categories.map((e) => FiltersCategoryIcon(e)).toList(),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(basicBorderSize),
+            // height: widget._orientation == Orientation.portrait
+            //     ? heightOfCategorySelectionListForPortrait
+            //     : heightOfCategorySelectionListForLandscape,
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 20,
+                // shrinkWrap: true,
+                // maxCrossAxisExtent: 90,
+                // crossAxisSpacing: 20,
+                // mainAxisSpacing: widget._orientation == Orientation.portrait ? 8 : 8,
+                // childAspectRatio: .75,
+                children: context
+                    .read<SightProvider>()
+                    .nearbySights
+                    .listOfCategories
+                    .map((e) => FiltersCategoryIcon(e))
+                    .toList(),
+              ),
+            ),
           ),
         ),
       ],

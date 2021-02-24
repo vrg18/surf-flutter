@@ -26,17 +26,20 @@ class UniversalWhiteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: isActive
           ? () {
               if (toConsole != null) print(toConsole);
               if (callback != null && isActive) callback!();
             }
           : null,
-      minWidth: label == null ? 20 : null,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+      style: TextButton.styleFrom(
+        minimumSize: label == null ? const Size(48, 48) : const Size(double.minPositive, 48),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
+      //minWidth: label == null ? 20 : null,
       focusNode: skipFocus ? FocusNode(skipTraversal: true) : null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

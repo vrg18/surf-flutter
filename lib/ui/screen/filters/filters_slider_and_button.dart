@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
-import 'package:places/domain/res/magnitudes.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
+import 'package:places/data/res/magnitudes.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
@@ -21,8 +21,8 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
   @override
   Widget build(BuildContext context) {
     _rangeValues = RangeValues(
-      1 / distanceValueUp * context.watch<NearbySights>().startOfSearchRadius,
-      1 / distanceValueUp * context.watch<NearbySights>().endOfSearchRadius,
+      1 / distanceValueUp * context.watch<SightProvider>().nearbySights.startOfSearchRadius,
+      1 / distanceValueUp * context.watch<SightProvider>().nearbySights.endOfSearchRadius,
     );
 
     return Column(
@@ -76,9 +76,10 @@ class _FiltersSliderAndButtonState extends State<FiltersSliderAndButton> {
         onChanged: (RangeValues values) {
           setState(() {
             _rangeValues = values;
-            context.read<NearbySights>().startOfSearchRadius = (_rangeValues.start * distanceValueUp).round();
-            context.read<NearbySights>().endOfSearchRadius = (_rangeValues.end * distanceValueUp).round();
-            context.read<NearbySights>().fillListOfNearbySights();
+            context.read<SightProvider>().nearbySights.startOfSearchRadius =
+                (_rangeValues.start * distanceValueUp).round();
+            context.read<SightProvider>().nearbySights.endOfSearchRadius = (_rangeValues.end * distanceValueUp).round();
+            context.read<SightProvider>().fillListOfNearbySights();
           });
         },
       ),

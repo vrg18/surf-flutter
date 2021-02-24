@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// Категоря места (ресторан, музей, театр и пр.)
+/// Категория места (ресторан, музей, театр и пр.)
 class Category {
   final String name;
   final IconData icon;
+  bool selected;
 
-  Category(this.name, this.icon);
+  Category(this.name, this.icon, this.selected);
 
   @override
   String toString() {

@@ -11,13 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.1
-  flutter_svg: ^0.19.2+1
-  device_preview: ^0.6.2-beta
-  provider: ^4.3.2+3
-  rxdart: ^0.25.0
-  sprintf:
-  flutter_keyboard_visibility: ^5.0.0-nullsafety.0
+  cupertino_icons: ^1.0.2
+  provider: ^5.0.0-nullsafety.5
+  rxdart: ^0.26.0-nullsafety.1
+  flutter_keyboard_visibility: ^5.0.0-nullsafety.2
+  intl: ^0.17.0-nullsafety.2
+  sprintf: ^6.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:
@@ -27,7 +26,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - res/
+    - res/pictures/hourglass.gif
 
   fonts:
     - family: Roboto

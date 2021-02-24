@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/domain/current_theme.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
@@ -36,8 +37,8 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       setState(() {});
     });
     _sightLists = [
-      [mocks[1], mocks[2]],
-      [mocks[0]]
+      context.read<SightProvider>().favoritesSights.listOfSightsWantToVisit,
+      context.read<SightProvider>().favoritesSights.listOfSightsVisited,
     ];
   }
 
@@ -53,6 +54,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
       appBar: TopBar(
         titleHeight: appBarTitleHeight,
         bottomHeight: heightBigSwitchAndSearchLine + basicBorderSize,
+        isWeb: context.read<Web>().isWeb,
         title: Text(
           headerFavorites,
           style: screenTitleStyle,
@@ -126,8 +128,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
         ),
         child: GestureDetector(
           onHorizontalDragUpdate: (details) => setState(() {
-            if (details.delta.dx > 0 && _tabController.index == 0)
-              _tabController.index = 1; // свайп вправо
+            if (details.delta.dx > 0 && _tabController.index == 0) _tabController.index = 1; // свайп вправо
             else if (details.delta.dx < 0 && _tabController.index == 1) _tabController.index = 0; // свайп влево
           }),
           child: Center(

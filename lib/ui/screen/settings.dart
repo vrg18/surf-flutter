@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/domain/current_theme.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
@@ -39,6 +40,7 @@ class _SettingsState extends State<Settings> {
           style: screenTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
+        isWeb: context.read<Web>().isWeb,
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),

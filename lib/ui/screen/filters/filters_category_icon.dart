@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/domain/category.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,11 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
 
   @override
   Widget build(BuildContext context) {
-    _selectedCategory = context.watch<NearbySights>().selectedCategories.contains(widget._category);
+    _selectedCategory = widget._category.selected;
+    String categoryName = widget._category.toString();
+    bool moreThanOneLine = categoryName.split(' ').length > 1;
+    if (moreThanOneLine) categoryName = categoryName.replaceFirst(' ', '\n');
+
     return SizedBox(
       width: 80,
       child: Column(
@@ -40,12 +44,13 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
                 ),
             ],
           ),
-          SizedBox(height: 10),
+          moreThanOneLine ? const SizedBox(height: 6) : const SizedBox(height: 12),
           Text(
-            widget._category.toString(),
+            categoryName,
+            textAlign: TextAlign.center,
             style:
                 context.watch<CurrentTheme>().isDark ? darkCategoryIconLabelTextStyle : lightCategoryIconLabelTextStyle,
-            maxLines: 1,
+            maxLines: moreThanOneLine ? 2 : 1,
             overflow: TextOverflow.ellipsis,
           ),
         ],
@@ -64,12 +69,12 @@ class _FiltersCategoryIconState extends State<FiltersCategoryIcon> {
       onPressed: () => setState(() {
         if (_selectedCategory) {
           _selectedCategory = false;
-          context.read<NearbySights>().selectedCategories.remove(widget._category);
+          widget._category.selected = false;
         } else {
           _selectedCategory = true;
-          context.read<NearbySights>().selectedCategories.add(widget._category);
+          widget._category.selected = true;
         }
-        context.read<NearbySights>().fillListOfNearbySights();
+        context.read<SightProvider>().fillListOfNearbySights();
       }),
       child: Icon(
         widget._category.icon,

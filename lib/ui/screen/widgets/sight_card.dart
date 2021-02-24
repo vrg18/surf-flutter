@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:places/domain/current_theme.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +43,12 @@ class SightCard extends StatelessWidget {
           ),
           Positioned.fill(
             child: MaterialButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SightDetail(sight))),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightDetail(sight)) : SightDetail(sight),
+                ),
+              ),
             ),
           ),
           if (cornerIcon != null) _buttonAndIconToFavorites(),

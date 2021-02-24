@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
-import 'package:places/domain/res/magnitudes.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
+import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -30,28 +30,28 @@ class _FiltersState extends State<Filters> {
 
   @override
   Widget build(BuildContext context) {
-    var _numberOfNearbySights = context.watch<NearbySights>().listOfNearbySights.length;
+    var _numberOfNearbySights = context.watch<SightProvider>().nearbySights.listOfNearbySights.length;
 
     return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
         appBar: _filtersTopBar(_isDark),
         body: orientation == Orientation.portrait
             ? Column(children: [
-                Expanded(flex: 4, child: FiltersSelectionOfCategories(orientation)),
+                Expanded(flex: 5, child: FiltersSelectionOfCategories(orientation)),
                 Expanded(flex: 3, child: FiltersSliderAndButton()),
               ])
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(flex: 1, child: FiltersSelectionOfCategories(orientation)),
-                  Expanded(flex: 1, child: FiltersSliderAndButton()),
+                  Expanded(flex: 4, child: FiltersSelectionOfCategories(orientation)),
+                  Expanded(flex: 3, child: FiltersSliderAndButton()),
                 ],
               ),
         floatingActionButton: orientation == Orientation.portrait
             ? _getBigGreenButton(_numberOfNearbySights)
             : Row(children: [
-                Spacer(),
-                Expanded(child: _getBigGreenButton(_numberOfNearbySights)),
+                Spacer(flex: 4),
+                Expanded(flex: 3, child: _getBigGreenButton(_numberOfNearbySights)),
               ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
@@ -66,12 +66,14 @@ class _FiltersState extends State<Filters> {
         iconData: Icons.chevron_left,
         isDark: _isDark,
         callback: () => Navigator.pop(context, false),
+
       ),
       rightButton: UniversalWhiteButton(
         label: letteringClear,
         textStyle: clearFiltersButtonTextStyle,
         callback: () => _clearFilters(),
       ),
+      isWeb: context.read<Web>().isWeb,
     );
   }
 
@@ -89,11 +91,6 @@ class _FiltersState extends State<Filters> {
 
   /// Метод сбрасывает все фильтры
   _clearFilters() {
-    setState(() {
-      context.read<NearbySights>().selectedCategories.clear();
-      context.read<NearbySights>().startOfSearchRadius = distanceValueFrom;
-      context.read<NearbySights>().endOfSearchRadius = distanceValueUp;
-      context.read<NearbySights>().fillListOfNearbySights();
-    });
+    setState(() => context.read<SightProvider>().nearbySights.clearFilters());
   }
 }

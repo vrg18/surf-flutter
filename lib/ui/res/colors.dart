@@ -28,3 +28,4 @@ const Color bigGreenButtonColor = Color(0xFF4CAF50),
 final Color translucent56TertiaryColor = lightElementTertiaryColor.withOpacity(0.56);
 final Color translucent40GreenColor = bigGreenButtonColor.withOpacity(0.4);
 
+final shellBackgroundColor = Colors.blueGrey[100];

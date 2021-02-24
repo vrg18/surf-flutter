@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/current_theme.dart';
-import 'package:places/domain/nearby_sights.dart';
-import 'package:places/domain/res/magnitudes.dart';
+import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
+import 'package:places/data/provider/sight_provider.dart';
+import 'package:places/data/res/magnitudes.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/icons.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/filters/filters.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -38,7 +40,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    _textController.text = context.read<NearbySights>().previousSearchString;
+    _textController.text = context.read<SightProvider>().searchSights.previousSearchString;
     _textController.addListener(_trackingSearchString);
     _subject.debounceTime(pauseForSearches).listen((s) => _startSearchAfterPause(s));
   }
@@ -93,7 +95,12 @@ class _SearchBarState extends State<SearchBar> {
                     _textController.clear();
                     widget.callbackCancelSearch();
                   } else {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => Filters())).then((needRefresh) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters(),
+                      ),
+                    ).then((needRefresh) {
                       if (needRefresh != null && needRefresh)
                         widget.callbackChangedFilters();
                       else
@@ -120,6 +127,6 @@ class _SearchBarState extends State<SearchBar> {
   /// и добавление результата поиска в Stream для отработки StreamBuilder
   void _startSearchAfterPause(String searchString) {
     print('Получили строку для поиска "$searchString"');
-    context.read<NearbySights>().startingNewSearchAndAddingResultsToStream(searchString);
+    context.read<SightProvider>().startingNewSearch(searchString);
   }
 }

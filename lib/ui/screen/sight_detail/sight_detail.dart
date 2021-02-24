@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:places/domain/current_theme.dart';
+import 'package:places/data/provider/current_theme.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail_description.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail_photo.dart';

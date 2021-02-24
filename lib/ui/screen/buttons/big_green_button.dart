@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:places/domain/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:provider/provider.dart';
 
 /// Большая зеленая кнопка
 class BigGreenButton extends StatelessWidget {
@@ -24,24 +22,24 @@ class BigGreenButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _isDark = context.watch<CurrentTheme>().isDark;
-
     return SizedBox(
       height: heightOfBigGreenButton,
       width: double.infinity,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: isActive
             ? () {
                 if (toConsole != null) print(toConsole);
                 if (callback != null && isActive) callback!();
               }
             : null,
-        color: bigGreenButtonColor,
-        disabledColor: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        style: ElevatedButton.styleFrom(
+          primary: bigGreenButtonColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
+        //disabledColor: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
