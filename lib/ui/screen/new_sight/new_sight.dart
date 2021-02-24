@@ -3,8 +3,8 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
-import 'package:places/domain/category.dart';
 import 'package:places/data/repository/nearby_sights.dart';
+import 'package:places/domain/category.dart';
 import 'package:places/domain/point.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
@@ -194,10 +194,10 @@ class _NewSightState extends State<NewSight> {
           letteringNonSelect,
           style: lightFiltersDistanceValueStyle,
         ),
-        onChanged: (value) {
+        onChanged: (value) => setState(() { // странно, но не Web-сборка работает верно и без setState
           _category = value;
           _saveStringAndCheckReadiness('category', value, true);
-        },
+        }),
         items: _nearbySights.listOfCategories
             .map((e) => DropdownMenuItem(
                   value: e,

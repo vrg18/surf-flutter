@@ -128,8 +128,7 @@ class _FavoritesState extends State<Favorites> with SingleTickerProviderStateMix
         ),
         child: GestureDetector(
           onHorizontalDragUpdate: (details) => setState(() {
-            if (details.delta.dx > 0 && _tabController.index == 0)
-              _tabController.index = 1; // свайп вправо
+            if (details.delta.dx > 0 && _tabController.index == 0) _tabController.index = 1; // свайп вправо
             else if (details.delta.dx < 0 && _tabController.index == 1) _tabController.index = 0; // свайп влево
           }),
           child: Center(

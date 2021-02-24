@@ -1,5 +1,7 @@
 /// Определения размеров экранных элементов
 
+const double widthWebWrapper = 400;  // ширина WebWrapper (обертки для Web-экранов)
+const double heightWebWrapper = 800;  // высота WebWrapper (обертки для Web-экранов)
 const double wideScreenSizeOver = 450;  // считать широким экран более 450
 const double appBarTitleHeight = 48;  // высота AppBar
 const double basicBorderSize = 16;  // основной отступ от краев экрана

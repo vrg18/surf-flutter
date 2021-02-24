@@ -15,14 +15,17 @@ class WebWrapper extends StatelessWidget {
       builder: (context, constraints) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
-          padding: constraints.maxWidth < wideScreenSizeOver ? EdgeInsets.zero : const EdgeInsets.all(basicBorderSize),
+          padding: constraints.maxWidth < widthWebWrapper || constraints.maxHeight < heightWebWrapper
+              ? EdgeInsets.zero
+              : const EdgeInsets.all(basicBorderSize),
           color: shellBackgroundColor,
           child: Center(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(cornerRadiusOfShellScreens),
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: wideScreenSizeOver,
+                  maxWidth: widthWebWrapper,
+                  maxHeight: heightWebWrapper,
                 ),
                 //color: primaryBackgroundColor,
                 child: _child,
