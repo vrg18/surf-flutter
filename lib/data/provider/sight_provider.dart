@@ -32,4 +32,11 @@ class SightProvider with ChangeNotifier {
   void startingNewSearch(String searchString) {
     if (_searchSights.startingNewSearchAndAddingResultsToStream(searchString, _nearbySights)) notifyListeners();
   }
+
+  /// Освобождаем ресурсы
+  @override
+  void dispose() {
+    _searchSights.closeStream();
+    super.dispose();
+  }
 }
