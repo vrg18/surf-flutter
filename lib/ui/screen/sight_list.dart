@@ -132,6 +132,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           if (!_isSearchHistoryEmpty)
             Row(
               children: [
+                const SizedBox(width: 12),
                 UniversalWhiteButton(
                   label: letteringClearHistory,
                   textStyle: clearFiltersButtonTextStyle,

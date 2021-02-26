@@ -37,13 +37,13 @@ class _FiltersState extends State<Filters> {
         appBar: _filtersTopBar(_isDark),
         body: orientation == Orientation.portrait
             ? Column(children: [
-                Expanded(flex: 5, child: FiltersSelectionOfCategories(orientation)),
+                Expanded(flex: 5, child: FiltersSelectionOfCategories()),
                 Expanded(flex: 3, child: FiltersSliderAndButton()),
               ])
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(flex: 4, child: FiltersSelectionOfCategories(orientation)),
+                  Expanded(flex: 4, child: FiltersSelectionOfCategories()),
                   Expanded(flex: 3, child: FiltersSliderAndButton()),
                 ],
               ),

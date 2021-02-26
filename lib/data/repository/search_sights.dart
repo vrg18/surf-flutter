@@ -69,4 +69,8 @@ class SearchSights {
     });
     print('Поиск завершен, найдено ${_listOfDesiredSights.length} элемента!');
   }
+
+  void closeStream() {
+    _subjectSights.close();
+  }
 }

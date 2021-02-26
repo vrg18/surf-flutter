@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 /// Верхняя (левая) часть экрана фильтров с выбором категорий
 class FiltersSelectionOfCategories extends StatefulWidget {
-  final Orientation _orientation;
-
-  FiltersSelectionOfCategories(this._orientation);
+  // final Orientation _orientation;
+  //
+  // FiltersSelectionOfCategories(this._orientation);
 
   @override
   _FiltersSelectionOfCategoriesState createState() => _FiltersSelectionOfCategoriesState();
