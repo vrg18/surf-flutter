@@ -14,6 +14,7 @@ import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/big_green_button.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
 import 'package:places/ui/screen/new_sight/new_sight_field.dart';
+import 'package:places/ui/screen/new_sight/new_sight_photos.dart';
 import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -96,6 +97,7 @@ class _NewSightState extends State<NewSight> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        NewSightPhotos(),
         _addSightScreenSection(letteringCategory, _sectionCategory()),
         _addSightScreenSection(
           letteringName,

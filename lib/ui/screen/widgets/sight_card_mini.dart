@@ -5,6 +5,7 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
+import 'package:places/ui/screen/widgets/mini_photo.dart';
 import 'package:provider/provider.dart';
 
 class SightCardMini extends StatelessWidget {
@@ -20,28 +21,7 @@ class SightCardMini extends StatelessWidget {
         children: [
           Row(
             children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
-                  child: SizedBox.expand(
-                    child: Image.network(
-                      _sight.url,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              MiniPhoto(_sight.url),
               const SizedBox(width: basicBorderSize),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
