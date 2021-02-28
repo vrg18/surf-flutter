@@ -63,37 +63,42 @@ class _NewSightPhotosState extends State<NewSightPhotos> {
   }
 
   Widget _photoContainer(String photo) {
-    return Stack(
-      children: [
-        Container(
-          clipBehavior: Clip.antiAlias,
-          width: photoSizeOfNewSight,
-          height: photoSizeOfNewSight,
-          decoration: BoxDecoration(
-            color: Color(int.parse(photo, radix: 16)).withOpacity(1.0),
-            borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.vertical,
+      onDismissed: (_) => _deletePhoto(photo),
+      child: Stack(
+        children: [
+          Container(
+            clipBehavior: Clip.antiAlias,
+            width: photoSizeOfNewSight,
+            height: photoSizeOfNewSight,
+            decoration: BoxDecoration(
+              color: Color(int.parse(photo, radix: 16)).withOpacity(1.0),
+              borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+            ),
           ),
-        ),
-        Positioned(
-          right: 0,
-          top: 0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
-            child: SizedBox(
-              width: 48,
-              child: MaterialButton(
-                onPressed: () => _deletePhoto(photo),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                height: 48,
-                child: Icon(
-                  Icons.cancel,
-                  color: Colors.white,
+          Positioned(
+            right: 0,
+            top: 0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+              child: SizedBox(
+                width: 48,
+                child: MaterialButton(
+                  onPressed: () => _deletePhoto(photo),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  height: 48,
+                  child: Icon(
+                    Icons.cancel,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
