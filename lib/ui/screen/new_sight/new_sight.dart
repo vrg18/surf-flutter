@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:places/data/provider/current_theme.dart';
@@ -28,6 +30,7 @@ class _NewSightState extends State<NewSight> {
   Map _values = {};
   Map _verified = {};
   Category? _category;
+  List<String> _photos = [];
   bool _readiness = false;
   late NearbySights _nearbySights;
   late bool _isDark;
@@ -97,7 +100,7 @@ class _NewSightState extends State<NewSight> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        NewSightPhotos(),
+        NewSightPhotos(_photos),
         _addSightScreenSection(letteringCategory, _sectionCategory()),
         _addSightScreenSection(
           letteringName,
@@ -244,8 +247,13 @@ class _NewSightState extends State<NewSight> {
       category: _category!,
       description:
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
+      photos: [],
       notObeyFilters: true,
     ));
     Navigator.pop(context, true);
+  }
+
+  void _addPhoto() {
+    _photos.add(Random().nextInt(0xFFFFFF).toRadixString(16)); // todo временно цветная заглушка вместо фото
   }
 }

@@ -65,7 +65,7 @@ class SightCard extends StatelessWidget {
         children: [
           SizedBox.expand(
             child: Image.network(
-              sight.url,
+              sight.photos[0],
               fit: BoxFit.cover,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                 if (loadingProgress == null) return child;

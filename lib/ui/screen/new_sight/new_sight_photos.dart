@@ -5,35 +5,53 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 
 class NewSightPhotos extends StatelessWidget {
+  final List<String> _photos;
+
+  NewSightPhotos(this._photos);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-//      height: 120,
-      padding: const EdgeInsets.symmetric(vertical: basicBorderSize),
+    return Padding(
+      padding: const EdgeInsets.all(basicBorderSize),
       child: Row(
         children: [
-          Container(
-            width: 80,
-            height: 80,
-            margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: bigGreenButtonColor,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(right: basicBorderSize),
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+              child: Material(
+                child: InkWell(
+                  onTap: () => print('============'),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: bigGreenButtonColor,
+                      ),
+                      borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 48,
+                      color: bigGreenButtonColor,
+                    ),
+                  ),
+                ),
+              ),
             ),
-            child: Icon(Icons.add),
           ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-//            scrollDirection: Axis.horizontal,
+              child: Wrap(
+                direction: Axis.horizontal,
+                spacing: basicBorderSize,
                 children: [
-                  buildContainer(),
-                  buildContainer(),
-                  buildContainer(),
-                  buildContainer(),
+                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
+                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
+                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
+                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
                 ],
               ),
             ),
@@ -43,13 +61,12 @@ class NewSightPhotos extends StatelessWidget {
     );
   }
 
-  Container buildContainer() {
+  Container photoContainer(String photo) {
     return Container(
       width: 80,
       height: 80,
-      margin: EdgeInsets.only(right: basicBorderSize),
       decoration: BoxDecoration(
-        color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+        color: Color(int.parse(photo, radix: 16)).withOpacity(1.0),
         borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
       ),
     );

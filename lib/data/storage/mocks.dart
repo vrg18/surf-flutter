@@ -19,11 +19,11 @@ final List<Category> mockCategories = [
 ];
 
 /// Список интересных мест
-final List<Sight> mockSights = [
+List<Sight> mockSights = [
   Sight(
       name: 'Дольмен Сердце матери',
       point: Point(44.480153, 38.406548),
-      url: 'https://avatars.mds.yandex.net/get-altay/2397657/2a0000017463329b491823a390991821a2fd/XXXL',
+      photos: ['https://avatars.mds.yandex.net/get-altay/2397657/2a0000017463329b491823a390991821a2fd/XXXL'],
       description:
           'Первый и наиболее известный Пшадский дольмен – это «Сердце матери», или как его еще называют, «Благословение». '
           'Он стоит на краю поселка Пшада, имеет трапециевидную форму и относится к корытообразному типу.',
@@ -31,13 +31,13 @@ final List<Sight> mockSights = [
   Sight(
       name: 'Дольмен Тор',
       point: Point(44.456506, 38.351367),
-      url: 'https://avatars.mds.yandex.net/get-altay/1063709/2a00000165ec2f29de191e54638a1f28f9d4/XXXL',
+      photos: ['https://avatars.mds.yandex.net/get-altay/1063709/2a00000165ec2f29de191e54638a1f28f9d4/XXXL'],
       description: 'Дольмен Тор. Дарит уверенность в себе, силу духа и удачу.',
       category: mockCategories[0]),
   Sight(
       name: 'Дольмен Нежность',
       point: Point(44.454711, 38.351977),
-      url: 'https://avatars.mds.yandex.net/get-altay/481843/2a000001622f0585a80c5134485e9bd444de/XXXL',
+      photos: ['https://avatars.mds.yandex.net/get-altay/481843/2a000001622f0585a80c5134485e9bd444de/XXXL'],
       description: 'Дольмен Нежность. Отвечает за материнство, здоровье и счастье детей.',
       category: mockCategories[0]),
 ];

@@ -21,7 +21,7 @@ class SightCardMini extends StatelessWidget {
         children: [
           Row(
             children: [
-              MiniPhoto(_sight.url),
+              MiniPhoto(_sight.photos[0]),
               const SizedBox(width: basicBorderSize),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
