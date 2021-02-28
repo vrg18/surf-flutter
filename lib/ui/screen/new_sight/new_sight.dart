@@ -68,6 +68,7 @@ class _NewSightState extends State<NewSight> {
                 ? Column(
                     children: [
                       _topLeftPartOfScreen(),
+                      const SizedBox(height: 16),
                       _bottomRightPartOfScreen(),
                     ],
                   )
@@ -109,6 +110,14 @@ class _NewSightState extends State<NewSight> {
             callback: _saveStringAndCheckReadiness,
           ),
         ),
+      ],
+    );
+  }
+
+  /// Метод возвращает нижнюю (правую) часть экрана добавления нового места
+  Widget _bottomRightPartOfScreen() {
+    return Column(
+      children: [
         Row(
           children: [
             Expanded(
@@ -144,22 +153,18 @@ class _NewSightState extends State<NewSight> {
             ),
           ],
         ),
+        _addSightScreenSection(
+          letteringDescription,
+          NewSightField(
+            nameField: 'description',
+            callback: _saveStringAndCheckReadiness,
+            hint: textFieldHintEnterText,
+            mandatoryFilling: false,
+            multiLine: true,
+            lastField: true,
+          ),
+        ),
       ],
-    );
-  }
-
-  /// Метод возвращает нижнюю (правую) часть экрана добавления нового места
-  Widget _bottomRightPartOfScreen() {
-    return _addSightScreenSection(
-      letteringDescription,
-      NewSightField(
-        nameField: 'description',
-        callback: _saveStringAndCheckReadiness,
-        hint: textFieldHintEnterText,
-        mandatoryFilling: false,
-        multiLine: true,
-        lastField: true,
-      ),
     );
   }
 
@@ -172,7 +177,7 @@ class _NewSightState extends State<NewSight> {
         child: Column(
           children: [
             Container(
-              height: verticalScreenPitchAddSight,
+              height: verticalScreenPitchAddSight * 0.7,
               alignment: Alignment.bottomLeft,
               child: Text(
                 label,
@@ -191,6 +196,7 @@ class _NewSightState extends State<NewSight> {
   Widget _sectionCategory() {
     return SizedBox(
       width: double.infinity,
+      height: verticalScreenPitchAddSight,
       child: DropdownButton<Category>(
         value: _category,
         style: _isDark ? darkMainTextFieldStyle : lightMainTextFieldStyle,
@@ -199,7 +205,8 @@ class _NewSightState extends State<NewSight> {
           letteringNonSelect,
           style: lightFiltersDistanceValueStyle,
         ),
-        onChanged: (value) => setState(() { // странно, но не Web-сборка работает верно и без setState
+        onChanged: (value) => setState(() {
+          // странно, но не Web-сборка работает верно и без setState
           _category = value;
           _saveStringAndCheckReadiness('category', value, true);
         }),
@@ -247,13 +254,9 @@ class _NewSightState extends State<NewSight> {
       category: _category!,
       description:
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
-      photos: [],
+      photos: _photos,
       notObeyFilters: true,
     ));
     Navigator.pop(context, true);
-  }
-
-  void _addPhoto() {
-    _photos.add(Random().nextInt(0xFFFFFF).toRadixString(16)); // todo временно цветная заглушка вместо фото
   }
 }

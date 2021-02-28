@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 
-class NewSightPhotos extends StatelessWidget {
+class NewSightPhotos extends StatefulWidget {
   final List<String> _photos;
 
   NewSightPhotos(this._photos);
 
+  @override
+  _NewSightPhotosState createState() => _NewSightPhotosState();
+}
+
+class _NewSightPhotosState extends State<NewSightPhotos> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,11 +25,12 @@ class NewSightPhotos extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
               child: Material(
+                type: MaterialType.transparency,
                 child: InkWell(
-                  onTap: () => print('============'),
+                  onTap: () => _addPhoto(),
                   child: Container(
-                    width: 80,
-                    height: 80,
+                    width: photoSizeOfNewSight,
+                    height: photoSizeOfNewSight,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: bigGreenButtonColor,
@@ -47,12 +53,7 @@ class NewSightPhotos extends StatelessWidget {
               child: Wrap(
                 direction: Axis.horizontal,
                 spacing: basicBorderSize,
-                children: [
-                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
-                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
-                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
-                  photoContainer(Random().nextInt(0xFFFFFF).toRadixString(16)),
-                ],
+                children: widget._photos.map((e) => _photoContainer(e)).toList(),
               ),
             ),
           ),
@@ -61,14 +62,47 @@ class NewSightPhotos extends StatelessWidget {
     );
   }
 
-  Container photoContainer(String photo) {
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: BoxDecoration(
-        color: Color(int.parse(photo, radix: 16)).withOpacity(1.0),
-        borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
-      ),
+  Widget _photoContainer(String photo) {
+    return Stack(
+      children: [
+        Container(
+          clipBehavior: Clip.antiAlias,
+          width: photoSizeOfNewSight,
+          height: photoSizeOfNewSight,
+          decoration: BoxDecoration(
+            color: Color(int.parse(photo, radix: 16)).withOpacity(1.0),
+            borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: 0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
+            child: SizedBox(
+              width: 48,
+              child: MaterialButton(
+                onPressed: () => _deletePhoto(photo),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                height: 48,
+                child: Icon(
+                  Icons.cancel,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
+  }
+
+  void _addPhoto() {
+    setState(() =>
+        widget._photos.add(Random().nextInt(0xFFFFFF).toRadixString(16))); // todo временно цветная заглушка вместо фото
+  }
+
+  void _deletePhoto(String photo) {
+    setState(() => widget._photos.remove(photo));
   }
 }
