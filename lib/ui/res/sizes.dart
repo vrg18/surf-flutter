@@ -13,5 +13,6 @@ const double cornerRadiusOfSightCard = 12;  // радиус закруглени
 const double cornerRadiusOfShellScreens = 16;  // радиус закругления углов WEB-оболочки экранов
 const double verticalScreenPitchAddSight = 40;  // вертикальный шаг экрана AddSight
 const double widthOfNewSightButton = 177; // ширина кнопки "Новое место"
+const double photoSizeOfNewSight = 80; // размер фото на экране нового места
 const double heightOfCategorySelectionListForPortrait = 300; // высота списка категорий на экране "Фильтры"
 const double heightOfCategorySelectionListForLandscape = 230; // высота списка категорий на экране "Фильтры"

@@ -5,17 +5,19 @@ import 'package:places/domain/point.dart';
 class Sight {
   final String name;
   final Point point;
-  final String url;
   final String description;
   final Category category;
+  final List<String> photos;
   final bool notObeyFilters;
 
   Sight({
     required this.name,
     required this.point,
-    this.url = '',
     this.description = '',
     required this.category,
+    required this.photos,
     this.notObeyFilters = false,
   });
+
+//  List<String> get photos => _photos;
 }

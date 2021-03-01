@@ -59,26 +59,30 @@ class SightCard extends StatelessWidget {
 
   /// Верхняя часть карточки с фото
   Widget _topWithPhoto() {
+    String firstPhoto = sight.photos[0];
+
     return Expanded(
       flex: 3,
       child: Stack(
         children: [
-          SizedBox.expand(
-            child: Image.network(
-              sight.url,
-              fit: BoxFit.cover,
-              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                        : null,
+          firstPhoto.substring(0, 4) != 'http'
+              ? Container(color: Color(int.parse(firstPhoto, radix: 16)).withOpacity(1.0)) // todo врем. заглушка
+              : SizedBox.expand(
+                  child: Image.network(
+                    firstPhoto,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
+                ),
           Positioned(
             left: 15,
             top: 15,

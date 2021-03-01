@@ -27,11 +27,11 @@ class SightDetail extends StatelessWidget {
       return Scaffold(
         body: orientation == Orientation.portrait
             ? Column(children: [
-                Expanded(child: SightDetailPhoto(_sight.url)),
+                Expanded(child: SightDetailPhoto(_sight.photos[0])),
                 Expanded(child: SightDetailDescription(_sight)),
               ])
             : Row(children: [
-                Expanded(child: SightDetailPhoto(_sight.url)),
+                Expanded(child: SightDetailPhoto(_sight.photos[0])),
                 Expanded(child: SightDetailDescription(_sight)),
               ]),
       );

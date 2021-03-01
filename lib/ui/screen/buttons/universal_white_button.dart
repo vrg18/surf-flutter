@@ -34,7 +34,7 @@ class UniversalWhiteButton extends StatelessWidget {
             }
           : null,
       style: TextButton.styleFrom(
-        minimumSize: label == null ? const Size(48, 48) : const Size(double.minPositive, 48),
+        minimumSize: label == null ? const Size(48, 48) : const Size(double.minPositive, 40),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),

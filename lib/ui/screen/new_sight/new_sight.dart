@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:places/data/provider/current_theme.dart';
@@ -14,6 +16,7 @@ import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/big_green_button.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
 import 'package:places/ui/screen/new_sight/new_sight_field.dart';
+import 'package:places/ui/screen/new_sight/new_sight_photos.dart';
 import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +30,7 @@ class _NewSightState extends State<NewSight> {
   Map _values = {};
   Map _verified = {};
   Category? _category;
+  List<String> _photos = [];
   bool _readiness = false;
   late NearbySights _nearbySights;
   late bool _isDark;
@@ -64,6 +68,7 @@ class _NewSightState extends State<NewSight> {
                 ? Column(
                     children: [
                       _topLeftPartOfScreen(),
+                      const SizedBox(height: 16),
                       _bottomRightPartOfScreen(),
                     ],
                   )
@@ -96,6 +101,7 @@ class _NewSightState extends State<NewSight> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        NewSightPhotos(_photos),
         _addSightScreenSection(letteringCategory, _sectionCategory()),
         _addSightScreenSection(
           letteringName,
@@ -104,6 +110,14 @@ class _NewSightState extends State<NewSight> {
             callback: _saveStringAndCheckReadiness,
           ),
         ),
+      ],
+    );
+  }
+
+  /// Метод возвращает нижнюю (правую) часть экрана добавления нового места
+  Widget _bottomRightPartOfScreen() {
+    return Column(
+      children: [
         Row(
           children: [
             Expanded(
@@ -139,22 +153,18 @@ class _NewSightState extends State<NewSight> {
             ),
           ],
         ),
+        _addSightScreenSection(
+          letteringDescription,
+          NewSightField(
+            nameField: 'description',
+            callback: _saveStringAndCheckReadiness,
+            hint: textFieldHintEnterText,
+            mandatoryFilling: false,
+            multiLine: true,
+            lastField: true,
+          ),
+        ),
       ],
-    );
-  }
-
-  /// Метод возвращает нижнюю (правую) часть экрана добавления нового места
-  Widget _bottomRightPartOfScreen() {
-    return _addSightScreenSection(
-      letteringDescription,
-      NewSightField(
-        nameField: 'description',
-        callback: _saveStringAndCheckReadiness,
-        hint: textFieldHintEnterText,
-        mandatoryFilling: false,
-        multiLine: true,
-        lastField: true,
-      ),
     );
   }
 
@@ -167,7 +177,7 @@ class _NewSightState extends State<NewSight> {
         child: Column(
           children: [
             Container(
-              height: verticalScreenPitchAddSight,
+              height: verticalScreenPitchAddSight * 0.7,
               alignment: Alignment.bottomLeft,
               child: Text(
                 label,
@@ -186,6 +196,7 @@ class _NewSightState extends State<NewSight> {
   Widget _sectionCategory() {
     return SizedBox(
       width: double.infinity,
+      height: verticalScreenPitchAddSight,
       child: DropdownButton<Category>(
         value: _category,
         style: _isDark ? darkMainTextFieldStyle : lightMainTextFieldStyle,
@@ -194,7 +205,8 @@ class _NewSightState extends State<NewSight> {
           letteringNonSelect,
           style: lightFiltersDistanceValueStyle,
         ),
-        onChanged: (value) => setState(() { // странно, но не Web-сборка работает верно и без setState
+        onChanged: (value) => setState(() {
+          // странно, но не Web-сборка работает верно и без setState
           _category = value;
           _saveStringAndCheckReadiness('category', value, true);
         }),
@@ -242,6 +254,7 @@ class _NewSightState extends State<NewSight> {
       category: _category!,
       description:
           _values.containsKey('description') && _values['description'] != null ? _values['description'].trim() : '',
+      photos: _photos,
       notObeyFilters: true,
     ));
     Navigator.pop(context, true);

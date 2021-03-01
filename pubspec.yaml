@@ -11,11 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  provider: ^5.0.0-nullsafety.5
-  rxdart: ^0.26.0-nullsafety.1
-  flutter_keyboard_visibility: ^5.0.0-nullsafety.2
-  intl: ^0.17.0-nullsafety.2
+  provider: ^5.0.0-nullsafety
+  rxdart: ^0.26.0-nullsafety
+  flutter_keyboard_visibility: ^5.0.0-nullsafety
+  intl: ^0.17.0-nullsafety
   sprintf: ^6.0.0-nullsafety
 
 dev_dependencies:
