@@ -68,7 +68,7 @@ class _NewSightPhotosState extends State<NewSightPhotos> {
   // Draggable над фото
   Widget _photoContainer(int index) {
     String _photo = widget._photos[index];
-    UniqueKey _key = UniqueKey();
+    ValueKey _key = ValueKey(_photo);
     if (!_isDrag.containsKey(_photo)) _isDrag[_photo] = false;
 
     return Draggable<int>(
@@ -85,7 +85,7 @@ class _NewSightPhotosState extends State<NewSightPhotos> {
   }
 
   // Само фото
-  Widget _onePhoto(UniqueKey key, int index, String photo) {
+  Widget _onePhoto(ValueKey key, int index, String photo) {
     return Dismissible(
       key: key,
       direction: DismissDirection.vertical,
@@ -148,10 +148,6 @@ class _NewSightPhotosState extends State<NewSightPhotos> {
 
   // Перемещение фото в списке
   void _movePhoto(int source, int destination) {
-    setState(() {
-      String photo = widget._photos[source];
-      widget._photos.removeAt(source);
-      widget._photos.insert(destination, photo);
-    });
+    setState(() => widget._photos.insert(destination, widget._photos.removeAt(source)));
   }
 }
