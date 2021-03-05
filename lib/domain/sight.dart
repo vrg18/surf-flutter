@@ -18,6 +18,4 @@ class Sight {
     required this.photos,
     this.notObeyFilters = false,
   });
-
-//  List<String> get photos => _photos;
 }

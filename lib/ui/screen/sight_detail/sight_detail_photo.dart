@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 /// Верхняя (левая) часть экрана детализации места с фотографией места
 class SightDetailPhoto extends StatelessWidget {
-  final String _url;
+  final String _photoUrl;
 
-  SightDetailPhoto(this._url);
+  SightDetailPhoto(this._photoUrl);
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +16,24 @@ class SightDetailPhoto extends StatelessWidget {
 
     return Stack(
       children: [
-        SizedBox.expand(
-          child: Image.network(
-            _url,
-            fit: BoxFit.cover,
-            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                      : null,
+        _photoUrl.substring(0, 4) != 'http'
+            ? Container(color: Color(int.parse(_photoUrl, radix: 16)).withOpacity(1.0)) // todo врем. заглушка
+            : SizedBox.expand(
+                child: Image.network(
+                  _photoUrl,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
+              ),
         Positioned(
           left: 15,
           top: 30,
