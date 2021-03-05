@@ -1,5 +1,5 @@
 container:
-  image: cirrusci/flutter:beta
+  image: cirrusci/flutter:stable
 
 #test_task:
 #  pub_cache:
