@@ -1,7 +1,7 @@
-import 'package:places/data/repository/point_on_map.dart';
 import 'package:places/data/res/magnitudes.dart';
+import 'package:places/data/res/mocks.dart';
+import 'package:places/data/service/point_on_map.dart';
 import 'package:places/data/storage/category_storage.dart';
-import 'package:places/data/storage/mocks.dart';
 import 'package:places/data/storage/sight_storage.dart';
 import 'package:places/domain/category.dart';
 import 'package:places/domain/point.dart';

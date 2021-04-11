@@ -3,32 +3,31 @@ import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
 
 /// Обертка для Web-экранов, своеобразный "закос" под телефон для Web
-/// Отказался от device_preview, т.к. он не поддерживает null-safety
 class WebWrapper extends StatelessWidget {
-  final Widget _child;
+  final Widget child;
 
-  WebWrapper(this._child);
+  const WebWrapper(this.child);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) {
+      builder: (_, constraints) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
-          padding: constraints.maxWidth < widthWebWrapper || constraints.maxHeight < heightWebWrapper
-              ? EdgeInsets.zero
-              : const EdgeInsets.all(basicBorderSize),
-          color: shellBackgroundColor,
+          padding: EdgeInsets.symmetric(
+            horizontal: constraints.maxWidth < widthWebWrapper ? 0 : basicBorderSize,
+            vertical: constraints.maxHeight < heightWebWrapper ? 0 : basicBorderSize,
+          ),
+          color: wrapperBackgroundColor,
           child: Center(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(cornerRadiusOfShellScreens),
+              borderRadius: BorderRadius.circular(radiusOfWebWrapper),
               child: Container(
                 constraints: BoxConstraints(
                   maxWidth: widthWebWrapper,
                   maxHeight: heightWebWrapper,
                 ),
-                //color: primaryBackgroundColor,
-                child: _child,
+                child: child,
               ),
             ),
           ),

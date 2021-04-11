@@ -9,6 +9,7 @@ class FavoritesSights {
   late List<Sight> _listOfSightsVisited;
 
   List<Sight> get listOfSightsWantToVisit => _listOfSightsWantToVisit;
+
   List<Sight> get listOfSightsVisited => _listOfSightsVisited;
 
   FavoritesSights() {

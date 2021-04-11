@@ -1,5 +1,5 @@
-import 'package:places/data/repository/nearby_sights.dart';
 import 'package:places/data/res/magnitudes.dart';
+import 'package:places/data/service/nearby_sights.dart';
 import 'package:places/domain/sight.dart';
 import 'package:rxdart/rxdart.dart';
 

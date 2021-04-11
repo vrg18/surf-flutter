@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:places/data/repository/favorites_sights.dart';
-import 'package:places/data/repository/nearby_sights.dart';
-import 'package:places/data/repository/search_sights.dart';
+import 'package:places/data/service/favorites_sights.dart';
+import 'package:places/data/service/nearby_sights.dart';
+import 'package:places/data/service/search_sights.dart';
 
 /// Класс, хранящий список мест в соответствии с установленными фильтрами, историю поиска и избранные места
 /// Используется Provider

@@ -23,7 +23,14 @@ List<Sight> mockSights = [
   Sight(
       name: 'Дольмен Сердце матери',
       point: Point(44.480153, 38.406548),
-      photos: ['https://avatars.mds.yandex.net/get-altay/2397657/2a0000017463329b491823a390991821a2fd/XXXL'],
+      photos: [
+        'https://avatars.mds.yandex.net/get-altay/2397657/2a0000017463329b491823a390991821a2fd/XXXL',
+        'https://avatars.mds.yandex.net/get-altay/4365309/2a0000017744c12b66a4c3d38c1b67353c62/XXXL',
+        'https://avatars.mds.yandex.net/get-altay/4336915/2a0000017744c10ec2ed93b46d3bf36828e7/XXXL',
+        'https://avatars.mds.yandex.net/get-altay/4804646/2a0000017744c106050ef1d008b50cdca8f7/XXXL',
+        'https://avatars.mds.yandex.net/get-altay/774756/2a0000015fbbe4419a11b7df763883cad0fc/XXXL',
+        'https://avatars.mds.yandex.net/get-altay/2397657/2a0000017463330da41224ea81be4cbceb2d/XXXL',
+      ],
       description:
           'Первый и наиболее известный Пшадский дольмен – это «Сердце матери», или как его еще называют, «Благословение». '
           'Он стоит на краю поселка Пшада, имеет трапециевидную форму и относится к корытообразному типу.',

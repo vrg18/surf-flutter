@@ -1,4 +1,4 @@
-import 'package:places/data/storage/mocks.dart';
+import 'package:places/data/res/mocks.dart';
 import 'package:places/domain/sight.dart';
 
 /// Получение из БД и запись в БД мест (достопримечательностей)

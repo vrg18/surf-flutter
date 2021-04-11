@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
-import 'package:places/data/repository/nearby_sights.dart';
+import 'package:places/data/service/nearby_sights.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/icons.dart';

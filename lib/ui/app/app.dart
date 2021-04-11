@@ -19,12 +19,14 @@ class MyApp extends StatelessWidget {
         ],
         child: Consumer<CurrentTheme>(
           builder: (context, theme, _) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            locale: Locale('ru', 'RU'),
-            title: appTitle,
-            theme: theme.isDark ? darkTheme : lightTheme,
-            home: context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar(),
-          ),
+              debugShowCheckedModeBanner: false,
+              locale: Locale('ru', 'RU'),
+              title: appTitle,
+              theme: theme.isDark ? darkTheme : lightTheme,
+              home: Builder(
+                builder: (BuildContext context) =>
+                    context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar(),
+              )),
         ),
       );
 }
