@@ -82,10 +82,15 @@ class _OnBoardingState extends State<OnBoarding> {
     return Column(
       mainAxisAlignment: isPortrait ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
-        SvgPicture.asset(
-          'res/pictures/${picturesOnBoarding[index]}.svg',
-          color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-        ),
+        context.read<Web>().isWeb
+            ? Image.network(
+                'res/pictures/${picturesOnBoarding[index]}.svg',
+                color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+              )
+            : SvgPicture.asset(
+                'res/pictures/${picturesOnBoarding[index]}.svg',
+                color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+              ),
         isPortrait ? const SizedBox(height: 48) : const SizedBox(height: 8),
         Text(
           _inOneOrTwoLines(titlesOnBoarding[index], isPortrait),

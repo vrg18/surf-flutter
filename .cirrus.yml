@@ -9,6 +9,6 @@ container:
 build_task:
   build_script:
     - flutter config --enable-web
-    - flutter build web --release --no-sound-null-safety
+    - flutter build web --release --no-sound-null-safety --web-renderer html
   binaries_artifacts:
     path: "build/web/**"
