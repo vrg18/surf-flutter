@@ -4,7 +4,7 @@ import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
-import 'package:places/ui/screen/main_screen_with_bottom_bar.dart';
+import 'package:places/ui/screen/on_boarding.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -24,9 +24,8 @@ class MyApp extends StatelessWidget {
               title: appTitle,
               theme: theme.isDark ? darkTheme : lightTheme,
               home: Builder(
-                builder: (BuildContext context) =>
-                    context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar(),
-              )),
+                  builder: (BuildContext context) =>
+                      context.read<Web>().isWeb ? WebWrapper(OnBoarding()) : OnBoarding())),
         ),
       );
 }

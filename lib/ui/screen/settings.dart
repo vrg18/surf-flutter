@@ -8,6 +8,8 @@ import 'package:places/ui/res/sizes.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/buttons/universal_white_button.dart';
+import 'package:places/ui/screen/on_boarding.dart';
+import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -95,12 +97,20 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  /// Ссылка на туториал
+  /// Кнопка "Смотреть туториал"
   Widget _buttonViewTutorial() {
     return UniversalWhiteButton(
       iconData: Icons.info_outline,
       textStyle: clearFiltersButtonTextStyle,
-      toConsole: viewTutorialPress,
+      callback: _pressTutorial,
+    );
+  }
+
+  /// Oбработка нажатия на кнопку "Смотреть туториал"
+  void _pressTutorial() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => context.read<Web>().isWeb ? WebWrapper(OnBoarding()) : OnBoarding()),
     );
   }
 }

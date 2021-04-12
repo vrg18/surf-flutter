@@ -38,6 +38,8 @@ const String letteringTryChangingSearch = 'Попробуйте изменить
 const String letteringYouWereLookingFor = 'ВЫ ИСКАЛИ';
 const String letteringClearHistory = 'Очистить историю';
 const String letteringSearchHistoryIsEmpty = 'История поиска пуста';
+const String letteringSkip = 'Пропустить';
+const String buttonLabelOnStart = 'НА СТАРТ';
 
 // Всплывающие подсказки BottomNavigationBar
 const String tooltipList = 'Список',
@@ -45,6 +47,23 @@ const String tooltipList = 'Список',
     tooltipFavorites = 'Любимые',
     tooltipDetail = 'Подробно',
     tooltipSettings = 'Настройки';
+
+// Картинки и надписи экран OnBoarding
+const List<String> picturesOnBoarding = [
+  'signpost',
+  'backpack',
+  'forefinger',
+];
+const List<String> titlesOnBoarding = [
+  'Добро пожаловать\nв Путеводитель',
+  'Построй маршрут\nи отправляйся в путь',
+  'Добавляй места,\nкоторые нашел сам',
+];
+const List<String> textsOnBoarding = [
+  'Ищи новые локации\nи сохраняй самые любимые.',
+  'Достигай цели максимально\nбыстро и комфортно.',
+  'Делись самыми интересными\nи помоги нам стать лучше!',
+];
 
 // Сообщения в консоль при нажатии кнопок. Временно
 const String toFavoritesPress = 'Нажата кнопка "В Избранное"',
