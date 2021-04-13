@@ -16,4 +16,6 @@ const double widthOfNewSightButton = 177; // ширина кнопки "Ново
 const double photoSizeOfNewSight = 80; // размер фото на экране нового места
 const double heightOfCategorySelectionListForPortrait = 300; // высота списка категорий на экране "Фильтры"
 const double heightOfCategorySelectionListForLandscape = 230; // высота списка категорий на экране "Фильтры"
-const double heightOfPhotoIndicator = 8; // высота индикатора-полоски на экране "Детализация места"
+const double heightOfIndicator = 8; // высота индикатора-полоски/точек на экране "Детализация места" и OnBoarding
+const double widthOfSelectedPointIndicator = 24; // ширина выбранного индикатора-точки на экране OnBoarding
+const double distanceFromIndicatorToStartButton = 32; // расстояние от индикатора до "НА СТАРТ" на экране OnBoarding

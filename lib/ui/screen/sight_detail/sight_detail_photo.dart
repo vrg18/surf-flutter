@@ -36,19 +36,19 @@ class _SightDetailPhotoState extends State<SightDetailPhoto> {
         PageView.builder(
           controller: _controller,
           itemCount: widget._photoUrls.length,
-          itemBuilder: (context, index) => _picture(index),
-          onPageChanged: _pageChanged,
+          itemBuilder: (_, index) => _picture(index),
+          onPageChanged: _pictureChanged,
         ),
         if (widget._photoUrls.length > 1)
           Positioned(
             bottom: 0,
             left: _offsetFromLeft,
             child: Container(
-              height: heightOfPhotoIndicator,
+              height: heightOfIndicator,
               width: widget._indicatorWidth,
               decoration: BoxDecoration(
                 color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-                borderRadius: BorderRadius.circular(heightOfPhotoIndicator / 2),
+                borderRadius: BorderRadius.circular(heightOfIndicator / 2),
               ),
             ),
           ),
@@ -85,7 +85,7 @@ class _SightDetailPhotoState extends State<SightDetailPhoto> {
   }
 
   /// При смене картинки
-  void _pageChanged(int index) {
+  void _pictureChanged(int index) {
     setState(() => _offsetFromLeft = widget._indicatorWidth * index);
   }
 
