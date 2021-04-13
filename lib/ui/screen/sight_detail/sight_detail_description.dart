@@ -17,7 +17,7 @@ class SightDetailDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _isDark = context.watch<CurrentTheme>().isDark;
+    bool _isDark = context.watch<CurrentTheme>().isDark;
 
     return Container(
       padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),

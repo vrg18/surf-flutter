@@ -15,26 +15,38 @@ class SightDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _isDark = context.watch<CurrentTheme>().isDark;
+    bool _isDark = context.watch<CurrentTheme>().isDark;
 
-    return OrientationBuilder(builder: (context, orientation) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: orientation == Orientation.portrait || _isDark ? Brightness.light : Brightness.dark,
-        ),
-      );
-      return Scaffold(
-        body: orientation == Orientation.portrait
-            ? Column(children: [
-                Expanded(child: SightDetailPhoto(_sight.photos[0])),
-                Expanded(child: SightDetailDescription(_sight)),
-              ])
-            : Row(children: [
-                Expanded(child: SightDetailPhoto(_sight.photos[0])),
-                Expanded(child: SightDetailDescription(_sight)),
-              ]),
-      );
-    });
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness:
+                orientation == Orientation.portrait || _isDark ? Brightness.light : Brightness.dark,
+          ),
+        );
+        return LayoutBuilder(
+          builder: (_, constraints) {
+            int itemCount = _sight.photos.length;
+            double indicatorWidth = orientation == Orientation.portrait
+                ? constraints.maxWidth / itemCount
+                : constraints.maxWidth / itemCount / 2;
+
+            return Scaffold(
+              body: orientation == Orientation.portrait
+                  ? Column(children: [
+                      Expanded(child: SightDetailPhoto(_sight.photos, indicatorWidth)),
+                      Expanded(child: SightDetailDescription(_sight)),
+                    ])
+                  : Row(children: [
+                      Expanded(child: SightDetailPhoto(_sight.photos, indicatorWidth)),
+                      Expanded(child: SightDetailDescription(_sight)),
+                    ]),
+            );
+          },
+        );
+      },
+    );
   }
 }
