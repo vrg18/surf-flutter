@@ -29,17 +29,18 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   late TabController _tabController;
   late NearbySights _nearbySights;
   late List<Sight> _listOfNearbySights;
-  late bool _isDark;
+
+//  late bool _isDark;
   late Stream<List<Sight>> _streamSights;
 
   @override
   void initState() {
     super.initState();
-    _isDark = context.read<CurrentTheme>().isDark;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: _isDark ? Brightness.light : Brightness.dark,
-    ));
+//    _isDark = context.read<CurrentTheme>().isDark;
+//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//       statusBarColor: Colors.transparent,
+//       statusBarIconBrightness: _isDark ? Brightness.light : Brightness.dark,
+//     ));
     _tabController = TabController(length: 2, vsync: this);
     _tabController.index;
     _tabController.addListener(() {
@@ -59,55 +60,107 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBar(
-        titleHeight: appBarTitleHeight,
-        title: Text(
-          firstLandscapeScreenTitle,
-          style: screenTitleStyle,
-          overflow: TextOverflow.ellipsis,
-        ),
-        bottomHeight: heightBigSwitchAndSearchLine,
-        bottom: SearchBar(
-          onlyPressing: _tabController.index == 0,
-          callbackPressing: () => _clickingOnSearchWidget(),
-          callbackCancelSearch: () => _clickingOnCancelSearch(),
-          callbackChangedFilters: () => _filtersHaveBeenChanged(),
-          callbackCanceledFilters: () => _nearbySights.filtersHaveBeenCanceled(),
-        ),
-        isWeb: context.read<Web>().isWeb,
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: basicBorderSize, right: basicBorderSize, top: basicBorderSize),
-            child: GridView.extent(
-              maxCrossAxisExtent: wideScreenSizeOver,
-              crossAxisSpacing: basicBorderSize,
-              mainAxisSpacing: basicBorderSize * 1.25,
-              childAspectRatio: 1.75,
-              children: _listOfNearbySights
-                  .map((e) => SightCard(
-                        sight: e,
-                        cornerIcon: Icons.favorite_border,
-                      ))
-                  .toList(),
+    bool isDark = context.watch<CurrentTheme>().isDark;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+    ));
+
+    return TabBarView(
+      controller: _tabController,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(top: 0, left: basicBorderSize, right: basicBorderSize),
+            child: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+//                    snap: true,
+//                    floating: true,
+                    pinned: true,
+                    elevation: 0,
+                    title: Text(
+                      firstLandscapeScreenTitle,
+                      style: screenTitleStyle.apply(color: isDark ? lightMainBackgroundColor : darkMainBackgroundColor),
+                    ),
+                    centerTitle: true,
+                    expandedHeight: appBarTitleHeight + heightBigSwitchAndSearchLine + basicBorderSize,
+                    toolbarHeight: appBarTitleHeight,
+                    collapsedHeight: appBarTitleHeight,
+                    backgroundColor: isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
+                    flexibleSpace: Padding(
+                      padding: const EdgeInsets.only(top: appBarTitleHeight),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: SizedBox(
+                          height: heightBigSwitchAndSearchLine,
+                          child: _searchBar(true),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SliverGrid.extent(
+                    maxCrossAxisExtent: wideScreenSizeOver,
+                    crossAxisSpacing: basicBorderSize,
+                    mainAxisSpacing: basicBorderSize * 1.25,
+                    childAspectRatio: 1.75,
+                    children: _listOfNearbySights
+                        .map((e) => SightCard(
+                              sight: e,
+                              cornerIcon: Icons.favorite_border,
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
           ),
-          context.watch<SightProvider>().searchSights.isSearchStringEmpty
-              ? _searchHistory()
+          floatingActionButton: _tabController.index == 0 ? _getButtonNewLocation() : null,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        ),
+        Scaffold(
+          appBar: _searchBarWithTitle(false),
+          body: context.watch<SightProvider>().searchSights.isSearchStringEmpty
+              ? _searchHistory(isDark)
               : _sightsSearchStreamBuilder(),
-        ],
-      ),
-      floatingActionButton: _tabController.index == 0 ? _getButtonNewLocation() : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        ),
+      ],
     );
   }
 
-  /// Возвращает историю поиска
-  Widget _searchHistory() {
+  /// Строка поиска с заголовком
+  PreferredSizeWidget _searchBarWithTitle(bool onlyPressing) {
+    return TopBar(
+      titleHeight: appBarTitleHeight,
+      title: Text(
+        firstLandscapeScreenTitle,
+        style: screenTitleStyle,
+        overflow: TextOverflow.ellipsis,
+      ),
+      bottomHeight: heightBigSwitchAndSearchLine,
+      bottom: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: basicBorderSize),
+        child: _searchBar(onlyPressing),
+      ),
+      isWeb: context.read<Web>().isWeb,
+    );
+  }
+
+  /// Строка поиска
+  Widget _searchBar(bool onlyPressing) {
+    return SearchBar(
+      onlyPressing: onlyPressing,
+      callbackPressing: () => _clickingOnSearchWidget(),
+      callbackCancelSearch: () => _clickingOnCancelSearch(),
+      callbackChangedFilters: () => _filtersHaveBeenChanged(),
+      callbackCanceledFilters: () => _nearbySights.filtersHaveBeenCanceled(),
+    );
+  }
+
+  /// История поиска
+  Widget _searchHistory(bool isDark) {
     bool _isSearchHistoryEmpty = context.watch<SightProvider>().searchSights.listOfSearchHistory.length == 0;
 
     return SingleChildScrollView(
@@ -126,7 +179,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
                     .watch<SightProvider>()
                     .searchSights
                     .listOfSearchHistory
-                    .map((e) => _historyLine(e))
+                    .map((e) => _historyLine(e, isDark))
                     .toList()),
           const SizedBox(height: 20),
           if (!_isSearchHistoryEmpty)
@@ -147,7 +200,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   }
 
   /// Возвращает одну строку истории
-  Widget _historyLine(Sight sight) {
+  Widget _historyLine(Sight sight, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: basicBorderSize),
       child: Container(
@@ -155,7 +208,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           border: Border(
             bottom: BorderSide(
               width: 0.8,
-              color: _isDark ? darkElementTertiaryColor : lightDarkerBackgroundColor,
+              color: isDark ? darkElementTertiaryColor : lightDarkerBackgroundColor,
             ),
           ),
         ),
@@ -243,25 +296,27 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   /// Заглушка "Ничего не найдено"
   Widget _stubNothingFound() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          searchIcon,
-          color: translucent56TertiaryColor,
-          size: 64,
-        ),
-        SizedBox(height: 32),
-        Text(
-          letteringNothingFound,
-          style: nothingFoundTextStyle,
-        ),
-        SizedBox(height: 8),
-        Text(
-          letteringTryChangingSearch,
-          style: tryChangingSearchTextStyle,
-        )
-      ],
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            searchIcon,
+            color: translucent56TertiaryColor,
+            size: 64,
+          ),
+          SizedBox(height: 32),
+          Text(
+            letteringNothingFound,
+            style: nothingFoundTextStyle,
+          ),
+          SizedBox(height: 8),
+          Text(
+            letteringTryChangingSearch,
+            style: tryChangingSearchTextStyle,
+          )
+        ],
+      ),
     );
   }
 

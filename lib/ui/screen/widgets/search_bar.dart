@@ -57,7 +57,7 @@ class _SearchBarState extends State<SearchBar> {
     bool _isClickingOnSuffixIcon = false;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: basicBorderSize),
+//      padding: const EdgeInsets.only(bottom: basicBorderSize),
       decoration: BoxDecoration(
         color: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
@@ -93,6 +93,7 @@ class _SearchBarState extends State<SearchBar> {
                   _isClickingOnSuffixIcon = true;
                   if (!widget.onlyPressing) {
                     _textController.clear();
+                    FocusScope.of(context).unfocus();
                     widget.callbackCancelSearch();
                   } else {
                     Navigator.push(
