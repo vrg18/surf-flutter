@@ -120,17 +120,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           ),
         ),
         child: MaterialButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => context.read<Web>().isWeb ? WebWrapper(NewSight()) : NewSight(),
-            ),
-          ).then((needRefresh) {
-            if (needRefresh != null && needRefresh)
-              setState(() {
-                _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
-              });
-          }),
+          onPressed: () => _clickingOnNewSight(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -151,14 +141,29 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
   }
 
   /// Обработка нажатия на виджет поиска
-  _clickingOnSearchWidget() {
+  void _clickingOnSearchWidget() {
     Navigator.push(context,
         MaterialPageRoute(builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightSearch()) : SightSearch()));
     context.read<SightProvider>().cancelSearch();
   }
 
+  /// Обработка нажатия на виджет поиска
+  void _clickingOnNewSight() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => context.read<Web>().isWeb ? WebWrapper(NewSight()) : NewSight(),
+      ),
+    ).then((needRefresh) {
+      if (needRefresh != null && needRefresh)
+        setState(() {
+          _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
+        });
+    });
+  }
+
   /// Метод обновляет список мест и выполняется при возврате из экрана фильтров по кнопке "Показать"
-  _filtersHaveBeenChanged() {
+  void _filtersHaveBeenChanged() {
     setState(() {
       _listOfNearbySights = List.from(_nearbySights.listOfNearbySights);
       _nearbySights.saveFilterSettings();

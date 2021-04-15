@@ -51,26 +51,26 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   Widget build(BuildContext context) {
-    final bool _isDark = context.watch<CurrentTheme>().isDark;
-    bool _isClickingOnSuffixIcon = false;
+    final bool isDark = context.watch<CurrentTheme>().isDark;
+    bool isClickingOnSuffixIcon = false;
 
     return Container(
       decoration: BoxDecoration(
-        color: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
+        color: isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
       ),
       child: TextField(
         readOnly: widget.callbackPressing != null ? true : false,
         controller: widget.callbackPressing != null ? null : _textController,
         onTap: () {
-          if (!_isClickingOnSuffixIcon && widget.callbackPressing != null) widget.callbackPressing!();
-          _isClickingOnSuffixIcon = false;
+          if (!isClickingOnSuffixIcon && widget.callbackPressing != null) widget.callbackPressing!();
+          isClickingOnSuffixIcon = false;
         },
         onChanged: (value) {},
         onEditingComplete: () {},
         textAlignVertical: TextAlignVertical.center,
-        style: _isDark ? darkMainTextFieldStyle : lightMainTextFieldStyle,
-        cursorColor: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
+        style: isDark ? darkMainTextFieldStyle : lightMainTextFieldStyle,
+        cursorColor: isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
         autofocus: false,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(bottom: 8),
@@ -87,28 +87,13 @@ class _SearchBarState extends State<SearchBar> {
               type: MaterialType.transparency,
               child: IconButton(
                 onPressed: () {
-                  _isClickingOnSuffixIcon = true;
-                  if (widget.callbackPressing == null) {
-                    _textController.clear();
-                    widget.callbackCancelSearch!();
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters(),
-                      ),
-                    ).then((needRefresh) {
-                      if (needRefresh != null && needRefresh)
-                        widget.callbackChangedFilters!();
-                      else
-                        widget.callbackCanceledFilters!();
-                    });
-                  }
+                  isClickingOnSuffixIcon = true;
+                  _clickingOnSuffixIcon();
                 },
                 icon: Icon(widget.callbackPressing != null ? filtersIcon : Icons.cancel),
                 color: widget.callbackPressing != null
                     ? bigGreenButtonColor
-                    : _isDark
+                    : isDark
                         ? darkElementPrimaryColor
                         : lightElementPrimaryColor,
               ),
@@ -129,5 +114,25 @@ class _SearchBarState extends State<SearchBar> {
   void _startSearchAfterPause(String searchString) {
     print('Получили строку для поиска "$searchString"');
     context.read<SightProvider>().startingNewSearch(searchString);
+  }
+
+  /// Обработка нажатия на иконку-суфикс "Фильтры" или "Очистить"
+  void _clickingOnSuffixIcon() {
+    if (widget.callbackPressing == null) {
+      _textController.clear();
+      widget.callbackCancelSearch!();
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters(),
+        ),
+      ).then((needRefresh) {
+        if (needRefresh != null && needRefresh)
+          widget.callbackChangedFilters!();
+        else
+          widget.callbackCanceledFilters!();
+      });
+    }
   }
 }
