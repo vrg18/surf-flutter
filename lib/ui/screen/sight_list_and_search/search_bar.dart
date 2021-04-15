@@ -15,18 +15,16 @@ import 'package:rxdart/rxdart.dart';
 
 /// Виджет поиска
 class SearchBar extends StatefulWidget {
-  final bool onlyPressing;
-  final VoidCallback callbackPressing;
-  final VoidCallback callbackCancelSearch;
-  final VoidCallback callbackChangedFilters;
-  final VoidCallback callbackCanceledFilters;
+  final VoidCallback? callbackPressing;
+  final VoidCallback? callbackCancelSearch;
+  final VoidCallback? callbackChangedFilters;
+  final VoidCallback? callbackCanceledFilters;
 
   SearchBar({
-    required this.onlyPressing,
-    required this.callbackPressing,
-    required this.callbackCancelSearch,
-    required this.callbackChangedFilters,
-    required this.callbackCanceledFilters,
+    this.callbackPressing,
+    this.callbackCancelSearch,
+    this.callbackChangedFilters,
+    this.callbackCanceledFilters,
   });
 
   @override
@@ -57,16 +55,15 @@ class _SearchBarState extends State<SearchBar> {
     bool _isClickingOnSuffixIcon = false;
 
     return Container(
-//      padding: const EdgeInsets.only(bottom: basicBorderSize),
       decoration: BoxDecoration(
         color: _isDark ? darkDarkerBackgroundColor : lightDarkerBackgroundColor,
         borderRadius: BorderRadius.circular(cornerRadiusOfSightCard),
       ),
       child: TextField(
-        readOnly: widget.onlyPressing ? true : false,
-        controller: widget.onlyPressing ? null : _textController,
+        readOnly: widget.callbackPressing != null ? true : false,
+        controller: widget.callbackPressing != null ? null : _textController,
         onTap: () {
-          if (!_isClickingOnSuffixIcon && widget.onlyPressing) widget.callbackPressing();
+          if (!_isClickingOnSuffixIcon && widget.callbackPressing != null) widget.callbackPressing!();
           _isClickingOnSuffixIcon = false;
         },
         onChanged: (value) {},
@@ -91,10 +88,9 @@ class _SearchBarState extends State<SearchBar> {
               child: IconButton(
                 onPressed: () {
                   _isClickingOnSuffixIcon = true;
-                  if (!widget.onlyPressing) {
+                  if (widget.callbackPressing == null) {
                     _textController.clear();
-                    FocusScope.of(context).unfocus();
-                    widget.callbackCancelSearch();
+                    widget.callbackCancelSearch!();
                   } else {
                     Navigator.push(
                       context,
@@ -103,14 +99,18 @@ class _SearchBarState extends State<SearchBar> {
                       ),
                     ).then((needRefresh) {
                       if (needRefresh != null && needRefresh)
-                        widget.callbackChangedFilters();
+                        widget.callbackChangedFilters!();
                       else
-                        widget.callbackCanceledFilters();
+                        widget.callbackCanceledFilters!();
                     });
                   }
                 },
-                icon: Icon(widget.onlyPressing ? filtersIcon : Icons.cancel),
-                color: widget.onlyPressing ? bigGreenButtonColor : null,
+                icon: Icon(widget.callbackPressing != null ? filtersIcon : Icons.cancel),
+                color: widget.callbackPressing != null
+                    ? bigGreenButtonColor
+                    : _isDark
+                        ? darkElementPrimaryColor
+                        : lightElementPrimaryColor,
               ),
             ),
           ),

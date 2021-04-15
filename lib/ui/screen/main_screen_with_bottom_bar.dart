@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/favorites.dart';
 import 'package:places/ui/screen/settings.dart';
-import 'package:places/ui/screen/sight_list.dart';
+import 'package:places/ui/screen/sight_list_and_search/sight_list.dart';
 
 /// Основной экран приложения с BottomNavigationBar
 class MainScreenWithBottomBar extends StatefulWidget {
