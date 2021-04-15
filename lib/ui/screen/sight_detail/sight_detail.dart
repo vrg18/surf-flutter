@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/data/provider/current_theme.dart';
+import 'package:places/data/provider/is_web.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -44,7 +45,10 @@ class SightDetail extends StatelessWidget {
                       slivers: [
                         SliverAppBar(
                           automaticallyImplyLeading: false,
-                          title: _pressBack(context, _isDark),
+                          title: Padding(
+                            padding: EdgeInsets.only(top: context.read<Web>().isWeb ? additionalPaddingAboveTopBar : 0),
+                            child: _pressBack(context, _isDark),
+                          ),
                           expandedHeight: constraints.maxHeight / 2,
                           flexibleSpace: SightDetailPhoto(_sight.photos, indicatorWidth),
                         ),

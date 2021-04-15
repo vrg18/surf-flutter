@@ -6,6 +6,7 @@ import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/sight_detail/sight_detail.dart';
 import 'package:places/ui/screen/widgets/mini_photo.dart';
+import 'package:places/ui/screen/widgets/slide_on_right_route.dart';
 import 'package:provider/provider.dart';
 
 class SightCardMini extends StatelessWidget {
@@ -43,9 +44,8 @@ class SightCardMini extends StatelessWidget {
             child: MaterialButton(
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightDetail(_sight)) : SightDetail(_sight),
-                ),
+                SlideOnRightRoute(
+                    page: context.read<Web>().isWeb ? WebWrapper(SightDetail(_sight)) : SightDetail(_sight)),
               ),
             ),
           ),

@@ -49,12 +49,17 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   Positioned(
                     left: 0,
                     child: SizedBox(
-                      height: titleHeight,
+                      height: heightOfBigGreenButton,
                       child: leftButton!,
                     ),
                   ),
                 if (rightButton != null)
-                  Positioned(right: 0, child: SizedBox(height: titleHeight, child: rightButton!)),
+                  Positioned(
+                      right: 0,
+                      child: SizedBox(
+                        height: heightOfBigGreenButton,
+                        child: rightButton!,
+                      )),
               ],
             ),
           ),

@@ -14,6 +14,7 @@ import 'package:places/ui/screen/sight_list_and_search/search_bar.dart';
 import 'package:places/ui/screen/sight_list_and_search/sight_search.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:places/ui/screen/widgets/sight_card.dart';
+import 'package:places/ui/screen/widgets/slide_on_right_route.dart';
 import 'package:provider/provider.dart';
 
 /// Экран с основным списком мест
@@ -53,9 +54,9 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
-//                    snap: true,
-//                    floating: true,
-                pinned: true,
+//                snap: true,
+//                floating: true,
+//                pinned: true,
                 elevation: 0,
                 title: Text(
                   firstLandscapeScreenTitle,
@@ -142,18 +143,16 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
 
   /// Обработка нажатия на виджет поиска
   void _clickingOnSearchWidget() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (_) => context.read<Web>().isWeb ? WebWrapper(SightSearch()) : SightSearch()));
+    Navigator.push(
+        context, SlideOnRightRoute(page: context.read<Web>().isWeb ? WebWrapper(SightSearch()) : SightSearch()));
     context.read<SightProvider>().cancelSearch();
   }
 
-  /// Обработка нажатия на виджет поиска
+  /// Обработка нажатия на кнопку создания нового места
   void _clickingOnNewSight() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => context.read<Web>().isWeb ? WebWrapper(NewSight()) : NewSight(),
-      ),
+      SlideOnRightRoute(page: context.read<Web>().isWeb ? WebWrapper(NewSight()) : NewSight()),
     ).then((needRefresh) {
       if (needRefresh != null && needRefresh)
         setState(() {
