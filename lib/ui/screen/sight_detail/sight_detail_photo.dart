@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/sizes.dart';
@@ -52,34 +51,6 @@ class _SightDetailPhotoState extends State<SightDetailPhoto> {
               ),
             ),
           ),
-        Positioned(
-          left: 15,
-          top: 30,
-          child: SizedBox(
-            width: 36,
-            height: 36,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Material(
-                color: _isDark ? darkMainBackgroundColor : lightMainBackgroundColor,
-                child: InkWell(
-                  onTap: () {
-                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                      statusBarColor: Colors.transparent,
-                      statusBarIconBrightness: _isDark ? Brightness.light : Brightness.dark,
-                    ));
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.chevron_left,
-                    color: _isDark ? darkElementPrimaryColor : lightElementPrimaryColor,
-                    size: 28,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -93,7 +64,7 @@ class _SightDetailPhotoState extends State<SightDetailPhoto> {
   Widget _picture(int index) {
     return widget._photoUrls[index].substring(0, 4) != 'http'
         ? Container(
-            // todo врем. цв. заглушки вместо фото
+            // todo врем. цветовая. заглушки вместо фото
             color: Color(int.parse(widget._photoUrls[index], radix: 16)).withOpacity(1.0),
           )
         : SizedBox.expand(
