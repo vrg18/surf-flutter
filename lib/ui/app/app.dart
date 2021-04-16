@@ -4,7 +4,7 @@ import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/themes.dart';
-import 'package:places/ui/screen/on_boarding.dart';
+import 'package:places/ui/screen/splash.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(context) => MultiProvider(
         providers: [
+          Provider<Web>(create: (_) => Web()),
           ChangeNotifierProvider<CurrentTheme>(create: (_) => CurrentTheme()),
           ChangeNotifierProvider<SightProvider>(create: (_) => SightProvider()),
-          Provider<Web>(create: (_) => Web()),
         ],
         child: Consumer<CurrentTheme>(
           builder: (context, theme, _) => MaterialApp(
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
               theme: theme.isDark ? darkTheme : lightTheme,
               home: Builder(
                   builder: (BuildContext context) =>
-                      context.read<Web>().isWeb ? WebWrapper(OnBoarding()) : OnBoarding())),
+                      context.read<Web>().isWeb ? WebWrapper(SplashScreen()) : SplashScreen())),
         ),
       );
 }

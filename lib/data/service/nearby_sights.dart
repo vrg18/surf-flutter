@@ -32,7 +32,8 @@ class NearbySights {
 
   set endOfSearchRadius(value) => _endOfSearchRadius = value;
 
-  NearbySights() {
+  /// Метод заполняет списки начальными значениями
+  void initializeNearbySights() {
     _listOfNearbySights = _sightStorage.initialFillingOfList();
     _listOfCategories = _categoryStorage.initialFillingOfListOfCategories();
   }
