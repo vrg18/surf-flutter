@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/data/res/magnitudes.dart';
@@ -14,51 +13,52 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late Future _isInitialized;
-  late Future _isTimePasted;
+  late bool _isInitialized;
+  late bool _isTimeExpired;
 
   @override
   void initState() {
     super.initState();
-    _isInitialized = _navigateToNext();
-    _isTimePasted = Future.delayed(timeToShowSplash);
+    _isInitialized = false;
+    _isTimeExpired = false;
+    context.read<SightProvider>().initializeApp().then((_) => _initializeComplete());
+    Future.delayed(timeToShowSplash).then((_) => _delayTimeExpired());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FutureBuilder<void>(
-          future: _isTimePasted,
-          builder: (_, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done)
-              return FutureBuilder<void>(
-                future: _isInitialized,
-                builder: (_, snapshot) {
-                  if (snapshot.hasError) return Text('Initialization error!');
-                  if (snapshot.connectionState == ConnectionState.done) _gotoNextScreen();
-                  return CircularProgressIndicator();
-                },
-              );
-            return CircularProgressIndicator();
-          },
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }
 
-  /// Асинхронно инициализируем приложение начальными данными
-  Future _navigateToNext() async {
-    return await context.read<SightProvider>().initializeApp();
+  /// Инициализация приложения закончилась
+  void _initializeComplete() {
+    if (_isTimeExpired) {
+      _gotoNextScreen();
+    } else {
+      _isInitialized = true;
+    }
+  }
+
+  /// Минимальное время заставки истекло
+  void _delayTimeExpired() {
+    if (_isInitialized) {
+      _gotoNextScreen();
+    } else {
+      _isTimeExpired = true;
+    }
   }
 
   /// Переход на следующий экран
-  _gotoNextScreen() {
-    SchedulerBinding.instance!.addPostFrameCallback((_) => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar()),
-        ));
+  void _gotoNextScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar()),
+    );
   }
 }

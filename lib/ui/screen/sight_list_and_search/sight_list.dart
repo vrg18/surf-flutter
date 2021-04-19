@@ -54,9 +54,7 @@ class _SightListState extends State<SightList> with SingleTickerProviderStateMix
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
-//                snap: true,
-//                floating: true,
-//                pinned: true,
+                pinned: true,
                 elevation: 0,
                 title: Text(
                   firstLandscapeScreenTitle,
