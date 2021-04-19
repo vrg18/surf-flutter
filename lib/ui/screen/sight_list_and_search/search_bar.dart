@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/data/provider/current_theme.dart';
 import 'package:places/data/provider/is_web.dart';
@@ -10,6 +12,7 @@ import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/filters/filters.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
+import 'package:places/ui/screen/widgets/slide_on_right_route.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,21 +35,25 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final _textController = TextEditingController();
-  final _subject = PublishSubject<String>();
+  late final TextEditingController _textController;
+  late final PublishSubject<String> _subject;
+  late final StreamSubscription _subscription;
 
   @override
   void initState() {
     super.initState();
+    _textController = TextEditingController();
     _textController.text = context.read<SightProvider>().searchSights.previousSearchString;
     _textController.addListener(_trackingSearchString);
-    _subject.debounceTime(pauseForSearches).listen((s) => _startSearchAfterPause(s));
+    _subject = PublishSubject<String>();
+    _subscription = _subject.debounceTime(pauseForSearches).listen((s) => _startSearchAfterPause(s));
   }
 
   @override
   void dispose() {
-    _textController.dispose();
+    _subscription.cancel();
     _subject.close();
+    _textController.dispose();
     super.dispose();
   }
 
@@ -124,9 +131,7 @@ class _SearchBarState extends State<SearchBar> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters(),
-        ),
+        SlideOnRightRoute(page: context.read<Web>().isWeb ? WebWrapper(Filters()) : Filters()),
       ).then((needRefresh) {
         if (needRefresh != null && needRefresh)
           widget.callbackChangedFilters!();

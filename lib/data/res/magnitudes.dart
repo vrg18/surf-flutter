@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 const int distanceValueFrom = 100; // минимальная дистанция радиуса поиска, м
 const int distanceValueUp = 10000; // максимальная дистанция радиуса поиска, м
 
+const timeToShowSplash = const Duration(seconds: 1); // минимум одна секунда для показа заставки
 const pauseBetweenSearches = const Duration(seconds: 3); // три секунды пауза между поисками
 const pauseForSearches = const Duration(
     milliseconds: 1000); // пауза при заполнении строки поиска, после которой собственно и запускается поиск

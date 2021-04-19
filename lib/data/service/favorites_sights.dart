@@ -12,7 +12,7 @@ class FavoritesSights {
 
   List<Sight> get listOfSightsVisited => _listOfSightsVisited;
 
-  FavoritesSights() {
+  void initializeFavoritesSights() {
     _listOfSightsWantToVisit = _sightStorage.getListWantToVisit();
     _listOfSightsVisited = _sightStorage.getListVisited();
   }
