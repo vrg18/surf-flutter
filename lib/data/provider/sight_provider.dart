@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:places/data/service/favorites_sights.dart';
 import 'package:places/data/service/nearby_sights.dart';
 import 'package:places/data/service/search_sights.dart';
+import 'package:places/domain/sight.dart';
 
 /// Класс, хранящий список мест в соответствии с установленными фильтрами, историю поиска и избранные места
 /// Используется Provider
@@ -20,6 +21,11 @@ class SightProvider with ChangeNotifier {
   Future<void> initializeApp() async {
     _nearbySights.initializeNearbySights();
     _favoritesSights.initializeFavoritesSights();
+  }
+
+  /// Метод получает место по его ID
+  Sight getSightById(String id) {
+    return _nearbySights.getSightById(id);
   }
 
   /// Метод вызывает заполнение списка мест в соответствии с установленными фильтрами и уведомляет слушателей

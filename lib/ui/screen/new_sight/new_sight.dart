@@ -19,6 +19,7 @@ import 'package:places/ui/screen/new_sight/new_sight_field.dart';
 import 'package:places/ui/screen/new_sight/new_sight_photos.dart';
 import 'package:places/ui/screen/widgets/top_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 /// Экран добавления нового места
 class NewSight extends StatefulWidget {
@@ -249,6 +250,7 @@ class _NewSightState extends State<NewSight> {
   /// (с пометкой "не подчиняется фильтрам", что бы сразу видеть его в списке) и возвращает нас на экран списка
   void _pressingBigGreenButton() {
     _nearbySights.addNewSightToOriginalListOfSights(Sight(
+      id: Uuid().v4(),
       name: _values['name'].trim(),
       point: Point(_values['lat'], _values['lon']),
       category: _category!,

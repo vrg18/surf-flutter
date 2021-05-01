@@ -45,7 +45,7 @@ class SightCardMini extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 SlideOnRightRoute(
-                    page: context.read<Web>().isWeb ? WebWrapper(SightDetail(_sight)) : SightDetail(_sight)),
+                    page: context.read<Web>().isWeb ? WebWrapper(SightDetail(_sight.id!)) : SightDetail(_sight.id!)),
               ),
             ),
           ),
