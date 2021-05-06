@@ -3,6 +3,7 @@ import 'package:places/domain/point.dart';
 
 /// Основной класс места (достопримечательности)
 class Sight {
+  String? id;
   final String name;
   final Point point;
   final String description;
@@ -11,6 +12,7 @@ class Sight {
   final bool notObeyFilters;
 
   Sight({
+    this.id,
     required this.name,
     required this.point,
     this.description = '',

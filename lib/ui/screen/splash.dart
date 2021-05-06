@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:places/data/provider/is_web.dart';
 import 'package:places/data/provider/sight_provider.dart';
 import 'package:places/data/res/magnitudes.dart';
+import 'package:places/ui/screen/on_boarding.dart';
 import 'package:places/ui/screen/web_wrapper.dart';
 import 'package:provider/provider.dart';
-
-import 'main_screen_with_bottom_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -56,9 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _gotoNextScreen() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-          builder: (context) =>
-              context.read<Web>().isWeb ? WebWrapper(MainScreenWithBottomBar()) : MainScreenWithBottomBar()),
+      MaterialPageRoute(builder: (context) => context.read<Web>().isWeb ? WebWrapper(OnBoarding()) : OnBoarding()),
     );
   }
 }

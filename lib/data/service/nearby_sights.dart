@@ -38,6 +38,11 @@ class NearbySights {
     _listOfCategories = _categoryStorage.initialFillingOfListOfCategories();
   }
 
+  /// Метод получает место по его ID
+  Sight getSightById(String id) {
+    return _listOfNearbySights.firstWhere((sight) => sight.id == id);
+  }
+
   /// Метод заполняет список мест в соответствии с установленными фильтрами
   void fillListOfNearbySights() {
     _listOfNearbySights.clear();

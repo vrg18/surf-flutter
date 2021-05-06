@@ -46,7 +46,7 @@ class SightCard extends StatelessWidget {
             child: MaterialButton(
               onPressed: () => Navigator.push(
                 context,
-                SlideOnRightRoute(page: context.read<Web>().isWeb ? WebWrapper(SightDetail(sight)) : SightDetail(sight)),
+                SlideOnRightRoute(page: context.read<Web>().isWeb ? WebWrapper(SightDetail(sight.id!)) : SightDetail(sight.id!)),
               ),
             ),
           ),
